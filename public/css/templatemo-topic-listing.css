@@ -1153,3 +1153,118 @@ blockquote {
   }
 }
 
+
+
+
+
+
+
+
+
+.custom-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 10px;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+
+/* Input fields and file label */
+.custom-input, .custom-file-label {
+  font-family: "DM Sans", sans-serif;
+  height: 3rem;
+  border-radius: 9999px;
+  background-color: rgba(245, 245, 245, 1);
+  padding: 0.25rem 0.75rem;
+  border: 1px solid rgba(229, 231, 235, 1);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Hide default file input */
+.custom-file-input {
+  display: none;
+}
+
+/* Styled file upload button */
+.custom-file-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: rgba(1, 167, 125, 0.9);
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: center;
+  grid-column: span 2; /* File input spans both columns */
+}
+
+.custom-file-label:hover {
+  background-color: rgba(1, 167, 125, 1);
+}
+
+/* Submit button spans both columns */
+.custom-button {
+  height: 3rem;
+  border-radius: 9999px;
+  background-color: rgba(1, 167, 125, 0.9);
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  grid-column: span 2; /* Makes the button take  full width */
+
+}
+
+.custom-button:hover {
+  background-color: rgba(1, 167, 125, 1);
+}
+
+/* Make sure inputs adjust nicely on small screens */
+@media (max-width: 500px) {
+  .custom-form {
+      grid-template-columns: 1fr; /* Single column layout */
+  }
+  .custom-file-label, .custom-button {
+      grid-column: span 1; /* Take full width in single column */
+  }
+}
+
+
+
+
+
+
+.person-form-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 320px;
+}
+.person-form select, .person-form button {
+  height: 3rem;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+.person-form button {
+  background-color: rgb(1, 167, 125);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+.person-form button:hover {
+  background-color: rgb(0, 140, 105);
+}
