@@ -3,5 +3,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('login')->with("id", null);
+    return view('welcome')->with("id", null);
 });
