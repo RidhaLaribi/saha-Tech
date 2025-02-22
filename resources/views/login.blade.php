@@ -171,19 +171,22 @@
         <h1>Create Patient Account</h1>
         <form id="signUpForm">
             <div class="input-group">
-                <input type="text" placeholder="First Name" required>
+                <input name="fstName" type="text" placeholder="First Name" required>
             </div>
             <div class="input-group">
-                <input type="text" placeholder="Family Name" required>
+                <input name="FName" type="text" placeholder="Family Name" required>
             </div>
             <div class="input-group">
-                <input type="tel" placeholder="Phone Number" pattern="[0-9]{10}" required>
+                <input name="age" type="text" placeholder="age" required>
             </div>
             <div class="input-group">
-                <input type="email" placeholder="Email" required>
+                <input name="num" type="tel" placeholder="Phone Number" pattern="[0-9]{10}" required>
             </div>
             <div class="input-group">
-                <input type="password" placeholder="Password" required>
+                <input name="email" type="email" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <input name="password" type="password" placeholder="Password" required>
                 <i class="fas fa-eye toggle-password"></i>
             </div>
             <button type="submit">Sign Up</button>
