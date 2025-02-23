@@ -56,7 +56,6 @@ https://templatemo.com/tm-590-topic-listing
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-lg-5 me-lg-auto">
                         <li class="nav-item">
@@ -75,44 +74,134 @@ https://templatemo.com/tm-590-topic-listing
                             <a class="nav-link click-scroll" href="#section_4">FAQs</a>
                         </li>
 
-
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
 
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                                 <li><a class="dropdown-item" href="topics-listing.html">Topics Listing</a></li>
-
                                 <li><a class="dropdown-item" href="contact.html">Contact Form</a></li>
                             </ul>
                         </li>
                     </ul>
-                    @if ($id == null)
-                        <button style="
-                                                        display: block;
-                                                        line-height: 1.5;
-                                                        cursor: pointer;
-                                                        padding: .5rem 1rem;
-                                                        border-radius: 100px; /* ---var(--border-radius-large)--- */
-                                                        max-width: 150px;
-                                                        border: none;
-                                                        color:#80d0c7; /* ---var(--white-color)--- */
-                                                        font-family: 'Montserrat', sans-serif; /* ---var(--title-font-family)--- */
-                                                        font-size: 20px; /* ---var(--p-font-size)--- */
-                                                        font-weight: 600; /* ---var(--font-weight-semibold)--- */
-                                                        background: #ffffff;  /* ---var(--custom-btn-bg-color)--- */
-                                                        transition: all 0.3s;
-                                                      " onmouseover="this.style.background='#13547a';"
-                            onmouseout="this.style.background='#ffffff';">
-                            s'inscrire
-                        </button>
-                    @else
-                        <div class="d-none d-lg-block">
-                            <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
 
-                        </div>
+                    <!-- Fixed: ID syntax and class attribute -->
+                    <a href="{{ url('/loginp') }}" id="smoothLoginButton" class="praticien-link" style="
+    margin-right: 20px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+" onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#002b3a';">
+                        Vous êtes praticien !
+                    </a>
+
+                    <script>
+                        // Fixed: Add CSS transition to body first
+                        document.body.style.transition = 'opacity 0.5s ease';
+
+                        // Fixed: Match JavaScript ID with HTML ID (case-sensitive)
+                        document.getElementById('smoothLoginButton').addEventListener('click', function(event) {
+                            event.preventDefault();
+                            const targetUrl = this.href;
+
+                            // Fixed: Match transition duration with timeout
+                            document.body.style.opacity = '0';
+
+                            setTimeout(() => {
+                                window.location.href = targetUrl;
+                            }, 500); // Now matches 0.5s transition
+                        });
+                    </script>
+
+                    <style>
+                        /* Required for initial opacity state */
+                        body {
+                            opacity: 1;
+                        }
+
+                        /* Fixed hover color behavior */
+                        .praticien-link:hover {
+                            color: #ffffff !important;
+                            /* Ensures hover color overrides */
+                        }
+                    </style>
+                    @if ($id == null)
+                    <style>
+                        body {
+                            opacity: 1;
+                            transition: opacity 0.3s ease;
+                        }
+
+                        .auth-button {
+                            display: inline-block;
+                            padding: 0.5rem 1.5rem;
+                            border-radius: 100px;
+                            border: 1.5px solid #80d0c7;
+                            color: #80d0c7;
+                            background: #ffffff;
+                            font-family: 'Montserrat', sans-serif;
+                            font-size: 0.95rem;
+                            font-weight: 600;
+                            text-decoration: none;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            line-height: 1.2;
+                            min-width: 120px;
+                            text-align: center;
+                        }
+
+                        .auth-button:hover {
+                            background: #13547a;
+                            color: #ffffff;
+                            border-color: #13547a;
+                            transform: translateY(-1px);
+                            box-shadow: 0 4px 8px rgba(0, 43, 58, 0.1);
+                        }
+
+                        .auth-button:active {
+                            transform: translateY(0);
+                            box-shadow: none;
+                        }
+
+                        /* Fixed hover color behavior for praticien link */
+                        .praticien-link:hover {
+                            color: #ffffff !important;
+                        }
+                    </style>
+
+                    <a href="{{ url('/login') }}" id="smoothLoginButton" class="auth-button">
+                        S'inscrire
+                    </a>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const smoothLoginButton = document.getElementById('smoothLoginButton');
+                            if (smoothLoginButton) {
+                                smoothLoginButton.addEventListener('click', function(event) {
+                                    event.preventDefault();
+                                    const targetUrl = this.href;
+
+                                    // Start fade-out
+                                    document.body.style.opacity = '0';
+
+                                    // After the transition (300ms), redirect
+                                    setTimeout(() => {
+                                        window.location.href = targetUrl;
+                                    }, 300);
+                                });
+                            }
+                        });
+                    </script>
+                    @else
+                    <div class="d-none d-lg-block">
+                        <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                    </div>
                     @endif
+
+                    <!-- Cleaned up closing tags -->
                 </div>
             </div>
         </nav>

@@ -13,3 +13,6 @@ Route::get('/profile', function () {
     $rendi = ['generaliste', '2025-02-07T16:30']; //hada rendi-v afficher f calendier
     return view('profile')->with('r', $rendi);
 });
+Route::get('/loginp', function () {
+    return view('loginp');
+});
