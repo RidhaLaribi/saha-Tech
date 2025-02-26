@@ -59,7 +59,7 @@ calendar links-->
                 <div class="d-lg-none ms-auto me-4">
 
 
-                    <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                    <a href="#top" class="navbar-icon b-notification smoothscroll"></a>
 
 
                 </div>
@@ -274,16 +274,12 @@ calendar links-->
                                 <div class="content">
                                     <div id='calendar'></div>
                                 </div>
-
-
-
-
-
                                 <script src='fullcalendar/packages/core/main.js'></script>
                                 <script src='fullcalendar/packages/interaction/main.js'></script>
                                 <script src='fullcalendar/packages/daygrid/main.js'></script>
 
                                 <script>
+
 
                                     document.addEventListener('DOMContentLoaded', function () {
                                         var calendarEl = document.getElementById('calendar');
@@ -369,7 +365,7 @@ calendar links-->
                                             <a href="topics-detail.html">
                                                 <div class="d-flex">
                                                     <div>
-                                                        <h5 class="mb-2">Father</h5>
+                                                        <h5 class="mb-2">pere</h5>
 
                                                         <p class="mb-0">Topic Listing Template based on Bootstrap 5</p>
                                                     </div>
@@ -386,7 +382,7 @@ calendar links-->
                                             <a href="topics-detail.html">
                                                 <div class="d-flex">
                                                     <div>
-                                                        <h5 class="mb-2">Father</h5>
+                                                        <h5 class="mb-2">Fils</h5>
 
                                                         <p class="mb-0">Topic Listing Template based on Bootstrap 5</p>
                                                     </div>
@@ -403,7 +399,7 @@ calendar links-->
                                             <a href="topics-detail.html">
                                                 <div class="d-flex">
                                                     <div>
-                                                        <h5 class="mb-2">Father</h5>
+                                                        <h5 class="mb-2">Frere</h5>
 
                                                         <p class="mb-0">Topic Listing Template based on Bootstrap 5</p>
                                                     </div>
@@ -428,7 +424,7 @@ calendar links-->
                                 <div class="row">
                                     <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
                                         <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
+                                            <a id="showR" href="">
                                                 <div class="d-flex">
                                                     <div>
                                                         <h5 class="mb-2">Les rendi-vous</h5>
@@ -444,12 +440,96 @@ calendar links-->
                                         </div>
                                     </div>
 
+
+                                    <div id="mesrendivous" class="col-lg-4 col-md-6 col-12 mb-4 mesrendivous">
+                                        <div class="custom-block bg-white " style=" overflow-y: auto; ">
+
+                                            <div class="d-flex">
+                                                <div style=" overflow-y: auto; ">
+
+                                                    <a href="" id="ret_rend" style="right: 0%" class="retour-button">
+                                                        Retour
+                                                    </a>
+
+
+
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">specialite</th>
+                                                                <th scope="col">nom de medecin</th>
+                                                                <th scope="col">date</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>Mark</td>
+                                                                <td>Otto</td>
+                                                                <td>@mdo</td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>Mark</td>
+                                                                <td>Otto</td>
+                                                                <td>@mdo</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">2</th>
+                                                                <td>Jacob</td>
+                                                                <td>Thornton</td>
+                                                                <td>@fat</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">3</th>
+                                                                <td>Larry</td>
+                                                                <td>the Bird</td>
+                                                                <td>@twitter</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <script>
+                                        const divrend = document.getElementById('mesrendivous');
+                                        const ret_rend = document.getElementById('ret_rend');
+
+                                        const link = document.getElementById('showR');
+                                        link.addEventListener('click', function (e) {
+
+                                            e.preventDefault();
+
+                                            divrend.style.transform = 'translateX(500px)';
+
+
+                                        });
+                                        const divrend1 = document.getElementById('mesrendivous');
+
+                                        ret_rend.addEventListener('click', function (e) {
+
+                                            e.preventDefault();
+                                            divrend.style.transform = 'translateX(-500px)';
+
+
+                                        });
+
+                                    </script>
+
+
+
                                     <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
                                         <div class="custom-block bg-white shadow-lg">
                                             <a href="topics-detail.html">
                                                 <div class="d-flex">
                                                     <div>
-                                                        <h5 class="mb-2">Les consultation</h5>
+                                                        <h5 class="mb-2">Les fichiers</h5>
 
                                                         <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
                                                     </div>
@@ -464,7 +544,7 @@ calendar links-->
 
                                     <div class="col-lg-4 col-md-6 col-12">
                                         <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
+                                            <a id="showN" href="">
                                                 <div class="d-flex">
                                                     <div>
                                                         <h5 class="mb-2">notes</h5>
@@ -477,6 +557,86 @@ calendar links-->
                                                 <img src="images/topics/undraw_viral_tweet_gndb.png"
                                                     class="custom-block-image img-fluid" alt="">
                                             </a>
+                                        </div>
+                                    </div>
+                                    <div id="mesnotes" class="col-lg-4 col-md-6 col-12 mb-4 mesnotes">
+                                        <div class="custom-block bg-white " style=" overflow-y: auto; ">
+
+                                            <div class="d-flex">
+                                                <div style=" overflow-y: auto; ">
+
+                                                    <a href="" id="ret_not" class="retour-button">
+                                                        Retour
+                                                    </a>
+
+
+
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">specialite</th>
+                                                                <th scope="col">nom de medecin</th>
+                                                                <th scope="col">note</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>Mark</td>
+                                                                <td>Otto</td>
+                                                                <td>@mdo</td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>Mark</td>
+                                                                <td>Otto</td>
+                                                                <td>@mdo</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">2</th>
+                                                                <td>Jacob</td>
+                                                                <td>Thornton</td>
+                                                                <td>@fat</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">3</th>
+                                                                <td>Larry</td>
+                                                                <td>the Bird</td>
+                                                                <td>@twitter</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                            <script>
+                                                const divnot = document.getElementById('mesnotes');
+                                                const ret_not = document.getElementById('ret_not');
+
+                                                const linkn = document.getElementById('showN');
+                                                linkn.addEventListener('click', function (e) {
+
+                                                    e.preventDefault();
+                                                    console.log("fdksj");
+
+                                                    divnot.style.transform = 'translateX(-500px)';
+
+
+                                                });
+
+                                                ret_not.addEventListener('click', function (e) {
+
+                                                    e.preventDefault();
+                                                    divnot.style.transform = 'translateX(500px)';
+
+
+                                                });
+
+                                            </script>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -657,6 +817,7 @@ calendar links-->
     <script src="js/jquery.sticky.js"></script>
     <script src="js/click-scroll.js"></script>
     <script src="js/custom.js"></script>
+
 
 </body>
 
