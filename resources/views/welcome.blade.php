@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="css/carousel.css">
         
         <link rel="stylesheet" href="css/owl.theme.carousel.css">
-        
+
         <link rel="stylesheet" href="css/templatecarousel.css"> 
    
 
@@ -64,7 +64,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_2">Browse Topics</a>
+                            <a class="nav-link click-scroll" href="{{ route('medecin') }}">medecins</a>
                         </li>
 
                         <li class="nav-item">
@@ -240,27 +240,9 @@
             <div class="container">
                 <div class="row justify-content-center">
 
-                    <div class="col-lg-4 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block bg-white shadow-lg">
-                            <a href="topics-detail.html">
-                                <div class="d-flex">
-                                    <div>
-                                        <h5 class="mb-2">Web Design</h5>
+                    
 
-                                        <p class="mb-0">When you search for free CSS templates, you will notice that
-                                            TemplateMo is one of the best websites.</p>
-                                    </div>
-
-                                    <span class="badge bg-design rounded-pill ms-auto">14</span>
-                                </div>
-
-                                <img src="images/topics/undraw_Remote_design_team_re_urdx.png"
-                                    class="custom-block-image img-fluid" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12">
+                    <div class="col-lg-8 col-12">
                         <div class="custom-block custom-block-overlay">
                             <div class="d-flex flex-column h-100">
                                 <img src="images/businesswoman-using-tablet-analysis.jpg"
@@ -326,17 +308,16 @@
 
                 <div class="owl-carousel owl-theme">
                     <div class="owl-carousel-info-wrap item">
-                        <img src="images/profile/smiling-business-woman-with-folded-hands-against-white-wall-toothy-smile-crossed-arms.jpg" class="owl-carousel-image img-fluid" alt="">
+                        <img src="images/profile/beautiful-young-female-doctor-looking-camera-office.jpg" class="owl-carousel-image img-fluid" alt="">
 
                         <div class="owl-carousel-info">
-                            <h4 class="mb-2">
-                                Candice
+                            <h6 class="mb-1 ">
+                                 ibnsina 
                                 <img src="images/verified.png" class="owl-carousel-verified-image img-fluid" alt="">
-                            </h4>
+                            </h6>
 
-                            <span class="badge">Storytelling</span>
+                            <span class="badge">everything</span>
 
-                            <span class="badge">Business</span>
                         </div>
 
                         <div class="social-share">
@@ -353,17 +334,16 @@
                     </div>
 
                     <div class="owl-carousel-info-wrap item">
-                        <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg" class="owl-carousel-image img-fluid" alt="">
+                        <img src="images/profile/doctor-presenting-something-isolated-white-background.jpg" class="owl-carousel-image img-fluid" alt="">
 
                         <div class="owl-carousel-info">
-                            <h4 class="mb-2">
-                                William
+                            <h6 class="mb-1 ">
+                               dr kim
                                 <img src="images/verified.png" class="owl-carousel-verified-image img-fluid" alt="">
-                            </h4>
+                            </h6>
 
                             <span class="badge">Creative</span>
 
-                            <span class="badge">Design</span>
                         </div>
 
                         <div class="social-share">
@@ -384,14 +364,14 @@
                     </div>
 
                     <div class="owl-carousel-info-wrap item">
-                        <img src="images/profile/cute-smiling-woman-outdoor-portrait.jpg" class="owl-carousel-image img-fluid" alt="">
+                        <img src="images/profile/doctor-preparing-consult.jpg" class="owl-carousel-image img-fluid" alt="">
 
                         <div class="owl-carousel-info">
-                            <h4 class="mb-2">Taylor</h4>
+                            <h6 class="mb-1 ">Taylor</h6>
 
                             <span class="badge">Modeling</span>
 
-                            <span class="badge">Fashion</span>
+                            
                         </div>
 
                         <div class="social-share">
@@ -412,10 +392,10 @@
                     </div>
 
                     <div class="owl-carousel-info-wrap item">
-                        <img src="images/profile/man-portrait.jpg" class="owl-carousel-image img-fluid" alt="">
+                        <img src="images/profile/close-up-health-worker.jpg" class="owl-carousel-image img-fluid" alt="">
 
                         <div class="owl-carousel-info">
-                            <h4 class="mb-2">Nick</h4>
+                            <h6 class="mb-1 ">Nick</h6>
 
                             <span class="badge">Acting</span>
                         </div>
@@ -434,13 +414,13 @@
                     </div>
 
                     <div class="owl-carousel-info-wrap item">
-                        <img src="images/profile/woman-posing-black-dress-medium-shot.jpg" class="owl-carousel-image img-fluid" alt="">
+                        <img src="images/profile/portrait-confident-male-doctor.jpg" class="owl-carousel-image img-fluid" alt="">
 
                         <div class="owl-carousel-info">
-                            <h4 class="mb-2">
+                            <h6 class="mb-1 ">
                                 Elsa
                                 <img src="images/verified.png" class="owl-carousel-verified-image img-fluid" alt="">
-                            </h4>
+                            </h6>
 
                             <span class="badge">Influencer</span>
                         </div>
@@ -459,10 +439,10 @@
                     </div>
 
                     <div class="owl-carousel-info-wrap item">
-                        <img src="images/profile/smart-attractive-asian-glasses-male-standing-smile-with-freshness-joyful-casual-blue-shirt-portrait-white-background.jpg" class="owl-carousel-image img-fluid" alt="">
+                        <img src="images/profile/young-doctor-getting-ready-work.jpg" class="owl-carousel-image img-fluid" alt="">
 
                         <div class="owl-carousel-info">
-                            <h4 class="mb-2">Chan</h4>
+                            <h6 class="mb-1 ">Chan</h6>
 
                             <span class="badge">Education</span>
                         </div>
@@ -492,7 +472,7 @@
       
             
         
-        <section class="explore-section section-padding" id="section_2">
+        <!-- <section class="explore-section section-padding" id="section_2">
             <div class="container">
                 <div class="row">
 
@@ -846,7 +826,7 @@
 
                     </div>
                 </div>
-        </section>
+        </section> -->
 
 
         <section class="timeline-section section-padding" id="section_3">

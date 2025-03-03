@@ -54,6 +54,7 @@
  .owl-carousel .owl-item img {
    display: block;
    width: 100%;
+   height: 400px;
  }
  
  .owl-carousel .owl-dots.disabled,
@@ -222,4 +223,47 @@
    height: 100%;
    width: 100%;
  }
+ @media only screen and (max-width: 767px) {
+  .owl-carousel .owl-item img {
+    height: 300px; 
+  }
+
+  .owl-carousel .owl-carousel-info h4 {
+    font-size: 0.5rem;
+    text-align: center;
+  }
+  .owl-carousel .badge {
+    font-size: 6px;       
+    padding: 0.1rem; 
+    border-radius: 0.25rem;  
+  }
  
+    /* Center the icons horizontally on small screens */
+    .social-share {
+      text-align: center;
+    }
+  
+    /* Reduce the icon size */
+    .social-share .social-icon-link {
+      font-size: 1rem; /* adjust as needed */
+    }
+  
+    /* Adjust spacing between each icon */
+    .social-share .social-icon-item {
+      margin: 0 5px;
+    }
+    .owl-carousel-info {
+      text-align: start !important;
+    }
+  
+    /* Make sure badges and h4 behave like inline elements 
+       and don't float to the side */
+    .owl-carousel-info h4,
+    .owl-carousel-info .badge {
+      display: inline-block;
+      float: none;
+      margin: 0 auto; /* This helps center inline-block elements */
+    }
+  }
+  
+
