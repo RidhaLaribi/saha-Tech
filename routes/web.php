@@ -16,3 +16,7 @@ Route::get('/profile', function () {
 Route::get('/loginp', function () {
     return view('loginp');
 });
+
+Route::get('/medecin', function () {
+    return view('medecin');
+})->name('medecin');

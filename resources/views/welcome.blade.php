@@ -32,6 +32,11 @@
     <link rel="stylesheet" href="css/templatecarousel.css">
 
 
+    <link rel="stylesheet" href="css/owl.theme.carousel.css">
+
+    <link rel="stylesheet" href="css/templatecarousel.css">
+
+
 </head>
 
 <body id="top">
@@ -65,7 +70,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_2">Browse Topics</a>
+                            <a class="nav-link click-scroll" href="{{ route('medecin') }}">medecins</a>
                         </li>
 
                         <li class="nav-item">
@@ -241,27 +246,9 @@
             <div class="container">
                 <div class="row justify-content-center">
 
-                    <div class="col-lg-4 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block bg-white shadow-lg">
-                            <a href="topics-detail.html">
-                                <div class="d-flex">
-                                    <div>
-                                        <h5 class="mb-2">Web Design</h5>
 
-                                        <p class="mb-0">When you search for free CSS templates, you will notice that
-                                            TemplateMo is one of the best websites.</p>
-                                    </div>
 
-                                    <span class="badge bg-design rounded-pill ms-auto">14</span>
-                                </div>
-
-                                <img src="images/topics/undraw_Remote_design_team_re_urdx.png"
-                                    class="custom-block-image img-fluid" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12">
+                    <div class="col-lg-8 col-12">
                         <div class="custom-block custom-block-overlay">
                             <div class="d-flex flex-column h-100">
                                 <img src="images/businesswoman-using-tablet-analysis.jpg"
@@ -855,7 +842,7 @@
 
                     </div>
                 </div>
-        </section>
+        </section> -->
 
 
         <section class="timeline-section section-padding" id="section_3">
