@@ -13,6 +13,7 @@
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap"
@@ -25,11 +26,11 @@
     <link href="css/templatemo-topic-listing.css" rel="stylesheet">
 
     <link rel="stylesheet" href="css/carousel.css">
-        
-        <link rel="stylesheet" href="css/owl.theme.carousel.css">
-        
-        <link rel="stylesheet" href="css/templatecarousel.css"> 
-   
+
+    <link rel="stylesheet" href="css/owl.theme.carousel.css">
+
+    <link rel="stylesheet" href="css/templatecarousel.css">
+
 
 </head>
 
@@ -104,7 +105,7 @@
                         document.body.style.transition = 'opacity 0.5s ease';
 
                         // Fixed: Match JavaScript ID with HTML ID (case-sensitive)
-                        document.getElementById('smoothLoginButton').addEventListener('click', function(event) {
+                        document.getElementById('smoothLoginButton').addEventListener('click', function (event) {
                             event.preventDefault();
                             const targetUrl = this.href;
 
@@ -130,76 +131,76 @@
                         }
                     </style>
                     @if ($id == null)
-                    <style>
-                        body {
-                            opacity: 1;
-                            transition: opacity 0.3s ease;
-                        }
-
-                        .auth-button {
-                            display: inline-block;
-                            padding: 0.5rem 1.5rem;
-                            border-radius: 100px;
-                            border: 1.5px solid #80d0c7;
-                            color: #80d0c7;
-                            background: #ffffff;
-                            font-family: 'Montserrat', sans-serif;
-                            font-size: 0.95rem;
-                            font-weight: 600;
-                            text-decoration: none;
-                            cursor: pointer;
-                            transition: all 0.3s ease;
-                            line-height: 1.2;
-                            min-width: 120px;
-                            text-align: center;
-                        }
-
-                        .auth-button:hover {
-                            background: #13547a;
-                            color: #ffffff;
-                            border-color: #13547a;
-                            transform: translateY(-1px);
-                            box-shadow: 0 4px 8px rgba(0, 43, 58, 0.1);
-                        }
-
-                        .auth-button:active {
-                            transform: translateY(0);
-                            box-shadow: none;
-                        }
-
-                        /* Fixed hover color behavior for praticien link */
-                        .praticien-link:hover {
-                            color: #ffffff !important;
-                        }
-                    </style>
-
-                    <a href="{{ url('/login') }}" id="smoothLoginButton" class="auth-button">
-                        S'inscrire
-                    </a>
-
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            const smoothLoginButton = document.getElementById('smoothLoginButton');
-                            if (smoothLoginButton) {
-                                smoothLoginButton.addEventListener('click', function(event) {
-                                    event.preventDefault();
-                                    const targetUrl = this.href;
-
-                                    // Start fade-out
-                                    document.body.style.opacity = '0';
-
-                                    // After the transition (300ms), redirect
-                                    setTimeout(() => {
-                                        window.location.href = targetUrl;
-                                    }, 300);
-                                });
+                        <style>
+                            body {
+                                opacity: 1;
+                                transition: opacity 0.3s ease;
                             }
-                        });
-                    </script>
+
+                            .auth-button {
+                                display: inline-block;
+                                padding: 0.5rem 1.5rem;
+                                border-radius: 100px;
+                                border: 1.5px solid #80d0c7;
+                                color: #80d0c7;
+                                background: #ffffff;
+                                font-family: 'Montserrat', sans-serif;
+                                font-size: 0.95rem;
+                                font-weight: 600;
+                                text-decoration: none;
+                                cursor: pointer;
+                                transition: all 0.3s ease;
+                                line-height: 1.2;
+                                min-width: 120px;
+                                text-align: center;
+                            }
+
+                            .auth-button:hover {
+                                background: #13547a;
+                                color: #ffffff;
+                                border-color: #13547a;
+                                transform: translateY(-1px);
+                                box-shadow: 0 4px 8px rgba(0, 43, 58, 0.1);
+                            }
+
+                            .auth-button:active {
+                                transform: translateY(0);
+                                box-shadow: none;
+                            }
+
+                            /* Fixed hover color behavior for praticien link */
+                            .praticien-link:hover {
+                                color: #ffffff !important;
+                            }
+                        </style>
+
+                        <a href="{{ url('/login') }}" id="smoothLoginButton" class="auth-button">
+                            S'inscrire
+                        </a>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const smoothLoginButton = document.getElementById('smoothLoginButton');
+                                if (smoothLoginButton) {
+                                    smoothLoginButton.addEventListener('click', function (event) {
+                                        event.preventDefault();
+                                        const targetUrl = this.href;
+
+                                        // Start fade-out
+                                        document.body.style.opacity = '0';
+
+                                        // After the transition (300ms), redirect
+                                        setTimeout(() => {
+                                            window.location.href = targetUrl;
+                                        }, 300);
+                                    });
+                                }
+                            });
+                        </script>
                     @else
-                    <div class="d-none d-lg-block">
-                        <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
-                    </div>
+                        <div class="d-none d-lg-block">
+                            <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                        </div>
                     @endif
 
                     <!-- Cleaned up closing tags -->
@@ -308,190 +309,198 @@
                 </div>
             </div>
         </section>
-        
 
 
-<section class="hero-section">
-    <div class="container">
-        <div class="row">
 
-            <div class="col-lg-12 col-12">
-                <div class="text-center mb-5 pb-2">
-                    <h1 class="text-white">our best doctors</h1>
+        <section class="hero-section">
+            <div class="container">
+                <div class="row">
 
-                    <p class="text-white">Listen it everywhere. Explore your fav podcasts.</p>
+                    <div class="col-lg-12 col-12">
+                        <div class="text-center mb-5 pb-2">
+                            <h1 class="text-white">our best doctors</h1>
 
-                    <a href="#section_2" class="btn custom-btn smoothscroll mt-3">Start listening</a>
-                </div>
+                            <p class="text-white">Listen it everywhere. Explore your fav podcasts.</p>
 
-                <div class="owl-carousel owl-theme">
-                    <div class="owl-carousel-info-wrap item">
-                        <img src="images/profile/smiling-business-woman-with-folded-hands-against-white-wall-toothy-smile-crossed-arms.jpg" class="owl-carousel-image img-fluid" alt="">
-
-                        <div class="owl-carousel-info">
-                            <h4 class="mb-2">
-                                Candice
-                                <img src="images/verified.png" class="owl-carousel-verified-image img-fluid" alt="">
-                            </h4>
-
-                            <span class="badge">Storytelling</span>
-
-                            <span class="badge">Business</span>
+                            <a href="#section_2" class="btn custom-btn smoothscroll mt-3">Start listening</a>
                         </div>
 
-                        <div class="social-share">
-                            <ul class="social-icon">
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-twitter"></a>
-                                </li>
+                        <div class="owl-carousel owl-theme">
+                            <div class="owl-carousel-info-wrap item">
+                                <img src="images/profile/smiling-business-woman-with-folded-hands-against-white-wall-toothy-smile-crossed-arms.jpg"
+                                    class="owl-carousel-image img-fluid" alt="">
 
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-facebook"></a>
-                                </li>
-                            </ul>
+                                <div class="owl-carousel-info">
+                                    <h4 class="mb-2">
+                                        Candice
+                                        <img src="images/verified.png" class="owl-carousel-verified-image img-fluid"
+                                            alt="">
+                                    </h4>
+
+                                    <span class="badge">Storytelling</span>
+
+                                    <span class="badge">Business</span>
+                                </div>
+
+                                <div class="social-share">
+                                    <ul class="social-icon">
+                                        <li class="social-icon-item">
+                                            <a href="#" class="social-icon-link bi-twitter"></a>
+                                        </li>
+
+                                        <li class="social-icon-item">
+                                            <a href="#" class="social-icon-link bi-facebook"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="owl-carousel-info-wrap item">
+                                <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
+                                    class="owl-carousel-image img-fluid" alt="">
+
+                                <div class="owl-carousel-info">
+                                    <h4 class="mb-2">
+                                        William
+                                        <img src="images/verified.png" class="owl-carousel-verified-image img-fluid"
+                                            alt="">
+                                    </h4>
+
+                                    <span class="badge">Creative</span>
+
+                                    <span class="badge">Design</span>
+                                </div>
+
+                                <div class="social-share">
+                                    <ul class="social-icon">
+                                        <li class="social-icon-item">
+                                            <a href="#" class="social-icon-link bi-twitter"></a>
+                                        </li>
+
+                                        <li class="social-icon-item">
+                                            <a href="#" class="social-icon-link bi-facebook"></a>
+                                        </li>
+
+                                        <li class="social-icon-item">
+                                            <a href="#" class="social-icon-link bi-pinterest"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="owl-carousel-info-wrap item">
+                                <img src="images/profile/cute-smiling-woman-outdoor-portrait.jpg"
+                                    class="owl-carousel-image img-fluid" alt="">
+
+                                <div class="owl-carousel-info">
+                                    <h4 class="mb-2">Taylor</h4>
+
+                                    <span class="badge">Modeling</span>
+
+                                    <span class="badge">Fashion</span>
+                                </div>
+
+                                <div class="social-share">
+                                    <ul class="social-icon">
+                                        <li class="social-icon-item">
+                                            <a href="#" class="social-icon-link bi-twitter"></a>
+                                        </li>
+
+                                        <li class="social-icon-item">
+                                            <a href="#" class="social-icon-link bi-facebook"></a>
+                                        </li>
+
+                                        <li class="social-icon-item">
+                                            <a href="#" class="social-icon-link bi-pinterest"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="owl-carousel-info-wrap item">
+                                <img src="images/profile/man-portrait.jpg" class="owl-carousel-image img-fluid" alt="">
+
+                                <div class="owl-carousel-info">
+                                    <h4 class="mb-2">Nick</h4>
+
+                                    <span class="badge">Acting</span>
+                                </div>
+
+                                <div class="social-share">
+                                    <ul class="social-icon">
+                                        <li class="social-icon-item">
+                                            <a href="#" class="social-icon-link bi-instagram"></a>
+                                        </li>
+
+                                        <li class="social-icon-item">
+                                            <a href="#" class="social-icon-link bi-youtube"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="owl-carousel-info-wrap item">
+                                <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
+                                    class="owl-carousel-image img-fluid" alt="">
+
+                                <div class="owl-carousel-info">
+                                    <h4 class="mb-2">
+                                        Elsa
+                                        <img src="images/verified.png" class="owl-carousel-verified-image img-fluid"
+                                            alt="">
+                                    </h4>
+
+                                    <span class="badge">Influencer</span>
+                                </div>
+
+                                <div class="social-share">
+                                    <ul class="social-icon">
+                                        <li class="social-icon-item">
+                                            <a href="#" class="social-icon-link bi-instagram"></a>
+                                        </li>
+
+                                        <li class="social-icon-item">
+                                            <a href="#" class="social-icon-link bi-youtube"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="owl-carousel-info-wrap item">
+                                <img src="images/profile/smart-attractive-asian-glasses-male-standing-smile-with-freshness-joyful-casual-blue-shirt-portrait-white-background.jpg"
+                                    class="owl-carousel-image img-fluid" alt="">
+
+                                <div class="owl-carousel-info">
+                                    <h4 class="mb-2">Chan</h4>
+
+                                    <span class="badge">Education</span>
+                                </div>
+
+                                <div class="social-share">
+                                    <ul class="social-icon">
+                                        <li class="social-icon-item">
+                                            <a href="#" class="social-icon-link bi-linkedin"></a>
+                                        </li>
+
+                                        <li class="social-icon-item">
+                                            <a href="#" class="social-icon-link bi-whatsapp"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="owl-carousel-info-wrap item">
-                        <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg" class="owl-carousel-image img-fluid" alt="">
-
-                        <div class="owl-carousel-info">
-                            <h4 class="mb-2">
-                                William
-                                <img src="images/verified.png" class="owl-carousel-verified-image img-fluid" alt="">
-                            </h4>
-
-                            <span class="badge">Creative</span>
-
-                            <span class="badge">Design</span>
-                        </div>
-
-                        <div class="social-share">
-                            <ul class="social-icon">
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-twitter"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-facebook"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-pinterest"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="owl-carousel-info-wrap item">
-                        <img src="images/profile/cute-smiling-woman-outdoor-portrait.jpg" class="owl-carousel-image img-fluid" alt="">
-
-                        <div class="owl-carousel-info">
-                            <h4 class="mb-2">Taylor</h4>
-
-                            <span class="badge">Modeling</span>
-
-                            <span class="badge">Fashion</span>
-                        </div>
-
-                        <div class="social-share">
-                            <ul class="social-icon">
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-twitter"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-facebook"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-pinterest"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="owl-carousel-info-wrap item">
-                        <img src="images/profile/man-portrait.jpg" class="owl-carousel-image img-fluid" alt="">
-
-                        <div class="owl-carousel-info">
-                            <h4 class="mb-2">Nick</h4>
-
-                            <span class="badge">Acting</span>
-                        </div>
-
-                        <div class="social-share">
-                            <ul class="social-icon">
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-instagram"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-youtube"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="owl-carousel-info-wrap item">
-                        <img src="images/profile/woman-posing-black-dress-medium-shot.jpg" class="owl-carousel-image img-fluid" alt="">
-
-                        <div class="owl-carousel-info">
-                            <h4 class="mb-2">
-                                Elsa
-                                <img src="images/verified.png" class="owl-carousel-verified-image img-fluid" alt="">
-                            </h4>
-
-                            <span class="badge">Influencer</span>
-                        </div>
-
-                        <div class="social-share">
-                            <ul class="social-icon">
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-instagram"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-youtube"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="owl-carousel-info-wrap item">
-                        <img src="images/profile/smart-attractive-asian-glasses-male-standing-smile-with-freshness-joyful-casual-blue-shirt-portrait-white-background.jpg" class="owl-carousel-image img-fluid" alt="">
-
-                        <div class="owl-carousel-info">
-                            <h4 class="mb-2">Chan</h4>
-
-                            <span class="badge">Education</span>
-                        </div>
-
-                        <div class="social-share">
-                            <ul class="social-icon">
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-linkedin"></a>
-                                </li>
-
-                                <li class="social-icon-item">
-                                    <a href="#" class="social-icon-link bi-whatsapp"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
-
-        </div>
-    </div>
-</section>
+        </section>
 
 
 
 
-      
-            
-        
+
+
+
         <section class="explore-section section-padding" id="section_2">
             <div class="container">
                 <div class="row">
@@ -1075,32 +1084,32 @@
     <!-- JAVASCRIPT FILES -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script defer src="{{ asset('js/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('js/jquery.sticky.js') }}"></script>
-<script src="{{ asset('js/click-scroll.js') }}"></script>
-<script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.sticky.js') }}"></script>
+    <script src="{{ asset('js/click-scroll.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
 
 
-       
+
 
     <script>
-  $(document).ready(function(){
-    $('.owl-carousel').owlCarousel({
-  center: true,
-  items: 3.75,        // Number of items visible at once
-  loop: true,      // Infinite loop
-  margin: 20,      // Space between items
-  nav: true,       // Show nav arrows
-  dots: true,      // Show dot indicators
-  autoplay: true,
-  autoplayTimeout: 3000, // Or true if you want autoplay
-  // any other options...
-});
+        $(document).ready(function () {
+            $('.owl-carousel').owlCarousel({
+                center: true,
+                items: 3.75,        // Number of items visible at once
+                loop: true,      // Infinite loop
+                margin: 20,      // Space between items
+                nav: true,       // Show nav arrows
+                dots: true,      // Show dot indicators
+                autoplay: true,
+                autoplayTimeout: 3000, // Or true if you want autoplay
+                // any other options...
+            });
 
-  });
-</script>
+        });
+    </script>
 
-    
+
 
 </body>
 
