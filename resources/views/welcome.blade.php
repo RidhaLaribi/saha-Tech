@@ -330,7 +330,7 @@
 
                         <div class="owl-carousel owl-theme">
                             <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/smiling-business-woman-with-folded-hands-against-white-wall-toothy-smile-crossed-arms.jpg"
+                                <img src="images/profile/young-doctor-getting-ready-work.jpg"
                                     class="owl-carousel-image img-fluid" alt="">
 
                                 <div class="owl-carousel-info">
@@ -359,7 +359,7 @@
                             </div>
 
                             <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/handsome-asian-man-listening-music-through-headphones.jpg"
+                                <img src="images/profile/beautiful-young-female-doctor-looking-camera-office.jpg"
                                     class="owl-carousel-image img-fluid" alt="">
 
                                 <div class="owl-carousel-info">
@@ -392,7 +392,7 @@
                             </div>
 
                             <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/cute-smiling-woman-outdoor-portrait.jpg"
+                                <img src="images/profile/close-up-health-worker.jpg"
                                     class="owl-carousel-image img-fluid" alt="">
 
                                 <div class="owl-carousel-info">
@@ -421,7 +421,7 @@
                             </div>
 
                             <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/man-portrait.jpg" class="owl-carousel-image img-fluid" alt="">
+                                <img src="images/profile/doctor-preparing-consult.jpg" class="owl-carousel-image img-fluid" alt="">
 
                                 <div class="owl-carousel-info">
                                     <h4 class="mb-2">Nick</h4>
@@ -443,7 +443,7 @@
                             </div>
 
                             <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/woman-posing-black-dress-medium-shot.jpg"
+                                <img src="images/profile/doctor-presenting-something-isolated-white-background.jpg"
                                     class="owl-carousel-image img-fluid" alt="">
 
                                 <div class="owl-carousel-info">
@@ -470,7 +470,7 @@
                             </div>
 
                             <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/smart-attractive-asian-glasses-male-standing-smile-with-freshness-joyful-casual-blue-shirt-portrait-white-background.jpg"
+                                <img src="images/profile/portrait-hansome-young-male-doctor-man.jpg"
                                     class="owl-carousel-image img-fluid" alt="">
 
                                 <div class="owl-carousel-info">
