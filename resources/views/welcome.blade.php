@@ -255,41 +255,57 @@
                                     class="custom-block-image img-fluid" alt="">
 
                                 <div class="custom-block-overlay-text d-flex">
-                                    <div>
-                                        <h5 class="text-white mb-2">Finance</h5>
+                                    <form action="" id="aiForm">
+                                        @csrf
+                                        <h5 class="text-white mb-2">ask jemy</h5>
 
-                                        <p class="text-white">Topic Listing Template includes homepage, listing page,
-                                            detail page, and contact page. You can feel free to edit and adapt for your
-                                            CMS requirements.</p>
+                                        <div class="custom-form mt-4 pt-2 mb-lg-0 mb-5">
+                                            <p id="responsechat" style="color: white"> </p>
 
-                                        <a href="topics-detail.html" class="btn custom-btn mt-2 mt-lg-3">Learn More</a>
-                                    </div>
+                                            <input type="text" id="prompt" name="prompt"
+                                                placeholder="Ask a medical question" required>
+
+
+                                            <button type="submit" class="form-control" id="ask">ask</button>
+
+                                        </div>
+                                    </form>
 
                                     <span class="badge bg-finance rounded-pill ms-auto">25</span>
                                 </div>
 
-                                <div class="social-share d-flex">
-                                    <p class="text-white me-4">Share:</p>
 
-                                    <ul class="social-icon">
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-twitter"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-facebook"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-pinterest"></a>
-                                        </li>
-                                    </ul>
-
-                                    <a href="#" class="custom-icon bi-bookmark ms-auto"></a>
-                                </div>
 
                                 <div class="section-overlay"></div>
                             </div>
+                            <script>
+
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    document.getElementById("aiForm").addEventListener("submit", async function (event) {
+                                        event.preventDefault();
+
+                                        let prompt = document.getElementById("prompt").value;
+                                        let responseBox = document.getElementById("responsechat");
+                                        responseBox.innerText = "Loading...";
+
+                                        try {
+                                            const response1 = await fetch("https://server-7hqi.onrender.com/ask-ai", {
+                                                method: "POST",
+                                                headers: {
+                                                    "Content-Type": "application/json"
+                                                },
+                                                body: JSON.stringify({ prompt })
+                                            });
+
+                                            const data = await response1.json();
+                                            console.log(data);
+                                            responseBox.innerText = data.response;
+                                        } catch (error) {
+                                            responseBox.innerText = "Error in : " + error.message;
+                                        }
+                                    });
+                                });
+                            </script>
                         </div>
                     </div>
 

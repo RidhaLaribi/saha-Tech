@@ -14,9 +14,11 @@ Route::get('/profile', function () {
     return view('profile')->with('r', $rendi);
 });
 Route::get('/loginp', function () {
+
     return view('loginp');
 });
 
 Route::get('/medecin', function () {
+
     return view('medecin');
 })->name('medecin');
