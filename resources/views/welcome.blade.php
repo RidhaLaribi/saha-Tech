@@ -245,73 +245,64 @@
         <section class="featured-section">
             <div class="container">
                 <div class="row justify-content-center">
-
-
-
                     <div class="col-lg-8 col-12">
                         <div class="custom-block custom-block-overlay">
                             <div class="d-flex flex-column h-100">
-                                <img src="images/businesswoman-using-tablet-analysis.jpg"
-                                    class="custom-block-image img-fluid" alt="">
-
-                                <div class="custom-block-overlay-text d-flex">
-                                    <form action="" id="aiForm">
-                                        @csrf
-                                        <h5 class="text-white mb-2">ask jemy</h5>
-
-                                        <div class="custom-form mt-4 pt-2 mb-lg-0 mb-5">
-                                            <p id="responsechat" style="color: white"> </p>
-
-                                            <input type="text" id="prompt" name="prompt"
-                                                placeholder="Ask a medical question" required>
-
-
-                                            <button type="submit" class="form-control" id="ask">ask</button>
-
+                                <img src="images/businesswoman-using-tablet-analysis.jpg" class="custom-block-image img-fluid" alt="">
+        
+                                <div class="custom-block-overlay-text d-flex flex-column align-items-center">
+                                    <form action="" id="aiForm" class="glass-form">
+                                        <h5 class="text-white mb-3 " style="font-family: 'Lato ', sans-serif !important;
+    font-weight: 600;">Feel free to ask our chatbot AI Jemy, your medical assistant.</h5>
+        
+                                        <div class="custom-form">
+                                            <p id="responsechat" class="response-box text-white text-center mb-3"></p>
+        
+                                            <input type="text" id="prompt" name="prompt" class="form-control" placeholder="Ask a medical question..." required>
+        
+                                            <button type="submit" class="btn-submit">Ask</button>
                                         </div>
                                     </form>
-
-                                    <span class="badge bg-finance rounded-pill ms-auto">25</span>
                                 </div>
-
-
-
+        
                                 <div class="section-overlay"></div>
                             </div>
-                            <script>
-
-                                document.addEventListener("DOMContentLoaded", () => {
-                                    document.getElementById("aiForm").addEventListener("submit", async function (event) {
-                                        event.preventDefault();
-
-                                        let prompt = document.getElementById("prompt").value;
-                                        let responseBox = document.getElementById("responsechat");
-                                        responseBox.innerText = "Loading...";
-
-                                        try {
-                                            const response1 = await fetch("https://server-7hqi.onrender.com/ask-ai", {
-                                                method: "POST",
-                                                headers: {
-                                                    "Content-Type": "application/json"
-                                                },
-                                                body: JSON.stringify({ prompt })
-                                            });
-
-                                            const data = await response1.json();
-                                            console.log(data);
-                                            responseBox.innerText = data.response;
-                                        } catch (error) {
-                                            responseBox.innerText = "Error in : " + error.message;
-                                        }
-                                    });
-                                });
-                            </script>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
+        
+       
+        
+        <script>
+
+            document.addEventListener("DOMContentLoaded", () => {
+                document.getElementById("aiForm").addEventListener("submit", async function (event) {
+                    event.preventDefault();
+
+                    let prompt = document.getElementById("prompt").value;
+                    let responseBox = document.getElementById("responsechat");
+                    responseBox.innerText = "Loading...";
+
+                    try {
+                        const response1 = await fetch("https://server-7hqi.onrender.com/ask-ai", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ prompt })
+                        });
+
+                        const data = await response1.json();
+                        console.log(data);
+                        responseBox.innerText = data.response;
+                    } catch (error) {
+                        responseBox.innerText = "Error in : " + error.message;
+                    }
+                });
+            });
+        </script>
 
 
 
@@ -336,8 +327,7 @@
                                 <div class="owl-carousel-info">
                                     <h4 class="mb-2">
                                         Candice
-                                        <img src="images/verified.png" class="owl-carousel-verified-image img-fluid"
-                                            alt="">
+                                        
                                     </h4>
 
                                     <span class="badge">Storytelling</span>
@@ -365,8 +355,7 @@
                                 <div class="owl-carousel-info">
                                     <h4 class="mb-2">
                                         William
-                                        <img src="images/verified.png" class="owl-carousel-verified-image img-fluid"
-                                            alt="">
+                                        
                                     </h4>
 
                                     <span class="badge">Creative</span>
@@ -449,8 +438,7 @@
                                 <div class="owl-carousel-info">
                                     <h4 class="mb-2">
                                         Elsa
-                                        <img src="images/verified.png" class="owl-carousel-verified-image img-fluid"
-                                            alt="">
+                                        
                                     </h4>
 
                                     <span class="badge">Influencer</span>
@@ -504,361 +492,6 @@
 
 
 
-        <section class="explore-section section-padding" id="section_2">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-12 text-center">
-                        <h2 class="mb-4">Browse Topics</h1>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="container-fluid">
-                <div class="row">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="design-tab" data-bs-toggle="tab"
-                                data-bs-target="#design-tab-pane" type="button" role="tab"
-                                aria-controls="design-tab-pane" aria-selected="true">Design</button>
-                        </li>
-
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="marketing-tab" data-bs-toggle="tab"
-                                data-bs-target="#marketing-tab-pane" type="button" role="tab"
-                                aria-controls="marketing-tab-pane" aria-selected="false">Marketing</button>
-                        </li>
-
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="finance-tab" data-bs-toggle="tab"
-                                data-bs-target="#finance-tab-pane" type="button" role="tab"
-                                aria-controls="finance-tab-pane" aria-selected="false">Finance</button>
-                        </li>
-
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="music-tab" data-bs-toggle="tab"
-                                data-bs-target="#music-tab-pane" type="button" role="tab" aria-controls="music-tab-pane"
-                                aria-selected="false">Music</button>
-                        </li>
-
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="education-tab" data-bs-toggle="tab"
-                                data-bs-target="#education-tab-pane" type="button" role="tab"
-                                aria-controls="education-tab-pane" aria-selected="false">Education</button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-12">
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="design-tab-pane" role="tabpanel"
-                                aria-labelledby="design-tab" tabindex="0">
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Web Design</h5>
-
-                                                        <p class="mb-0">Topic Listing Template based on Bootstrap 5</p>
-                                                    </div>
-
-                                                    <span class="badge bg-design rounded-pill ms-auto">14</span>
-                                                </div>
-
-                                                <img src="images/topics/undraw_Remote_design_team_re_urdx.png"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Graphic</h5>
-
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span class="badge bg-design rounded-pill ms-auto">75</span>
-                                                </div>
-
-                                                <img src="images/topics/undraw_Redesign_feedback_re_jvm0.png"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-6 col-12">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Logo Design</h5>
-
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span class="badge bg-design rounded-pill ms-auto">100</span>
-                                                </div>
-
-                                                <img src="images/topics/colleagues-working-cozy-office-medium-shot.png"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade" id="marketing-tab-pane" role="tabpanel"
-                                aria-labelledby="marketing-tab" tabindex="0">
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Advertising</h5>
-
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span class="badge bg-advertising rounded-pill ms-auto">30</span>
-                                                </div>
-
-                                                <img src="images/topics/undraw_online_ad_re_ol62.png"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Video Content</h5>
-
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span class="badge bg-advertising rounded-pill ms-auto">65</span>
-                                                </div>
-
-                                                <img src="images/topics/undraw_Group_video_re_btu7.png"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-6 col-12">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Viral Tweet</h5>
-
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span class="badge bg-advertising rounded-pill ms-auto">50</span>
-                                                </div>
-
-                                                <img src="images/topics/undraw_viral_tweet_gndb.png"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade" id="finance-tab-pane" role="tabpanel"
-                                aria-labelledby="finance-tab" tabindex="0">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-0">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Investment</h5>
-
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span class="badge bg-finance rounded-pill ms-auto">30</span>
-                                                </div>
-
-                                                <img src="images/topics/undraw_Finance_re_gnv2.png"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="custom-block custom-block-overlay">
-                                            <div class="d-flex flex-column h-100">
-                                                <img src="images/businesswoman-using-tablet-analysis-graph-company-finance-strategy-statistics-success-concept-planning-future-office-room.jpg"
-                                                    class="custom-block-image img-fluid" alt="">
-
-                                                <div class="custom-block-overlay-text d-flex">
-                                                    <div>
-                                                        <h5 class="text-white mb-2">Finance</h5>
-
-                                                        <p class="text-white">Lorem ipsum dolor, sit amet consectetur
-                                                            adipisicing elit. Sint animi necessitatibus aperiam
-                                                            repudiandae nam omnis</p>
-
-                                                        <a href="topics-detail.html"
-                                                            class="btn custom-btn mt-2 mt-lg-3">Learn More</a>
-                                                    </div>
-
-                                                    <span class="badge bg-finance rounded-pill ms-auto">25</span>
-                                                </div>
-
-                                                <div class="social-share d-flex">
-                                                    <p class="text-white me-4">Share:</p>
-
-                                                    <ul class="social-icon">
-                                                        <li class="social-icon-item">
-                                                            <a href="#" class="social-icon-link bi-twitter"></a>
-                                                        </li>
-
-                                                        <li class="social-icon-item">
-                                                            <a href="#" class="social-icon-link bi-facebook"></a>
-                                                        </li>
-
-                                                        <li class="social-icon-item">
-                                                            <a href="#" class="social-icon-link bi-pinterest"></a>
-                                                        </li>
-                                                    </ul>
-
-                                                    <a href="#" class="custom-icon bi-bookmark ms-auto"></a>
-                                                </div>
-
-                                                <div class="section-overlay"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade" id="music-tab-pane" role="tabpanel" aria-labelledby="music-tab"
-                                tabindex="0">
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Composing Song</h5>
-
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span class="badge bg-music rounded-pill ms-auto">45</span>
-                                                </div>
-
-                                                <img src="images/topics/undraw_Compose_music_re_wpiw.png"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Online Music</h5>
-
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span class="badge bg-music rounded-pill ms-auto">45</span>
-                                                </div>
-
-                                                <img src="images/topics/undraw_happy_music_g6wc.png"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-6 col-12">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Podcast</h5>
-
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span class="badge bg-music rounded-pill ms-auto">20</span>
-                                                </div>
-
-                                                <img src="images/topics/undraw_Podcast_audience_re_4i5q.png"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="tab-pane fade" id="education-tab-pane" role="tabpanel"
-                                aria-labelledby="education-tab" tabindex="0">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-3">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Graduation</h5>
-
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span class="badge bg-education rounded-pill ms-auto">80</span>
-                                                </div>
-
-                                                <img src="images/topics/undraw_Graduation_re_gthn.png"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Educator</h5>
-
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
-                                                    </div>
-
-                                                    <span class="badge bg-education rounded-pill ms-auto">75</span>
-                                                </div>
-
-                                                <img src="images/topics/undraw_Educator_re_ju47.png"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-        </section> -->
 
 
         <section class="timeline-section section-padding" id="section_3">
@@ -879,11 +512,9 @@
                                 </div>
 
                                 <li>
-                                    <h4 class="text-white mb-3">Search your favourite topic</h4>
+                                    <h4 class="text-white mb-3"> 1. Find Your Doctor & Book an Appointment</h4>
 
-                                    <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                        Reiciendis, cumque magnam? Sequi, cupiditate quibusdam alias illum sed esse ad
-                                        dignissimos libero sunt, quisquam numquam aliquam? Voluptas, accusamus omnis?
+                                    <p class="text-white">Search for doctors and laboratories by specialty and location. Check reviews, availability, and book your appointment online in just a few clicks.
                                     </p>
 
                                     <div class="icon-holder">
@@ -892,11 +523,9 @@
                                 </li>
 
                                 <li>
-                                    <h4 class="text-white mb-3">Bookmark &amp; Keep it for yourself</h4>
+                                    <h4 class="text-white mb-3">2. Manage & Track Your Consultations</h4>
 
-                                    <p class="text-white">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint
-                                        animi necessitatibus aperiam repudiandae nam omnis est vel quo, nihil repellat
-                                        quia velit error modi earum similique odit labore. Doloremque, repudiandae?</p>
+                                    <p class="text-white">Access your personal space to manage appointments, receive automatic email reminders, and view your medical history and documents.</p>
 
                                     <div class="icon-holder">
                                         <i class="bi-bookmark"></i>
@@ -904,11 +533,9 @@
                                 </li>
 
                                 <li>
-                                    <h4 class="text-white mb-3">Read &amp; Enjoy</h4>
+                                    <h4 class="text-white mb-3">3. Attend, Review &amp; Follow Up on Your Health</h4>
 
-                                    <p class="text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                        Animi vero quisquam, rem assumenda similique voluptas distinctio, iste est hic
-                                        eveniet debitis ut ducimus beatae id? Quam culpa deleniti officiis autem?</p>
+                                    <p class="text-white">Attend your appointment with confidence. After the consultation, leave a review for your doctor and benefit from follow-up services to ensure continuous care.</p>
 
                                     <div class="icon-holder">
                                         <i class="bi-book"></i>

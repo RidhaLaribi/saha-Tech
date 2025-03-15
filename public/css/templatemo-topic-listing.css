@@ -534,14 +534,113 @@ strong {
   bottom: 100px;
   margin-bottom: -100px;
 }
+/* addedstyle */
 
+
+
+
+/* Glassmorphism Form */
+.glass-form {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 25px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 400px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Input Field */
+.glass-form input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.glass-form input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.glass-form input:focus {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Button Styling */
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background: #ff6b6b;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  background: #ff8787;
+}
+
+/* Response Box - Scrollable */
+.response-box {
+  max-height: 270px; /* Set a max height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  text-align: left;
+  font-size: 1.5rem;
+  color: #fff;
+  min-height: 0px;
+  word-wrap: break-word;
+  white-space: pre-wrap; /* Preserve formatting and wrap text */
+}
+
+.response-box::-webkit-scrollbar {
+  width: 4px;
+}
+
+.response-box::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.response-box::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+}
+
+.response-box::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+
+@media (max-width: 768px) {
+  .glass-form {
+      max-width: 100%;
+  }
+}
+/*end addedstyle */
 .custom-block {
   border-radius: var(--border-radius-medium);
   position: relative;
-  overflow: hidden;
   padding: 30px;
   transition: all 0.3s ease;
   height: 100%;
+  overflow: hidden;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .custom-block:hover {
@@ -594,6 +693,7 @@ strong {
   top: 0;
   right: 0;
   left: 0;
+ 
   padding: 30px;
 }
 

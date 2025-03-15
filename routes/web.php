@@ -10,15 +10,21 @@ Route::get('/login', function () {
     return view('login')->with("id", null);
 });
 Route::get('/profile', function () {
-    $rendi = ['rendi-vous', '2025-02-17T15:30']; //hada rendi-v afficher f calendier
+    $rendi = ['generaliste', '2025-02-07T16:30']; //hada rendi-v afficher f calendier
     return view('profile')->with('r', $rendi);
 });
 Route::get('/loginp', function () {
-
     return view('loginp');
 });
 
 Route::get('/medecin', function () {
-
     return view('medecin');
 })->name('medecin');
+
+Route::get('/db', function () {
+    return view('database');
+});
+
+
+
+
