@@ -109,7 +109,7 @@ calendar links-->
                                     style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                                     <img src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
                                         alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-                                    <h5>Marie Horwitz</h5>
+                                    <h5> {{$user->name}} </h5>
                                     <p>Web Designer</p>
                                     <i class="far fa-edit mb-5"></i>
                                 </div>
@@ -286,63 +286,29 @@ calendar links-->
 
                                         var calendar = new FullCalendar.Calendar(calendarEl, {
                                             plugins: ['interaction', 'dayGrid'],
-                                            defaultDate: '2025-02-12',
+                                            defaultDate: '2025-03-19',
                                             editable: true,
                                             eventLimit: true, // allow "more" link when too many events
-                                            events: [{
-                                                title: '{{$r[0]}}',
-                                                start: '{{$r[1]}}'
-                                            },
-                                            {
-                                                title: 'Long Event',
-                                                start: '2025-12-07',
-                                                end: '2025-12-10'
-                                            },
-                                            {
-                                                groupId: 999,
-                                                title: 'Repeating Event',
-                                                start: '2025-02-09T16:00:00'
-                                            },
-                                            {
-                                                groupId: 999,
-                                                title: 'Repeating Event',
-                                                start: '2025-02-16T16:00:00'
-                                            },
-                                            {
-                                                title: 'Conference',
-                                                start: '2025-02-11',
-                                                end: '2025-02-13'
-                                            },
-                                            {
-                                                title: 'Meeting',
-                                                start: '2025-02-12T10:30:00',
-                                                end: '2025-02-12T12:30:00'
-                                            },
-                                            {
-                                                title: 'Lunch',
-                                                start: '2020-02-12T12:00:00'
-                                            },
-                                            {
-                                                title: 'Meeting',
-                                                start: '2020-02-12T14:30:00'
-                                            },
-                                            {
-                                                title: 'Happy Hour',
-                                                start: '2020-02-12T17:30:00'
-                                            },
-                                            {
-                                                title: 'Dinner',
-                                                start: '2020-02-12T20:00:00'
-                                            },
-                                            {
-                                                title: 'Birthday Party',
-                                                start: '2020-02-13T07:00:00'
-                                            },
-                                            {
-                                                title: 'Click for Google',
-                                                url: 'http://google.com/',
-                                                start: '2020-02-28'
-                                            }
+                                            events: [
+
+                                                /* {
+                                                     title: 'Long Event',
+                                                     start: '2025-12-07',
+                                                     end: '2025-12-10',
+                                                     url: 'http://google.com/',
+ 
+                                                 },*/
+
+                                                @foreach ($r as $re)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {
+                                                        title: 'tbib',
+                                                        start: '{{$re->rendezvous}}',
+                                                        url: 'https://youtube.com/',
+                                                    },
+                                                @endforeach
+
+                                               
+                                               
                                             ]
                                         });
 
@@ -463,31 +429,31 @@ calendar links-->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>Mark</td>
-                                                                <td>Otto</td>
-                                                                <td>@mdo</td>
-                                                            </tr>
 
-                                                            <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>Mark</td>
-                                                                <td>Otto</td>
-                                                                <td>@mdo</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>Jacob</td>
-                                                                <td>Thornton</td>
-                                                                <td>@fat</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">3</th>
-                                                                <td>Larry</td>
-                                                                <td>the Bird</td>
-                                                                <td>@twitter</td>
-                                                            </tr>
+                                                            @if (!$r->isEmpty())
+
+                                                                @foreach ($r as $re)
+
+                                                                    <tr>
+                                                                        <th scope="row">1</th>
+                                                                        <td>Mark</td>
+                                                                        <td>Otto</td>
+                                                                        <td>
+                                                                            {{substr($re->rendezvous, 0, 10)}}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+
+                                                            @else
+                                                                <tr>
+                                                                    <th scope="row">1</th>
+                                                                    <td>No dates</td>
+                                                                </tr>
+
+
+                                                            @endif
+
+
                                                         </tbody>
                                                     </table>
                                                 </div>
