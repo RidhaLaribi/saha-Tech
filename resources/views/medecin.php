@@ -424,6 +424,7 @@
       </div>
       <div class="search-bar__group">
         <div class="location-wrapper">
+          
           <input type="text" id="locationInput" placeholder="Localisation">
           <span class="location-icon" id="locationIcon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#212529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
