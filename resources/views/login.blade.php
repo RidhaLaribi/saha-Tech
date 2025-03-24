@@ -288,7 +288,7 @@
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       border-left: 4px solid #00796b;
-      display: none;
+     
       align-items: center;
       gap: 15px;
       max-width: 350px;
@@ -336,20 +336,22 @@
     <!-- Right form section -->
     <div class="form-section">
       <!-- SIGN IN FORM -->
-      <form id="signInForm">
+      <form id="signInForm" action="{{ route('login')}}" method="POST">
+        @csrf
         <h2 style="text-align: center; margin-bottom: 0.5rem; color: #00796b;">
           Connexion
         </h2>
         <div class="input-group">
           <input
-            type="tel"
-            placeholder="Numéro de téléphone"
-            pattern="[0-9]{10}"
+            type="email"
+            name="iden"
+            placeholder="email"
+            {{-- pattern="[0-9]{10}" --}}
             required
           />
         </div>
         <div class="input-group">
-          <input type="password" placeholder="Mot de passe" required />
+          <input type="password" name="password" placeholder="Mot de passe" required />
           <i class="fas fa-eye toggle-password"></i>
         </div>
         <div class="options">
@@ -364,10 +366,20 @@
           Vous n'avez pas de compte ?
           <a id="showSignUp">Créer un compte</a>
         </div>
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
       </form>
 
       <!-- SIGN UP FORM (HIDDEN BY DEFAULT) -->
-      <form id="signUpForm">
+      <form id="signUpForm" action="{{ route('sign') }}" method="POST">
+        @csrf
         <h2 style="text-align: center; margin-bottom: 0.5rem; color: #00796b;">
           Création de Compte
         </h2>
@@ -378,7 +390,7 @@
           <div class="input-group">
             <input
               type="text"
-              name="nom"
+              name="name"
               placeholder="Nom complet"
               required
             />
@@ -447,15 +459,16 @@
   </div>
 
   <!-- Notification Card -->
+  @if(session('success'))
+  <!-- Notification Card -->
   <div class="notification-card" id="welcomeNotification">
     <i class="fas fa-heart"></i>
     <div class="notification-text">
       <h3>Welcome to Sahateck Family! 🎉</h3>
-      <p>
-        Your health journey starts here. We're honored to be part of your care.
-      </p>
+      <p>{{ session('success') }}</p>
     </div>
   </div>
+@endif
 
   <script>
     // Show/hide forms
@@ -469,7 +482,7 @@
       document.getElementById('signUpForm').style.display = 'none';
       document.getElementById('signInForm').style.display = 'block';
     });
-
+  
     // Toggle password visibility
     document.querySelectorAll('.toggle-password').forEach((icon) => {
       icon.addEventListener('click', (e) => {
@@ -478,46 +491,24 @@
         e.target.classList.toggle('fa-eye-slash');
       });
     });
-
+  
     // Dark mode toggle
     document.querySelector('.dark-mode-toggle').addEventListener('click', () => {
       document.body.classList.toggle('dark-mode');
-      document
-        .querySelector('.dark-mode-toggle i')
-        .classList.toggle('fa-sun');
+      document.querySelector('.dark-mode-toggle i').classList.toggle('fa-sun');
     });
-
-    // Sign In submission
-    document.getElementById('signInForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (document.querySelector('#signInForm input[type="tel"]').validity.valid) {
-        alert('Connexion réussie !');
-      }
-    });
-
-    // Sign Up submission
-    document.getElementById('signUpForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      let valid = true;
-      document
-        .querySelectorAll('#signUpForm input, #signUpForm select')
-        .forEach((input) => {
-          if (!input.reportValidity()) valid = false;
-        });
-      if (valid) {
-        showNotification('patient');
-        e.target.reset();
-      }
-    });
-
-    // Notification display
-    function showNotification(type) {
-      const notification = document.getElementById('welcomeNotification');
-      notification.style.display = 'flex';
-      setTimeout(() => {
-        notification.style.display = 'none';
-      }, 5000);
+  
+    // Hide the notification card after 5 seconds
+  setTimeout(function() {
+    var notification = document.getElementById('welcomeNotification');
+    if (notification) {
+      notification.style.display = 'none';
     }
+  }, 6000);
   </script>
+  
+  
+  
+
 </body>
 </html>
