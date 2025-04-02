@@ -25,8 +25,6 @@ class authController extends Controller
     {
         $request->validate([
             'name' => 'required',
-        ,
-
             'email' => 'required',
             'password' => 'required'
         ]);
@@ -34,7 +32,7 @@ class authController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make(value: $request->pass) // Hashing the password before storing
+            'password' => Hash::make(value: $request->password) // Hashing the password before storing
         ]);
 
         return "User created";
@@ -43,7 +41,7 @@ class authController extends Controller
     public function login(Request $r)
     {
         $r->validate([
-            "iden" => 'required',
+            "email" => 'required',
             "password" => 'required'
         ]);
 
@@ -53,9 +51,12 @@ class authController extends Controller
         // Check if password is correct
 
         // Log in manually since Auth::attempt() is failing due to 'pass' column
-        if (auth::attempt(["email" => $r->iden, "password" => $r->password])) {
+        if (auth::attempt(["email" => $r->email, "password" => $r->password])) {
+
             $r->session()->regenerate();
+
             session(['user' => Auth::user()]);
+
             return redirect()->route("home");
         }
 

@@ -352,13 +352,14 @@
         <!-- Section Formulaire -->
         <div class="form-section">
             <!-- Formulaire de Connexion -->
-            <form id="signInForm">
+            <form method="post" action="{{ route("login") }}" id="signInForm">
+                @csrf
                 <h2 style="text-align: center; margin-bottom: 0.5rem; color: #00796b;">Connexion</h2>
                 <div class="input-group">
-                    <input type="tel" placeholder="Numéro de téléphone" pattern="[0-9]{10}" required>
+                    <input type="text" placeholder="E-mail" name="email" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" placeholder="Mot de passe" required>
+                    <input type="password" placeholder="Mot de passe" name="password" required>
                     <i class="fas fa-eye toggle-password"></i>
                 </div>
                 <div class="options">
@@ -374,16 +375,15 @@
                 </div>
             </form>
             <!-- Formulaire d'Inscription (sans "Se souvenir de moi") -->
-            <form id="signUpForm" style="display: none;">
+            <form method="post" action="{{ route("sign") }}" id="signUpForm" style="display: none;">
+                @csrf
                 <h2 style="text-align: center; margin-bottom: 0.5rem; color: #00796b;">Création de Compte</h2>
+
                 <div class="input-group">
-                    <input type="text" name="prenom" placeholder="Prénom" required>
+                    <input type="text" name="name" placeholder="Nom" required>
                 </div>
                 <div class="input-group">
-                    <input type="text" name="nom" placeholder="Nom de famille" required>
-                </div>
-                <div class="input-group">
-                    <input type="tel" name="telephone" placeholder="Téléphone (10 chiffres)" pattern="[0-9]{10}" required>
+                    <input type="tel" name="telephone" placeholder="Téléphone (10 chiffres)" pattern="[0-9]{10}">
                 </div>
                 <div class="input-group">
                     <input type="email" name="email" placeholder="Email" required>
@@ -433,24 +433,19 @@
             document.querySelector('.dark-mode-toggle i').classList.toggle('fa-sun');
         });
         // Gestion des soumissions du formulaire de Connexion
-        document.getElementById('signInForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (document.querySelector('#signInForm input[type="tel"]').validity.valid) {
-                alert('Connexion réussie !');
-            }
-        });
+
         // Gestion des soumissions du formulaire d'Inscription pour Patient
-        document.getElementById('signUpForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            let valid = true;
-            document.querySelectorAll('#signUpForm input').forEach(input => {
-                if (!input.reportValidity()) valid = false;
-            });
-            if (valid) {
-                showNotification('patient');
-                e.target.reset();
-            }
-        });
+        // document.getElementById('signUpForm').addEventListener('submit', (e) => {
+        //     e.preventDefault();
+        //     let valid = true;
+        //     document.querySelectorAll('#signUpForm input').forEach(input => {
+        //         if (!input.reportValidity()) valid = false;
+        //     });
+        //     if (valid) {
+        //         showNotification('patient');
+        //         e.target.reset();
+        //     }
+        // });
 
         function showNotification(type) {
             const notification = document.getElementById(

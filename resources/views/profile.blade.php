@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Topic Listing Bootstrap 5 Template</title>
+    <title>My profile</title>
 
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,11 +73,11 @@ calendar links-->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-lg-5 me-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_1">Mes Information</a>
+                            <a class="nav-link click-scroll" href="#section_1">My Card</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_2">Mon Dossier</a>
+                            <a class="nav-link click-scroll" href="#section_2">More information</a>
                         </li>
 
 
@@ -110,12 +110,12 @@ calendar links-->
                                     <img src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
                                         alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
                                     <h5> {{$user->name}} </h5>
-                                    <p>Web Designer</p>
+                                    <p>patient</p>
                                     <i class="far fa-edit mb-5"></i>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body p-4">
-                                        <h6>Mes Information</h6>
+                                        <h6>info</h6>
                                         <hr class="mt-0 mb-4">
                                         <div class="row pt-1">
                                             <div class="col-6 mb-3">
@@ -135,8 +135,8 @@ calendar links-->
                                                 <p class="text-muted">44</p>
                                             </div>
                                             <div class="col-6 mb-3">
-                                                <h6>dernier consultation</h6>
-                                                <p class="text-muted">Dolor sit amet</p>
+                                                <h6>last doctor's visit</h6>
+                                                <p class="text-muted"></p>
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-start">
@@ -164,9 +164,9 @@ calendar links-->
                             <a href="topics-detail.html">
                                 <div class="d-flex">
                                     <div>
-                                        <h5 class="mb-2">Prochaine Rendi-Vous </h5>
+                                        <h5 class="mb-2">Next Appointment </h5>
 
-                                        <p class="mb-0">LUNDI 30 Mar a 8h</p>
+                                        <p class="mb-0">Monday, March 31 at 8 AM</p>
                                     </div>
 
                                     <span class="badge bg-design rounded-pill ms-auto">37</span>
@@ -185,9 +185,9 @@ calendar links-->
 
                                 <div class="custom-block-overlay-text d-flex">
                                     <div>
-                                        <h5 class="text-white mb-2">aujourd'hui</h5>
+                                        <h5 class="text-white mb-2">Today</h5>
 
-                                        <p class="text-white">hna nktblo ida kyn w wikta kyn un Rendi-Vous</p>
+                                        <p class="text-white"></p>
 
                                         <a href="topics-detail.html" class="btn custom-btn mt-2 mt-lg-3">Learn More</a>
                                     </div>
@@ -227,7 +227,7 @@ calendar links-->
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="design-tab" data-bs-toggle="tab"
                                 data-bs-target="#design-tab-pane" type="button" role="tab"
-                                aria-controls="design-tab-pane" aria-selected="true">Calendrier</button>
+                                aria-controls="design-tab-pane" aria-selected="true">Calendar</button>
                         </li>
 
 
@@ -235,13 +235,13 @@ calendar links-->
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="marketing-tab" data-bs-toggle="tab"
                                 data-bs-target="#marketing-tab-pane" type="button" role="tab"
-                                aria-controls="marketing-tab-pane" aria-selected="false">dossier medecal</button>
+                                aria-controls="marketing-tab-pane" aria-selected="false">medical file</button>
                         </li>
 
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="music-tab" data-bs-toggle="tab"
                                 data-bs-target="#music-tab-pane" type="button" role="tab" aria-controls="music-tab-pane"
-                                aria-selected="false">Member</button>
+                                aria-selected="false">Members</button>
                         </li>
 
                         <li class="nav-item" role="presentation">
@@ -300,7 +300,7 @@ calendar links-->
                                                  },*/
 
                                                 @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           {
                                                         title: 'tbib',
                                                         start: '{{$re->rendezvous}}',
                                                         url: 'https://youtube.com/',
@@ -331,9 +331,10 @@ calendar links-->
                                             <a href="topics-detail.html">
                                                 <div class="d-flex">
                                                     <div>
-                                                        <h5 class="mb-2">pere</h5>
+                                                        <h5 class="mb-2">Father</h5>
 
-                                                        <p class="mb-0">Topic Listing Template based on Bootstrap 5</p>
+                                                        <p class="mb-0">Lorem ipsum dolor sit amet consectetur
+                                                            adipisicing elit. Enim, laudantium?</p>
                                                     </div>
 
                                                 </div>
@@ -348,9 +349,10 @@ calendar links-->
                                             <a href="topics-detail.html">
                                                 <div class="d-flex">
                                                     <div>
-                                                        <h5 class="mb-2">Fils</h5>
+                                                        <h5 class="mb-2">Son</h5>
 
-                                                        <p class="mb-0">Topic Listing Template based on Bootstrap 5</p>
+                                                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
+                                                            adipisicing elit. Officia, inventore.</p>
                                                     </div>
 
                                                 </div>
@@ -365,9 +367,10 @@ calendar links-->
                                             <a href="topics-detail.html">
                                                 <div class="d-flex">
                                                     <div>
-                                                        <h5 class="mb-2">Frere</h5>
+                                                        <h5 class="mb-2">Brother</h5>
 
-                                                        <p class="mb-0">Topic Listing Template based on Bootstrap 5</p>
+                                                        <p class="mb-0"> Lorem, ipsum dolor sit amet consectetur
+                                                            adipisicing e</p>
                                                     </div>
 
                                                 </div>
@@ -393,7 +396,7 @@ calendar links-->
                                             <a id="showR" href="">
                                                 <div class="d-flex">
                                                     <div>
-                                                        <h5 class="mb-2">Les rendi-vous</h5>
+                                                        <h5 class="mb-2">Medical Appointments</h5>
 
                                                         <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
                                                     </div>
@@ -424,7 +427,7 @@ calendar links-->
                                                             <tr>
                                                                 <th scope="col">#</th>
                                                                 <th scope="col">specialite</th>
-                                                                <th scope="col">nom de medecin</th>
+                                                                <th scope="col">name</th>
                                                                 <th scope="col">date</th>
                                                             </tr>
                                                         </thead>
@@ -495,7 +498,7 @@ calendar links-->
                                             <a href="topics-detail.html">
                                                 <div class="d-flex">
                                                     <div>
-                                                        <h5 class="mb-2">Les fichiers</h5>
+                                                        <h5 class="mb-2">Files</h5>
 
                                                         <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
                                                     </div>
@@ -513,7 +516,7 @@ calendar links-->
                                             <a id="showN" href="">
                                                 <div class="d-flex">
                                                     <div>
-                                                        <h5 class="mb-2">notes</h5>
+                                                        <h5 class="mb-2">Notes</h5>
 
                                                         <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
                                                     </div>
@@ -542,7 +545,7 @@ calendar links-->
                                                             <tr>
                                                                 <th scope="col">#</th>
                                                                 <th scope="col">specialite</th>
-                                                                <th scope="col">nom de medecin</th>
+                                                                <th scope="col">Name</th>
                                                                 <th scope="col">note</th>
                                                             </tr>
                                                         </thead>
@@ -616,7 +619,7 @@ calendar links-->
                                             <!--  <a href="topics-detail.html">                rani mna7i -->
                                             <div class="d-flex">
                                                 <div>
-                                                    <h5 class="mb-2">supprimer un membre</h5>
+                                                    <h5 class="mb-2">remove a member</h5>
                                                     <p class="mb-0"></p>
                                                     <form class="person-form-container person-form">
                                                         <label for="person">Choose a Person:</label>
@@ -757,13 +760,7 @@ calendar links-->
                             aria-expanded="false">
                             English</button>
 
-                        <ul class="dropdown-menu">
-                            <li><button class="dropdown-item" type="button">Thai</button></li>
 
-                            <li><button class="dropdown-item" type="button">Myanmar</button></li>
-
-                            <li><button class="dropdown-item" type="button">Arabic</button></li>
-                        </ul>
                     </div>
 
                     <p class="copyright-text mt-lg-5 mt-4">Copyright © 2048 Topic Listing Center. All rights reserved.
