@@ -36,44 +36,50 @@
 
     <link rel="stylesheet" href="css/templatecarousel.css">
 
-  <style>
-    /* NOTIFICATION CARD */
-    .notification-card {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      border-left: 4px solid #00796b;
-     
-      align-items: center;
-      gap: 15px;
-      max-width: 350px;
-      animation: slideIn 0.5s ease-out;
-      z-index: 1000;
-    }
-    .notification-card i {
-      color: #00796b;
-      font-size: 1.8rem;
-    }
-    .notification-text h3 {
-      color: #00796b;
-      margin-bottom: 8px;
-    }
-    @keyframes slideIn {
-      from {
-        transform: translateX(100%);
-      }
-      to {
-        transform: translateX(0);
-      }
-    }
-    .dark-mode .notification-card {
-      background: #363636;
-      border-color: #00a896;
-    }</style>
+    <style>
+        /* NOTIFICATION CARD */
+        .notification-card {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #00796b;
+
+            align-items: center;
+            gap: 15px;
+            max-width: 350px;
+            animation: slideIn 0.5s ease-out;
+            z-index: 1000;
+        }
+
+        .notification-card i {
+            color: #00796b;
+            font-size: 1.8rem;
+        }
+
+        .notification-text h3 {
+            color: #00796b;
+            margin-bottom: 8px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .dark-mode .notification-card {
+            background: #363636;
+            border-color: #00a896;
+        }
+    </style>
 </head>
 
 <body id="top">
@@ -233,11 +239,7 @@
                         </script>
                     @else
                         <div class="d-none d-lg-block">
-<<<<<<< HEAD
                             <a href="{{ route('profile') }}" class="navbar-icon bi-person smoothscroll"></a>
-=======
-                            <a href="{{('profile')}}" class="navbar-icon bi-person smoothscroll"></a>
->>>>>>> 23197036c92bd29ea2e20561cf2ff173d959a857
                         </div>
                     @endif
 
@@ -246,15 +248,15 @@
             </div>
         </nav>
         @if(session('success'))
-  <!-- Notification Card -->
-  <div class="notification-card" id="welcomeNotification">
-    <i class="fas fa-heart"></i>
-    <div class="notification-text">
-      <h3>Welcome to Sahateck Family! 🎉</h3>
-      <p>{{ session('success') }}</p>
-    </div>
-  </div>
-@endif
+            <!-- Notification Card -->
+            <div class="notification-card" id="welcomeNotification">
+                <i class="fas fa-heart"></i>
+                <div class="notification-text">
+                    <h3>Welcome to Sahateck Family! 🎉</h3>
+                    <p>{{ session('success') }}</p>
+                </div>
+            </div>
+        @endif
 
         <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
             <div class="container">
