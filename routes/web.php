@@ -1,8 +1,12 @@
 <?php
 
 use App\Http\Controllers\authController;
+use App\Http\Controllers\docController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MyController;
+
+
 
 Route::get('/', function () {
 
@@ -18,7 +22,12 @@ Route::post("/login", [authController::class, 'login'])->name('login');
 
 Route::post("/sign", [authController::class, 'store'])->name('sign');
 
+Route::post('/registerp', [docController::class, 'store'])->name('registerp');
+
 /**** */
+Route::get('/docdash', function(){
+    return view('doctors');
+})->name('doctors');
 
 Route::get('/profile', function () {
     if (!auth()->check()) {

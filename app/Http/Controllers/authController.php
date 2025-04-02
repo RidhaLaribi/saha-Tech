@@ -39,15 +39,22 @@ class authController extends Controller
             'password' => Hash::make(value: $request->password) // Hashing the password before storing
         ]);
 
-        return redirect()->route('login')
-            ->with('success', "Welcome to Sahateck Family! Your health journey starts here. We're honored to be part of your care.");
+
+        patient::create([
+            'user_id' => $user->id,
+            'age' => $request->age,
+            'sexe' => $request->sexe,
+            'telephone' => $request->telephone
+        ]);
+
+        return redirect()->route('login');
 
     }
 
     public function login(Request $r)
     {
         $r->validate([
-            "email" => 'required',
+            "iden" => 'required',
             "password" => 'required'
         ]);
 
@@ -57,12 +64,9 @@ class authController extends Controller
         // Check if password is correct
 
         // Log in manually since Auth::attempt() is failing due to 'pass' column
-        if (auth::attempt(["email" => $r->email, "password" => $r->password])) {
-
+        if (auth::attempt(["email" => $r->iden, "password" => $r->password])) {
             $r->session()->regenerate();
-
             session(['user' => Auth::user()]);
-
             return redirect()->route("home");
         }
         return back()->withErrors(['login' => 'Invalid email or password.']);

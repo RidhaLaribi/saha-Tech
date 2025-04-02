@@ -309,7 +309,8 @@
       </p>
     </div>
     <div class="form-section">
-      <form id="signUpForm">
+      <form id="signUpForm" action="{{route('registerp')}}"  method="POST">
+        @csrf
         <div class="form-grid">
           <div class="input-group">
             <input type="text" name="prenom" placeholder="Prénom" required>
@@ -353,6 +354,15 @@
           </div>
         </div>
         <button type="submit">Valider l'inscription <i class="fas fa-check-circle"></i></button>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+              @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+        </div>
+    @endif
       </form>
     </div>
   </div>
@@ -380,21 +390,23 @@
       document.body.classList.toggle('dark-mode');
       document.querySelector('.dark-mode-toggle i').classList.toggle('fa-sun');
     });
-
-    // Form submission handling: show notification message if valid
     document.getElementById('signUpForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const inputs = e.target.querySelectorAll('input, select');
-      let valid = true;
-      inputs.forEach(input => {
-        if (!input.reportValidity()) valid = false;
-      });
-      if (valid) {
-        e.target.reset();
-        document.getElementById('registrationContainer').style.display = 'none';
-        document.getElementById('notificationMessage').style.display = 'block';
-      }
-    });
+  const inputs = e.target.querySelectorAll('input, select');
+  let valid = true;
+
+  inputs.forEach(input => {
+    if (!input.reportValidity()) valid = false;
+  });
+
+  if (valid) {
+    // Remove preventDefault() to allow Laravel to handle the form submission
+    document.getElementById('registrationContainer').style.display = 'none';
+    document.getElementById('notificationMessage').style.display = 'block';
+  } else {
+    e.preventDefault(); // Only prevent submission if form is invalid
+  }
+});
+
   </script>
 </body>
 
