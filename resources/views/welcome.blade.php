@@ -233,11 +233,7 @@
                         </script>
                     @else
                         <div class="d-none d-lg-block">
-<<<<<<< HEAD
                             <a href="{{ route('profile') }}" class="navbar-icon bi-person smoothscroll"></a>
-=======
-                            <a href="{{('profile')}}" class="navbar-icon bi-person smoothscroll"></a>
->>>>>>> 23197036c92bd29ea2e20561cf2ff173d959a857
                         </div>
                     @endif
 

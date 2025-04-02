@@ -45,7 +45,8 @@ class authController extends Controller
             'telephone' => $request->telephone
         ]);
 
-        return redirect()->route('login');
+        return redirect()->route('login')
+        ->with('success', "Welcome to Sahateck Family! Your health journey starts here. We're honored to be part of your care.");
 
     }
 

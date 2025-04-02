@@ -459,7 +459,16 @@
   </div>
 
   <!-- Notification Card -->
- 
+  @if(session('success'))
+  <!-- Notification Card -->
+  <div class="notification-card" id="welcomeNotification">
+    <i class="fas fa-heart"></i>
+    <div class="notification-text">
+      <h3>Welcome to Sahateck Family! 🎉</h3>
+      <p>{{ session('success') }}</p>
+    </div>
+  </div>
+@endif
 
   <script>
     // Show/hide forms
