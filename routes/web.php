@@ -25,13 +25,13 @@ Route::post("/sign", [authController::class, 'store'])->name('sign');
 Route::post('/registerp', [docController::class, 'store'])->name('registerp');
 
 /**** */
-Route::get('/docdash', function(){
+Route::get('/docdash', function () {
     return view('doctors');
 })->name('doctors');
 
 Route::get('/profile', function () {
     if (!auth()->check()) {
-        return redirect()->route('/signin');
+        return redirect()->route('signin');
     }
     $user = auth::user();
     //return $user->rendezvous[1]->rendezvous;
