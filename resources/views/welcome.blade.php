@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Topic Listing Bootstrap 5 Template</title>
+    <title>SehaTech</title>
 
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -84,7 +84,7 @@
             <div class="container">
                 <a class="navbar-brand" href="index.html">
                     <i class="bi-back"></i>
-                    <span>Topic</span>
+                    <span>Sehatech</span>
                 </a>
 
                 <div class="d-lg-none ms-auto me-4">
@@ -118,15 +118,7 @@
                             <a class="nav-link click-scroll" href="#section_4">FAQs</a>
                         </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
 
-                            <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                <li><a class="dropdown-item" href="topics-listing.html">Topics Listing</a></li>
-                                <li><a class="dropdown-item" href="contact.html">Contact Form</a></li>
-                            </ul>
-                        </li>
                     </ul>
 
                     <!-- Fixed: ID syntax and class attribute -->
@@ -241,7 +233,11 @@
                         </script>
                     @else
                         <div class="d-none d-lg-block">
+<<<<<<< HEAD
+                            <a href="{{ route('profile') }}" class="navbar-icon bi-person smoothscroll"></a>
+=======
                             <a href="{{('profile')}}" class="navbar-icon bi-person smoothscroll"></a>
+>>>>>>> 23197036c92bd29ea2e20561cf2ff173d959a857
                         </div>
                     @endif
 
@@ -265,9 +261,9 @@
                 <div class="row">
 
                     <div class="col-lg-8 col-12 mx-auto">
-                        <h1 class="text-white text-center">Discover. Learn. Enjoy</h1>
+                        <h1 class="text-white text-center">Discover</h1>
 
-                        <h6 class="text-center">platform for creatives around the world</h6>
+                        <h6 class="text-center">...</h6>
 
                         <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
                             <div class="input-group input-group-lg">
@@ -275,8 +271,8 @@
 
                                 </span>
 
-                                <input name="keyword" type="search" class="form-control" id="keyword"
-                                    placeholder="Design, Code, Marketing, Finance ..." aria-label="Search">
+                                <input name="keyword" type="search" class="form-control" id="keyword" placeholder="..."
+                                    aria-label="Search">
 
                                 <button type="submit" class="form-control">Search</button>
                             </div>
@@ -294,23 +290,25 @@
                     <div class="col-lg-8 col-12">
                         <div class="custom-block custom-block-overlay">
                             <div class="d-flex flex-column h-100">
-                                <img src="images/businesswoman-using-tablet-analysis.jpg" class="custom-block-image img-fluid" alt="">
-        
+                                <img src="images/businesswoman-using-tablet-analysis.jpg"
+                                    class="custom-block-image img-fluid" alt="">
+
                                 <div class="custom-block-overlay-text d-flex flex-column align-items-center">
                                     <form action="" id="aiForm" class="glass-form">
                                         <h5 class="text-white mb-3 " style="font-family: 'Lato ', sans-serif !important;
     font-weight: 600;">Feel free to ask our chatbot AI Jemy, your medical assistant.</h5>
-        
+
                                         <div class="custom-form">
                                             <p id="responsechat" class="response-box text-white text-center mb-3"></p>
-        
-                                            <input type="text" id="prompt" name="prompt" class="form-control" placeholder="Ask a medical question..." required>
-        
+
+                                            <input type="text" id="prompt" name="prompt" class="form-control"
+                                                placeholder="Ask a medical question..." required>
+
                                             <button type="submit" class="btn-submit">Ask</button>
                                         </div>
                                     </form>
                                 </div>
-        
+
                                 <div class="section-overlay"></div>
                             </div>
                         </div>
@@ -318,9 +316,9 @@
                 </div>
             </div>
         </section>
-        
-       
-        
+
+
+
         <script>
 
             document.addEventListener("DOMContentLoaded", () => {
@@ -373,7 +371,7 @@
                                 <div class="owl-carousel-info">
                                     <h4 class="mb-2">
                                         Candice
-                                        
+
                                     </h4>
 
                                     <span class="badge">Storytelling</span>
@@ -401,7 +399,7 @@
                                 <div class="owl-carousel-info">
                                     <h4 class="mb-2">
                                         William
-                                        
+
                                     </h4>
 
                                     <span class="badge">Creative</span>
@@ -456,7 +454,8 @@
                             </div>
 
                             <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/doctor-preparing-consult.jpg" class="owl-carousel-image img-fluid" alt="">
+                                <img src="images/profile/doctor-preparing-consult.jpg"
+                                    class="owl-carousel-image img-fluid" alt="">
 
                                 <div class="owl-carousel-info">
                                     <h4 class="mb-2">Nick</h4>
@@ -484,7 +483,7 @@
                                 <div class="owl-carousel-info">
                                     <h4 class="mb-2">
                                         Elsa
-                                        
+
                                     </h4>
 
                                     <span class="badge">Influencer</span>
@@ -560,7 +559,9 @@
                                 <li>
                                     <h4 class="text-white mb-3"> 1. Find Your Doctor & Book an Appointment</h4>
 
-                                    <p class="text-white">Search for doctors and laboratories by specialty and location. Check reviews, availability, and book your appointment online in just a few clicks.
+                                    <p class="text-white">Search for doctors and laboratories by specialty and location.
+                                        Check reviews, availability, and book your appointment online in just a few
+                                        clicks.
                                     </p>
 
                                     <div class="icon-holder">
@@ -571,7 +572,8 @@
                                 <li>
                                     <h4 class="text-white mb-3">2. Manage & Track Your Consultations</h4>
 
-                                    <p class="text-white">Access your personal space to manage appointments, receive automatic email reminders, and view your medical history and documents.</p>
+                                    <p class="text-white">Access your personal space to manage appointments, receive
+                                        automatic email reminders, and view your medical history and documents.</p>
 
                                     <div class="icon-holder">
                                         <i class="bi-bookmark"></i>
@@ -581,7 +583,9 @@
                                 <li>
                                     <h4 class="text-white mb-3">3. Attend, Review &amp; Follow Up on Your Health</h4>
 
-                                    <p class="text-white">Attend your appointment with confidence. After the consultation, leave a review for your doctor and benefit from follow-up services to ensure continuous care.</p>
+                                    <p class="text-white">Attend your appointment with confidence. After the
+                                        consultation, leave a review for your doctor and benefit from follow-up services
+                                        to ensure continuous care.</p>
 
                                     <div class="icon-holder">
                                         <i class="bi-book"></i>
@@ -602,81 +606,6 @@
         </section>
 
 
-        <section class="faq-section section-padding" id="section_4">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-6 col-12">
-                        <h2 class="mb-4">Frequently Asked Questions</h2>
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                    <div class="col-lg-5 col-12">
-                        <img src="images/faq_graphic.jpg" class="img-fluid" alt="FAQs">
-                    </div>
-
-                    <div class="col-lg-6 col-12 m-auto">
-                        <div class="accordion" id="accordionExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        What is Topic Listing?
-                                    </button>
-                                </h2>
-
-                                <div id="collapseOne" class="accordion-collapse collapse show"
-                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        Topic Listing is free Bootstrap 5 CSS template. <strong>You are not allowed to
-                                            redistribute this template</strong> on any other template collection website
-                                        without our permission. Please contact TemplateMo for more detail. Thank you.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        How to find a topic?
-                                    </button>
-                                </h2>
-
-                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                                    data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        You can search on Google with <strong>keywords</strong> such as templatemo
-                                        portfolio, templatemo one-page layouts, photography, digital marketing, etc.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseThree" aria-expanded="false"
-                                        aria-controls="collapseThree">
-                                        Does it need to paid?
-                                    </button>
-                                </h2>
-
-                                <div id="collapseThree" class="accordion-collapse collapse"
-                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        You can modify any of this with custom CSS or overriding our default variables.
-                                        It's also worth noting that just about any HTML can go within the
-                                        <code>.accordion-body</code>, though the transition does limit overflow.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
 
 
 
@@ -689,7 +618,7 @@
                 <div class="col-lg-3 col-12 mb-4 pb-2">
                     <a class="navbar-brand mb-2" href="index.html">
                         <i class="bi-back"></i>
-                        <span>Topic</span>
+                        <span>SehaTech</span>
                     </a>
                 </div>
 
@@ -705,9 +634,7 @@
                             <a href="#" class="site-footer-link">How it works</a>
                         </li>
 
-                        <li class="site-footer-link-item">
-                            <a href="#" class="site-footer-link">FAQs</a>
-                        </li>
+
 
                         <li class="site-footer-link-item">
                             <a href="#" class="site-footer-link">Contact</a>
@@ -737,16 +664,10 @@
                             aria-expanded="false">
                             English</button>
 
-                        <ul class="dropdown-menu">
-                            <li><button class="dropdown-item" type="button">Thai</button></li>
 
-                            <li><button class="dropdown-item" type="button">Myanmar</button></li>
-
-                            <li><button class="dropdown-item" type="button">Arabic</button></li>
-                        </ul>
                     </div>
 
-                    <p class="copyright-text mt-lg-5 mt-4">Copyright © 2048 Topic Listing Center. All rights reserved.
+                    <p class="copyright-text mt-lg-5 mt-4">
                         <br><br>Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a>
                     </p>
 

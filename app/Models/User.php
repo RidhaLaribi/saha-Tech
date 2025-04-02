@@ -39,6 +39,6 @@ class User extends Authenticatable
     }
     public function rendezvous()
     {
-        return $this->hasMany(rendezvous::class, "idrdv");
+        return $this->hasMany(rendezvous::class, "user_id");
     }
 }
