@@ -2,13 +2,12 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portail Patient - Accès & Inscription</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <style>
-        /* Réinitialisation et styles de base */
-
+        /* RESET & BASIC STYLES */
         * {
             margin: 0;
             padding: 0;
@@ -18,7 +17,6 @@
 
         body {
             background: #fff;
-            /* Fond blanc */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,8 +24,7 @@
             overflow: hidden;
         }
 
-        /* Conteneur principal en disposition horizontale */
-
+        /* CONTAINER */
         .container {
             background: #fff;
             width: 90%;
@@ -40,8 +37,7 @@
             position: relative;
         }
 
-        /* Section Héros */
-
+        /* HERO SECTION */
         .hero-section {
             flex: 1;
             background: linear-gradient(135deg, #00796b, #005f56);
@@ -88,8 +84,7 @@
             font-size: 1rem;
         }
 
-        /* Section Formulaire */
-
+        /* FORM SECTION */
         .form-section {
             flex: 1.2;
             padding: 2rem;
@@ -98,25 +93,34 @@
             justify-content: center;
         }
 
-        .form-section form {
+        /* FORMS */
+        form {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
 
-        /* Augmenter l'espacement dans le formulaire d'inscription */
-
         #signUpForm {
-            gap: 2.5rem;
+            display: none;
+            /* hidden by default; shown on link click */
+        }
+
+        /* TWO-COLUMN GRID FOR SIGN-UP FORM */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
 
         .input-group {
             position: relative;
         }
 
-        input {
+        input,
+        select {
             width: 100%;
-            padding: 10px 15px;
+            padding: 12px;
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 1rem;
@@ -124,10 +128,19 @@
             background: #fff;
         }
 
-        input:focus {
+        input:focus,
+        select:focus {
             border-color: #00796b;
             box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.1);
             outline: none;
+        }
+
+        select {
+            appearance: none;
+            /* Hide default arrow in some browsers */
+            background: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='10' viewBox='0 0 8 10'%3E%3Cpath fill='%2300796b' d='M0 0l4 5 4-5z'/%3E%3C/svg%3E") no-repeat;
+            background-position: right 10px center;
+            background-size: 10px;
         }
 
         .toggle-password {
@@ -148,6 +161,10 @@
             cursor: pointer;
             font-size: 1rem;
             transition: background 0.3s, transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         button:hover {
@@ -155,8 +172,20 @@
             transform: translateY(-3px);
         }
 
-        /* Options pour le formulaire de connexion */
+        .switch-form {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
 
+        .switch-form a {
+            color: #00796b;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* OPTIONS (REMEMBER ME, ETC.) */
         .options {
             display: flex;
             justify-content: space-between;
@@ -217,21 +246,7 @@
             text-decoration: none;
         }
 
-        .switch-form {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .switch-form a {
-            color: #00796b;
-            text-decoration: none;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        /* Bouton de basculement du mode sombre */
-
+        /* DARK MODE */
         .dark-mode-toggle {
             position: fixed;
             top: 20px;
@@ -242,8 +257,6 @@
             z-index: 2;
         }
 
-        /* Styles pour le mode sombre */
-
         .dark-mode {
             background: #2a2a2a;
             color: #fff;
@@ -253,7 +266,8 @@
             background: #363636;
         }
 
-        .dark-mode input {
+        .dark-mode input,
+        .dark-mode select {
             background: #444;
             border-color: #555;
             color: #fff;
@@ -280,6 +294,7 @@
             color: #00a896;
         }
 
+        /* RESPONSIVE */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -291,8 +306,7 @@
             }
         }
 
-        /* Notification Card Styles */
-
+        /* NOTIFICATION CARD */
         .notification-card {
             position: fixed;
             bottom: 30px;
@@ -302,7 +316,7 @@
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             border-left: 4px solid #00796b;
-            display: none;
+
             align-items: center;
             gap: 15px;
             max-width: 350px;
@@ -352,14 +366,13 @@
         <!-- Section Formulaire -->
         <div class="form-section">
             <!-- Formulaire de Connexion -->
-            <form method="post" action="{{ route("login") }}" id="signInForm">
-                @csrf
+            <form id="signInForm">
                 <h2 style="text-align: center; margin-bottom: 0.5rem; color: #00796b;">Connexion</h2>
                 <div class="input-group">
-                    <input type="text" placeholder="E-mail" name="email" required>
+                    <input type="tel" placeholder="Numéro de téléphone" pattern="[0-9]{10}" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" placeholder="Mot de passe" name="password" required>
+                    <input type="password" placeholder="Mot de passe" required>
                     <i class="fas fa-eye toggle-password"></i>
                 </div>
                 <div class="options">
@@ -375,15 +388,17 @@
                 </div>
             </form>
             <!-- Formulaire d'Inscription (sans "Se souvenir de moi") -->
-            <form method="post" action="{{ route("sign") }}" id="signUpForm" style="display: none;">
-                @csrf
+            <form id="signUpForm" style="display: none;">
                 <h2 style="text-align: center; margin-bottom: 0.5rem; color: #00796b;">Création de Compte</h2>
-
                 <div class="input-group">
-                    <input type="text" name="name" placeholder="Nom" required>
+                    <input type="text" name="prenom" placeholder="Prénom" required>
                 </div>
                 <div class="input-group">
-                    <input type="tel" name="telephone" placeholder="Téléphone (10 chiffres)" pattern="[0-9]{10}">
+                    <input type="text" name="nom" placeholder="Nom de famille" required>
+                </div>
+                <div class="input-group">
+                    <input type="tel" name="telephone" placeholder="Téléphone (10 chiffres)" pattern="[0-9]{10}"
+                        required>
                 </div>
                 <div class="input-group">
                     <input type="email" name="email" placeholder="Email" required>
@@ -433,19 +448,24 @@
             document.querySelector('.dark-mode-toggle i').classList.toggle('fa-sun');
         });
         // Gestion des soumissions du formulaire de Connexion
-
+        document.getElementById('signInForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (document.querySelector('#signInForm input[type="tel"]').validity.valid) {
+                alert('Connexion réussie !');
+            }
+        });
         // Gestion des soumissions du formulaire d'Inscription pour Patient
-        // document.getElementById('signUpForm').addEventListener('submit', (e) => {
-        //     e.preventDefault();
-        //     let valid = true;
-        //     document.querySelectorAll('#signUpForm input').forEach(input => {
-        //         if (!input.reportValidity()) valid = false;
-        //     });
-        //     if (valid) {
-        //         showNotification('patient');
-        //         e.target.reset();
-        //     }
-        // });
+        document.getElementById('signUpForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            let valid = true;
+            document.querySelectorAll('#signUpForm input').forEach(input => {
+                if (!input.reportValidity()) valid = false;
+            });
+            if (valid) {
+                showNotification('patient');
+                e.target.reset();
+            }
+        });
 
         function showNotification(type) {
             const notification = document.getElementById(

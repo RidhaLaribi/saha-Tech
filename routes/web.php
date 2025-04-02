@@ -38,9 +38,7 @@ Route::get('/medecin', function () {
     return view('medecin');
 })->name('medecin');
 
-Route::get('/db', function () {
-    return view('database');
-});
+
 
 
 
