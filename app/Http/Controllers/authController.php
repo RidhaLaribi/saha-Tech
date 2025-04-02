@@ -27,9 +27,9 @@ class authController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'age'=>'required',
-            'sexe'=>'required',
-            'telephone'=>'required',
+            'age' => 'required',
+            'sexe' => 'required',
+            'telephone' => 'required',
             'password' => 'required'
         ]);
 
@@ -38,8 +38,10 @@ class authController extends Controller
             'email' => $request->email,
             'password' => Hash::make(value: $request->password) // Hashing the password before storing
         ]);
+
+
         patient::create([
-            'user_id' => $user->id, 
+            'user_id' => $user->id,
             'age' => $request->age,
             'sexe' => $request->sexe,
             'telephone' => $request->telephone
