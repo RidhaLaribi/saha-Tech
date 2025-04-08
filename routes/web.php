@@ -58,5 +58,6 @@ Route::post('/upload-file', [resController::class, 'upload'])->name('files.uploa
 Route::post('/changep', [resController::class, 'changep'])->name('changep.toggle');
 
 Route::post("/addMember", [resController::class, "addMember"])->name("addMember");
+Route::post("del", [resController::class, 'delPatient'])->name("remove_P");
 
 

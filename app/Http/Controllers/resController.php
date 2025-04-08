@@ -192,5 +192,14 @@ class resController extends Controller
         return redirect()->back()->with('success', 'Patient and files added successfully!');
     }
 
+    function delPatient(Request $request)
+    {
+        $request->validate([
+            'id' => 'required'
+        ]);
+        Patient::where(['id' => $request->id])->delete();
+        return redirect()->back()->with('success', 'Patient and files deleted successfully!');
+    }
+
 
 }

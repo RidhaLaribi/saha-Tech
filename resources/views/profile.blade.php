@@ -444,7 +444,7 @@ calendar links-->
                                                  },*/
 
                                                 @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           {
                                                         title: 'Rendez-vous',
                                                         start: '{{$re->rendezvous}}',
                                                         url: 'https://youtube.com/',
@@ -884,13 +884,16 @@ calendar links-->
                                                 <div>
                                                     <h5 class="mb-2">remove a member</h5>
                                                     <p class="mb-0"></p>
-                                                    <form class="person-form-container person-form">
+                                                    <form class="person-form-container person-form"
+                                                        action="{{route('remove_P') }}" method="post">
+                                                        @csrf
                                                         <label for="person">Choose a Person:</label>
-                                                        <select id="person" name="person">
-                                                            <option value="">Select...</option>
-                                                            <option value="person1">Father</option>
-                                                            <option value="person2">Mother</option>
-                                                            <option value="person3">son</option>
+                                                        <select id="person" name="id">
+                                                            <option value="" disabled selected>Select...</option>
+                                                            @foreach ($patients->skip(1) as $p)
+                                                                <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                                            @endforeach
+
                                                         </select>
                                                         <button type="submit">Submit</button>
                                                     </form>
@@ -922,7 +925,7 @@ calendar links-->
                                                                 class="custom-input" name="name" required>
 
                                                             <input type="text" placeholder="Relation"
-                                                                class="custom-input" name="relation" required>
+                                                                class="custom-input" name="relation">
 
                                                             <input type="number" placeholder="Age" class="custom-input"
                                                                 name="age" required>
