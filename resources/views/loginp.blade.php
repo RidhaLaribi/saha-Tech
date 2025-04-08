@@ -234,7 +234,7 @@
       border-radius: 12px;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
       text-align: center;
-      display: none;
+      display: block;
       z-index: 1000;
       border: 4px solid #00796b;
       animation: fadeIn 0.5s ease-out;
@@ -265,7 +265,7 @@
       color: #fff;
     }
 
-    .notification-message button {
+    .notification-message a {
       background: #fff;
       color: #00796b;
       border: none;
@@ -278,7 +278,7 @@
       transition: background 0.3s ease;
     }
 
-    .notification-message button:hover {
+    .notification-message a:hover {
       background: #e0e0e0;
     }
     .logo {
@@ -298,7 +298,7 @@
   <div class="dark-mode-toggle">
     <i class="fas fa-moon"></i>
   </div>
-
+@if(!session('success'))
   <div class="container" id="registrationContainer">
     <div class="hero-section">
       <i class="fas fa-user-md medical-icon"></i>
@@ -375,6 +375,7 @@
       </form>
     </div>
   </div>
+  @endif
 
   <!-- Notification Message -->
   @if(session('success'))
@@ -402,30 +403,8 @@
       document.body.classList.toggle('dark-mode');
       document.querySelector('.dark-mode-toggle i').classList.toggle('fa-sun');
     });
-    document.getElementById('signUpForm').addEventListener('submit', (e) => {
-  const inputs = e.target.querySelectorAll('input, select');
-  let valid = true;
-
-  inputs.forEach(input => {
-    if (!input.reportValidity()) valid = false;
-  });
-
-  if (valid) {
-    // Remove preventDefault() to allow Laravel to handle the form submission
-    document.getElementById('registrationContainer').style.display = 'none';
-    document.getElementById('notificationMessage').style.display = 'block';
-  } else {
-    e.preventDefault(); // Only prevent submission if form is invalid
-  }
-});
 
 
-setTimeout(function() {
-    var notification = document.getElementById('welcomenotification');
-    if (notification) {
-      notification.style.display = 'none';
-    }
-  }, 6000);
 
   </script>
 </body>
