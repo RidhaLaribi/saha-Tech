@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\authController;
+use App\Http\Controllers\resController;
+
 use App\Http\Controllers\docController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,15 +31,7 @@ Route::get('/docdash', function () {
     return view('doctors');
 })->name('doctors');
 
-Route::get('/profile', function () {
-    if (!auth()->check()) {
-        return redirect()->route('signin');
-    }
-    $user = auth::user();
-    //return $user->rendezvous[1]->rendezvous;
-    // ; //hada rendi-v afficher f calendier
-    return view('profile')->with('r', $user->rendezvous)->with('user', auth::user());
-})->name('profile');
+Route::get('/profile', [resController::class, "showProfile"])->name('profile');
 
 Route::get('/loginp', function () {
     return view('loginp');
@@ -47,8 +41,16 @@ Route::get('/medecin', function () {
     return view('medecin');
 })->name('medecin');
 
+Route::post("logout", [authController::class, 'logout'])->name("logout");
 
 
 
+Route::post('toggle-modify', [resController::class, 'toggleModify'])->name('modify.toggle');
+
+Route::post("update", [resController::class, 'updateInfo'])->name("modify");
+
+
+
+Route::post('/upload-file', [resController::class, 'upload'])->name('files.upload');
 
 

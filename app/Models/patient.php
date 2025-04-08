@@ -9,13 +9,13 @@ class Patient extends Model
 {
     use HasFactory;
 
-    protected $table = 'patients'; 
+    protected $table = 'patients';
 
     protected $fillable = [
         'user_id',
+        'name',
         'age',
         'sexe',
-        'telephone',
     ];
 
     // Define the relationship: A patient belongs to a user

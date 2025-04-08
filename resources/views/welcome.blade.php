@@ -93,13 +93,12 @@
                     <span>Sehatech</span>
                 </a>
 
-                <div class="d-lg-none ms-auto me-4">
+                @if ($id != null)
 
-
-                    <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
-
-
-                </div>
+                    <div class="d-lg-none ms-auto me-4">
+                        <a href="{{ route('profile') }}" class="navbar-icon bi-person smoothscroll"></a>
+                    </div>
+                @endif
 
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

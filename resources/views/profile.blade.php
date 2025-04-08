@@ -51,24 +51,41 @@ calendar links-->
 
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="{{route("home")}}">
                     <i class="bi-back"></i>
                     <span>SehaTech</span>
                 </a>
 
+
+
                 <div class="d-lg-none ms-auto me-4">
+                    <a href="{{ route('logout') }}" class="navbar-icon b-logout"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="bi bi-box-arrow-right"></i> <!-- Bootstrap logout icon -->
+                    </a>
 
-
-                    <a href="#top" class="navbar-icon b-notification smoothscroll"></a>
-
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
 
                 </div>
+
+
+
+
+
+
+
+
+
+
 
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-lg-5 me-lg-auto">
@@ -93,56 +110,102 @@ calendar links-->
 
 
                     </div>
+
+                    <div class="d-none d-lg-block" style="padding-left: 5px">
+                        <a href="#" class="navbar-icon b-notification smoothscroll"
+                            onclick="event.preventDefault();document.getElementById('modify').submit()">
+                            <i class="bi bi-pencil-square"></i> <!-- Bootstrap edit/modification icon -->
+                        </a>
+                        <form method="POST" action="{{ route('modify.toggle') }}" id="modify">
+                            @csrf
+
+                        </form>
+                    </div>
+
+
+
+
+
+
+                    <div class="d-none d-lg-block" style="padding-left: 5px">
+                        <a href="{{ route('logout') }}" class="navbar-icon b-logout"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="bi bi-box-arrow-right"></i> <!-- Bootstrap logout icon -->
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </nav>
 
 
+        @if(!session('modifying'))
 
-        <section class="hero-section d-flex justify-content-center align-items-center" id="section_1" class="vh-100">
-            <div class="container py-5 h-100">
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col col-lg-6 mb-4 mb-lg-0">
-                        <div class="card mb-3" style="border-radius: .5rem;">
-                            <div class="row g-0">
-                                <div class="col-md-4 gradient-custom text-center text-white"
-                                    style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                                    <img src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
-                                        alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-                                    <h5> {{$user->name}} </h5>
-                                    <p>patient</p>
-                                    <i class="far fa-edit mb-5"></i>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body p-4">
-                                        <h6>info</h6>
-                                        <hr class="mt-0 mb-4">
-                                        <div class="row pt-1">
-                                            <div class="col-6 mb-3">
-                                                <h6>Email</h6>
-                                                <p class="text-muted">info@example.com</p>
+            <section class="hero-section d-flex justify-content-center align-items-center" id="section_1" class="vh-100">
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col col-lg-6 mb-4 mb-lg-0">
+                            <div class="card mb-3" style="border-radius: .5rem;">
+                                <div class="row g-0">
+                                    <div class="col-md-4 gradient-custom text-center text-white"
+                                        style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                                        @if ($user->pic == null)
+                                            <img src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
+                                                alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+                                        @else
+                                            <a href="" id="changepic">
+                                                <img src="{{asset('storage/' . $user->pic)}}" alt=" Avatar"
+                                                    class="img-fluid my-5"
+                                                    style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #000;" />
+                                            </a>
+
+                                        @endif
+
+
+
+                                        <h5> {{$user->name}} </h5>
+                                        <p>patient</p>
+                                        <i class="far fa-edit mb-5"></i>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <div class="card-body p-4">
+                                            <h6>info</h6>
+                                            <hr class="mt-0 mb-4">
+                                            <div class="row pt-1">
+                                                <div class="col-6 mb-3">
+                                                    <h6>Email</h6>
+                                                    <p class="text-muted">{{$user->email}} </p>
+                                                </div>
+                                                <div class="col-6 mb-3">
+                                                    <h6>Phone</h6>
+
+
+                                                    <p class="text-muted">123 456 789</p>
+
+                                                </div>
                                             </div>
-                                            <div class="col-6 mb-3">
-                                                <h6>Phone</h6>
-                                                <p class="text-muted">123 456 789</p>
+                                            <h6></h6>
+                                            <hr class="mt-0 mb-4">
+                                            <div class="row pt-1">
+                                                <div class="col-6 mb-3">
+                                                    <h6>age</h6>
+                                                    <p class="text-muted">44</p>
+                                                </div>
+                                                <div class="col-6 mb-3">
+                                                    <h6>last doctor's visit</h6>
+                                                    <p class="text-muted"></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <h6></h6>
-                                        <hr class="mt-0 mb-4">
-                                        <div class="row pt-1">
-                                            <div class="col-6 mb-3">
-                                                <h6>age</h6>
-                                                <p class="text-muted">44</p>
+                                            <div class="d-flex justify-content-start">
+                                                <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
+                                                <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                                                <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
                                             </div>
-                                            <div class="col-6 mb-3">
-                                                <h6>last doctor's visit</h6>
-                                                <p class="text-muted"></p>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-start">
-                                            <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                                            <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                                            <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -150,8 +213,84 @@ calendar links-->
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @else
+            <form action="{{route('modify')}}" method="post" enctype="multipart/form-data">
+                @csrf
+
+                <section class="hero-section d-flex justify-content-center align-items-center" id="section_1"
+                    class="vh-100">
+                    <div class="container py-5 h-100">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col col-lg-6 mb-4 mb-lg-0">
+                                <div class="card mb-3" style="border-radius: .5rem;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4 gradient-custom text-center text-white"
+                                            style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                                            @if ($user->pic == null)
+                                                <img src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
+                                                    alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+                                            @else
+                                                <img src="{{asset('storage/' . $user->pic)}}" alt=" Avatar"
+                                                    class="img-fluid my-5"
+                                                    style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #000;" />
+                                            @endif
+
+                                            <input type="file" name="pic" class="form-control">
+
+
+                                            <h5> {{$user->name}} </h5>
+                                            <p>patient</p>
+                                            <i class="far fa-edit mb-5"></i>
+                                        </div>
+
+                                        <div class="col-md-8">
+                                            <div class="card-body p-4">
+                                                <h6>info</h6>
+                                                <hr class="mt-0 mb-4">
+                                                <div class="row pt-1">
+                                                    <div class="col-6 mb-3">
+                                                        <h6>Email</h6>
+                                                        <input type="email" name="email" id="" value="{{$user->email}}">
+
+                                                    </div>
+                                                    <div class="col-6 mb-3">
+                                                        <h6>Phone</h6>
+
+                                                        <input type="text" placeholder="" value="123 456 789">
+
+                                                    </div>
+                                                </div>
+                                                <h6></h6>
+                                                <hr class="mt-0 mb-4">
+                                                <div class="row pt-1">
+                                                    <div class="col-6 mb-3">
+                                                        <h6>age</h6>
+                                                        <p class="text-muted">44</p>
+                                                    </div>
+                                                    <div class="col-6 mb-3">
+                                                        <h6>Submit</h6>
+                                                        <button type="submit">save</button>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-start">
+                                                    <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
+                                                    <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                                                    <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </form>
+
+
+        @endif
+
 
 
 
@@ -286,7 +425,7 @@ calendar links-->
 
                                         var calendar = new FullCalendar.Calendar(calendarEl, {
                                             plugins: ['interaction', 'dayGrid'],
-                                            defaultDate: '2025-03-19',
+                                            defaultDate: '2025-04-19',
                                             editable: true,
                                             eventLimit: true, // allow "more" link when too many events
                                             events: [
@@ -300,8 +439,8 @@ calendar links-->
                                                  },*/
 
                                                 @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           {
-                                                        title: 'tbib',
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {
+                                                        title: 'Rendez-vous',
                                                         start: '{{$re->rendezvous}}',
                                                         url: 'https://youtube.com/',
                                                     },
@@ -495,13 +634,15 @@ calendar links-->
 
                                     <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
                                         <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
+                                            <a href="" id="showf">
                                                 <div class="d-flex">
+
                                                     <div>
                                                         <h5 class="mb-2">Files</h5>
 
                                                         <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
                                                     </div>
+
 
                                                 </div>
 
@@ -511,6 +652,110 @@ calendar links-->
                                         </div>
                                     </div>
 
+
+                                    <div id="myfiles" class="col-lg-4 col-md-6 col-12 mb-4 myfiles">
+                                        <div class="custom-block bg-white " style=" overflow-y: auto; ">
+
+                                            <div class="d-flex">
+                                                <div style=" overflow-y: auto; ">
+
+                                                    <a href="" id="ret_fil" class="retour-button">
+                                                        Retour
+                                                    </a>
+                                                    @if(session('modifying'))
+
+
+                                                        <a href="" id="add_fil" class="retour-button">
+                                                            Add File
+                                                        </a>
+                                                        {{-- <input type="text" name="name of the file or is about what"
+                                                            id="" style="margin-left: 120px;margin-top: 10px ;"> --}}
+
+                                                        <!-- Hidden form for file upload -->
+                                                        <form id="uploadForm" action="{{ route('files.upload') }}"
+                                                            method="POST" enctype="multipart/form-data"
+                                                            style="display: none;">
+                                                            @csrf
+                                                            <input type="file" name="files[]" id="fileInput" multiple
+                                                                onchange="document.getElementById('uploadForm').submit();">
+                                                        </form>
+                                                    @endif
+                                                    <!-- Trigger link -->
+
+                                                    <!-- Trigger the file input click -->
+                                                    <script>
+                                                        document.getElementById('add_fil').addEventListener('click', function (e) {
+                                                            e.preventDefault();
+                                                            document.getElementById('fileInput').click();
+                                                        });
+                                                    </script>
+
+
+
+
+
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">File</th>
+                                                                <th scope="col">Date</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($files as $file)
+                                                                <tr>
+                                                                    <th scope="row">{{ $loop->iteration }}</th>
+                                                                    <td><a href="{{ asset('storage/' . $file->file_path) }}"
+                                                                            download>{{ Str::limit($file->mime, 20, '..') }}</a>
+                                                                    </td>
+                                                                    <td>{{ $file->created_at->format('Y-m-d H:i:s') }}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+
+
+
+
+                                                </div>
+
+                                            </div>
+                                            <script>
+                                                const divfil = document.getElementById('myfiles');
+                                                const ret_fil = document.getElementById('ret_fil');
+
+                                                const linkf = document.getElementById('showf');
+                                                linkf.addEventListener('click', function (e) {
+
+                                                    e.preventDefault();
+                                                    console.log("fdksj");
+
+                                                    divfil.style.transform = 'translateY(-790px)';
+
+
+                                                });
+
+                                                ret_fil.addEventListener('click', function (e) {
+
+                                                    e.preventDefault();
+                                                    divfil.style.transform = 'translateY(800px)';
+
+
+                                                });
+
+                                            </script>
+
+
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
                                     <div class="col-lg-4 col-md-6 col-12">
                                         <div class="custom-block bg-white shadow-lg">
                                             <a id="showN" href="">
@@ -518,7 +763,8 @@ calendar links-->
                                                     <div>
                                                         <h5 class="mb-2">Notes</h5>
 
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur
+                                                        </p>
                                                     </div>
 
                                                 </div>
@@ -554,7 +800,7 @@ calendar links-->
                                                                 <th scope="row">1</th>
                                                                 <td>Mark</td>
                                                                 <td>Otto</td>
-                                                                <td>@mdo</td>
+                                                                <td> {{$user->role}} </td>
                                                             </tr>
 
                                                             <tr>
@@ -660,7 +906,8 @@ calendar links-->
 
                                                             <input type="number" placeholder="Age" class="custom-input">
                                                             <select class="custom-input">
-                                                                <option value="" disabled selected>Gender</option>
+                                                                <option value="" disabled selected>Gender
+                                                                </option>
                                                                 <option value="male">Male</option>
                                                                 <option value="female">Female</option>
                                                             </select>
