@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portail Patient - Accès & Inscription</title>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <style>
     /* RESET & BASIC STYLES */
     * {
@@ -16,6 +14,7 @@
       box-sizing: border-box;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+
     body {
       background: #fff;
       display: flex;
@@ -51,29 +50,36 @@
       text-align: center;
       transition: transform 0.5s;
     }
+
     .hero-section:hover {
       transform: scale(1.03);
     }
+
     .hero-section i {
       font-size: 3rem;
       margin-bottom: 10px;
       animation: float 3s ease-in-out infinite;
     }
+
     @keyframes float {
       0% {
         transform: translateY(0);
       }
+
       50% {
         transform: translateY(-10px);
       }
+
       100% {
         transform: translateY(0);
       }
     }
+
     .hero-section h1 {
       font-size: 1.8rem;
       margin-bottom: 5px;
     }
+
     .hero-section p {
       font-size: 1rem;
     }
@@ -93,8 +99,10 @@
       flex-direction: column;
       gap: 1.5rem;
     }
+
     #signUpForm {
-      display: none; /* hidden by default; shown on link click */
+      display: none;
+      /* hidden by default; shown on link click */
     }
 
     /* TWO-COLUMN GRID FOR SIGN-UP FORM */
@@ -119,16 +127,18 @@
       transition: border 0.3s, box-shadow 0.3s;
       background: #fff;
     }
+
     input:focus,
     select:focus {
       border-color: #00796b;
       box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.1);
       outline: none;
     }
+
     select {
-      appearance: none; /* Hide default arrow in some browsers */
-      background: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='10' viewBox='0 0 8 10'%3E%3Cpath fill='%2300796b' d='M0 0l4 5 4-5z'/%3E%3C/svg%3E")
-        no-repeat;
+      appearance: none;
+      /* Hide default arrow in some browsers */
+      background: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='10' viewBox='0 0 8 10'%3E%3Cpath fill='%2300796b' d='M0 0l4 5 4-5z'/%3E%3C/svg%3E") no-repeat;
       background-position: right 10px center;
       background-size: 10px;
     }
@@ -156,6 +166,7 @@
       justify-content: center;
       gap: 0.5rem;
     }
+
     button:hover {
       background: #005f56;
       transform: translateY(-3px);
@@ -166,6 +177,7 @@
       margin-top: 1rem;
       font-size: 0.9rem;
     }
+
     .switch-form a {
       color: #00796b;
       text-decoration: none;
@@ -181,6 +193,7 @@
       font-size: 1rem;
       margin-bottom: 1rem;
     }
+
     .options label {
       display: flex;
       align-items: center;
@@ -190,9 +203,11 @@
       padding: 8px 12px;
       border-radius: 6px;
     }
+
     .options label:hover {
       background: rgba(0, 121, 107, 0.05);
     }
+
     .options input[type="checkbox"] {
       appearance: none;
       width: 20px;
@@ -203,10 +218,12 @@
       position: relative;
       transition: all 0.3s ease;
     }
+
     .options input[type="checkbox"]:checked {
       background: #00796b;
       border-color: #00796b;
     }
+
     .options input[type="checkbox"]:checked::after {
       content: '\f00c';
       font-family: 'Font Awesome 5 Free';
@@ -218,10 +235,12 @@
       transform: translate(-50%, -50%);
       font-size: 0.9rem;
     }
+
     .options label span {
       font-size: 0.95rem;
       color: #555;
     }
+
     .options a {
       color: #00796b;
       text-decoration: none;
@@ -237,32 +256,40 @@
       color: #00796b;
       z-index: 2;
     }
+
     .dark-mode {
       background: #2a2a2a;
       color: #fff;
     }
+
     .dark-mode .container {
       background: #363636;
     }
+
     .dark-mode input,
     .dark-mode select {
       background: #444;
       border-color: #555;
       color: #fff;
     }
+
     .dark-mode .options label:hover {
       background: rgba(0, 168, 150, 0.1);
     }
+
     .dark-mode .options input[type="checkbox"] {
       border-color: #00a896;
     }
+
     .dark-mode .options input[type="checkbox"]:checked {
       background: #00a896;
       border-color: #00a896;
     }
+
     .dark-mode .options label span {
       color: #ddd;
     }
+
     .dark-mode .dark-mode-toggle {
       color: #00a896;
     }
@@ -273,6 +300,7 @@
         flex-direction: column;
         max-width: 500px;
       }
+
       .hero-section {
         display: none;
       }
@@ -288,29 +316,34 @@
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       border-left: 4px solid #00796b;
-     
+
       align-items: center;
       gap: 15px;
       max-width: 350px;
       animation: slideIn 0.5s ease-out;
       z-index: 1000;
     }
+
     .notification-card i {
       color: #00796b;
       font-size: 1.8rem;
     }
+
     .notification-text h3 {
       color: #00796b;
       margin-bottom: 8px;
     }
+
     @keyframes slideIn {
       from {
         transform: translateX(100%);
       }
+
       to {
         transform: translateX(0);
       }
     }
+
     .dark-mode .notification-card {
       background: #363636;
       border-color: #00a896;
@@ -342,13 +375,7 @@
           Connexion
         </h2>
         <div class="input-group">
-          <input
-            type="email"
-            name="iden"
-            placeholder="email"
-            {{-- pattern="[0-9]{10}" --}}
-            required
-          />
+          <input type="email" name="iden" placeholder="email" {{-- pattern="[0-9]{10}" --}} required />
         </div>
         <div class="input-group">
           <input type="password" name="password" placeholder="Mot de passe" required />
@@ -367,14 +394,14 @@
           <a id="showSignUp">Créer un compte</a>
         </div>
         @if ($errors->any())
-    <div class="alert alert-danger">
+      <div class="alert alert-danger">
         <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
+        @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+    @endforeach
         </ul>
-    </div>
-@endif
+      </div>
+    @endif
       </form>
 
       <!-- SIGN UP FORM (HIDDEN BY DEFAULT) -->
@@ -388,23 +415,12 @@
         <div class="form-grid">
           <!-- Full name -->
           <div class="input-group">
-            <input
-              type="text"
-              name="name"
-              placeholder="Nom complet"
-              required
-            />
+            <input type="text" name="name" placeholder="Nom complet" required />
           </div>
 
           <!-- Age -->
           <div class="input-group">
-            <input
-              type="number"
-              name="age"
-              placeholder="Âge"
-              min="0"
-              required
-            />
+            <input type="number" name="age" placeholder="Âge" min="0" required />
           </div>
 
           <!-- Sexe -->
@@ -418,13 +434,7 @@
 
           <!-- Telephone -->
           <div class="input-group">
-            <input
-              type="tel"
-              name="telephone"
-              placeholder="Téléphone (10 chiffres)"
-              pattern="[0-9]{10}"
-              required
-            />
+            <input type="tel" name="telephone" placeholder="Téléphone (10 chiffres)" pattern="[0-9]{10}" required />
           </div>
 
           <!-- Email -->
@@ -434,12 +444,7 @@
 
           <!-- Password -->
           <div class="input-group" style="grid-column: span 2;">
-            <input
-              type="password"
-              name="password"
-              placeholder="Mot de passe"
-              required
-            />
+            <input type="password" name="password" placeholder="Mot de passe" required />
             <i class="fas fa-eye toggle-password"></i>
           </div>
         </div>
@@ -460,16 +465,16 @@
 
   <!-- Notification Card -->
   @if(session('success'))
-  <!-- Notification Card -->
-  <div class="notification-card" id="welcomeNotification">
+    <!-- Notification Card -->
+    <div class="notification-card" id="welcomeNotification">
     <i class="fas fa-heart"></i>
     <div class="notification-text">
       <h3>Welcome to Sahateck Family! 🎉</h3>
       <p>{{ session('success') }}</p>
     </div>
-  </div>
-  {{session('success')=null}}
-@endif
+    </div>
+    {{session(['success' => null])}}
+  @endif
 
   <script>
     // Show/hide forms
@@ -483,7 +488,7 @@
       document.getElementById('signUpForm').style.display = 'none';
       document.getElementById('signInForm').style.display = 'block';
     });
-  
+
     // Toggle password visibility
     document.querySelectorAll('.toggle-password').forEach((icon) => {
       icon.addEventListener('click', (e) => {
@@ -492,24 +497,25 @@
         e.target.classList.toggle('fa-eye-slash');
       });
     });
-  
+
     // Dark mode toggle
     document.querySelector('.dark-mode-toggle').addEventListener('click', () => {
       document.body.classList.toggle('dark-mode');
       document.querySelector('.dark-mode-toggle i').classList.toggle('fa-sun');
     });
-  
+
     // Hide the notification card after 5 seconds
-  setTimeout(function() {
-    var notification = document.getElementById('welcomeNotification');
-    if (notification) {
-      notification.style.display = 'none';
-    }
-  }, 6000);
+    setTimeout(function () {
+      var notification = document.getElementById('welcomeNotification');
+      if (notification) {
+        notification.style.display = 'none';
+      }
+    }, 6000);
   </script>
-  
-  
-  
+
+
+
 
 </body>
+
 </html>
