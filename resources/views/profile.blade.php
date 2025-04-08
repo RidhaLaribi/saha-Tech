@@ -103,13 +103,17 @@ calendar links-->
 
 
                     </ul>
+
+
                     <div class="d-none d-lg-block">
                         <a href="#top" class="navbar-icon b-notification smoothscroll">
                             <i class="bi bi-bell"></i> <!-- Bootstrap bell icon -->
                         </a>
-
-
                     </div>
+
+
+
+
 
                     <div class="d-none d-lg-block" style="padding-left: 5px">
                         <a href="#" class="navbar-icon b-notification smoothscroll"
@@ -153,12 +157,12 @@ calendar links-->
                                 <div class="row g-0">
                                     <div class="col-md-4 gradient-custom text-center text-white"
                                         style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                                        @if ($patient->pic == null)
+                                        @if ($patients[session('id_p')]->pic == null)
                                             <img src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
                                                 alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
                                         @else
                                             <a href="" id="changepic">
-                                                <img src="{{asset('storage/' . $patient->pic)}}" alt=" Avatar"
+                                                <img src="{{asset('storage/' . $patients[session('id_p')]->pic)}}" alt=" Avatar"
                                                     class="img-fluid my-5"
                                                     style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #000;" />
                                             </a>
@@ -167,7 +171,7 @@ calendar links-->
 
 
 
-                                        <h5> {{$patient->name}} </h5>
+                                        <h5> {{$patients->get(session('id_p'))->name}} </h5>
                                         <p>patient</p>
                                         <i class="far fa-edit mb-5"></i>
                                     </div>
@@ -194,11 +198,11 @@ calendar links-->
                                             <div class="row pt-1">
                                                 <div class="col-6 mb-3">
                                                     <h6>age</h6>
-                                                    <p class="text-muted">44</p>
+                                                    <p class="text-muted"> {{ $patients[session('id_p')]->age }} </p>
                                                 </div>
                                                 <div class="col-6 mb-3">
-                                                    <h6>last doctor's visit</h6>
-                                                    <p class="text-muted"></p>
+                                                    <h6>Sexe</h6>
+                                                    <p class="text-muted">{{ $patients[session('id_p')]->sexe }} </p>
                                                 </div>
                                             </div>
                                             <div class="d-flex justify-content-start">
@@ -227,11 +231,11 @@ calendar links-->
                                     <div class="row g-0">
                                         <div class="col-md-4 gradient-custom text-center text-white"
                                             style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                                            @if ($patient->pic == null)
+                                            @if ($patients[session('id_p')]->pic == null)
                                                 <img src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
                                                     alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
                                             @else
-                                                <img src="{{asset('storage/' . $patient->pic)}}" alt=" Avatar"
+                                                <img src="{{asset('storage/' . $patients[session('id_p')]->pic)}}" alt=" Avatar"
                                                     class="img-fluid my-5"
                                                     style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #000;" />
                                             @endif
@@ -239,7 +243,7 @@ calendar links-->
                                             <input type="file" name="pic" class="form-control">
 
 
-                                            <h5> {{$patient->name}} </h5>
+                                            <h5> {{$patients[session('id_p')]->name}} </h5>
                                             <p>patient</p>
                                             <i class="far fa-edit mb-5"></i>
                                         </div>
@@ -267,7 +271,7 @@ calendar links-->
                                                 <div class="row pt-1">
                                                     <div class="col-6 mb-3">
                                                         <h6>age</h6>
-                                                        <p class="text-muted">44</p>
+                                                        <p class="text-muted">{{ $patients[session('id_p')]->age }}</p>
                                                     </div>
                                                     <div class="col-6 mb-3">
                                                         <h6>Submit</h6>
@@ -355,7 +359,7 @@ calendar links-->
                 <div class="row">
 
                     <div class="col-12 text-center">
-                        <h2 class="mb-4">Mon Dossier</h1>
+                        <h2 class="mb-4">My Folder</h1>
                     </div>
 
                 </div>
@@ -440,7 +444,7 @@ calendar links-->
                                                  },*/
 
                                                 @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       {
                                                         title: 'Rendez-vous',
                                                         start: '{{$re->rendezvous}}',
                                                         url: 'https://youtube.com/',
@@ -463,70 +467,7 @@ calendar links-->
 
                             </div>
 
-                            <div class="tab-pane fade" id="music-tab-pane" role="tabpanel" aria-labelledby="music-tab"
-                                tabindex="0">
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Father</h5>
 
-                                                        <p class="mb-0">Lorem ipsum dolor sit amet consectetur
-                                                            adipisicing elit. Enim, laudantium?</p>
-                                                    </div>
-
-                                                </div>
-
-                                                <img src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Son</h5>
-
-                                                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
-                                                            adipisicing elit. Officia, inventore.</p>
-                                                    </div>
-
-                                                </div>
-
-                                                <img src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <a href="topics-detail.html">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">Brother</h5>
-
-                                                        <p class="mb-0"> Lorem, ipsum dolor sit amet consectetur
-                                                            adipisicing e</p>
-                                                    </div>
-
-                                                </div>
-
-                                                <img src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
-                                                    class="custom-block-image img-fluid" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                </div>
-                            </div>
 
                             <div class="tab-pane fade" id="marketing-tab-pane" role="tabpanel"
                                 aria-labelledby="marketing-tab" tabindex="0">
@@ -858,6 +799,81 @@ calendar links-->
                                 </div>
                             </div>
 
+                            <div class="tab-pane fade" id="music-tab-pane" role="tabpanel" aria-labelledby="music-tab"
+                                tabindex="0">
+                                <div class="row">
+
+
+
+                                    @if ($patients->count() == 0)
+                                        <h1>No members</h1>
+                                        {{-- Show members here --}}
+
+                                        <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                            <div class="custom-block bg-white shadow-lg">
+                                                <a href="">
+                                                    <div class="d-flex">
+                                                        <div>
+                                                            <h5 class="mb-2">Empty</h5>
+
+                                                            <p class="mb-0">there is no member in this acount !</p>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    {{-- <img
+                                                        src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
+                                                        class="custom-block-image img-fluid" alt=""> --}}
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    @else
+                                        @foreach ($patients as $index => $p)
+                                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                                <div class="custom-block bg-white shadow-lg">
+
+                                                    <a href="#"
+                                                        onclick="event.preventDefault(); document.getElementById('changep{{ $index }}').submit();">
+                                                        <div class="d-flex">
+                                                            <div>
+                                                                <h5 class="mb-2">{{ $p->name }} </h5>
+                                                                <p class="mb-0">Click to see more about</p>
+                                                            </div>
+                                                        </div>
+
+                                                        @if ($p->pic == null)
+                                                            <img src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
+                                                                class="custom-block-image img-fluid" alt="">
+                                                        @else
+                                                            <img src="{{ asset('storage/' . $p->pic) }}" alt="Avatar"
+                                                                class="img-fluid my-5" />
+                                                        @endif
+                                                    </a>
+
+                                                    <!-- Form placed outside the <a> and with unique ID -->
+                                                    <form method="POST" action="{{ route('changep.toggle') }}"
+                                                        id="changep{{ $index }}">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="{{ $index }}">
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                    @endif
+
+
+
+
+
+
+
+                                </div>
+                            </div>
+
                             <div class="tab-pane fade" id="finance-tab-pane" role="tabpanel"
                                 aria-labelledby="finance-tab" tabindex="0">
                                 <div class="row">
@@ -898,29 +914,34 @@ calendar links-->
                                                 <div class="custom-block-overlay-text d-flex">
                                                     <div>
                                                         <h5 class="text-white mb-2">Add member</h5>
+                                                        <form class="custom-form" action="{{ route('addMember') }}"
+                                                            method="POST" enctype="multipart/form-data">
+                                                            @csrf
 
-                                                        <form class="custom-form">
                                                             <input type="text" placeholder="Full Name"
-                                                                class="custom-input">
-                                                            <input type="text" placeholder="relation"
-                                                                class="custom-input">
+                                                                class="custom-input" name="name" required>
 
-                                                            <input type="number" placeholder="Age" class="custom-input">
-                                                            <select class="custom-input">
-                                                                <option value="" disabled selected>Gender
-                                                                </option>
-                                                                <option value="male">Male</option>
-                                                                <option value="female">Female</option>
+                                                            <input type="text" placeholder="Relation"
+                                                                class="custom-input" name="relation" required>
+
+                                                            <input type="number" placeholder="Age" class="custom-input"
+                                                                name="age" required>
+
+                                                            <select class="custom-input" name="gender" required>
+                                                                <option value="" disabled selected>Gender</option>
+                                                                <option value="Homme">Homme</option>
+                                                                <option value="Femme">Femme</option>
                                                             </select>
 
                                                             <label for="file-upload" class="custom-file-label">
-                                                                Choose Files
-                                                                <input type="file" id="file-upload"
+                                                                Choose Medical Files
+                                                                <input type="file" id="file-upload" name="files[]"
                                                                     class="custom-file-input" multiple>
                                                             </label>
 
                                                             <button type="submit" class="custom-button">Submit</button>
                                                         </form>
+
 
 
 

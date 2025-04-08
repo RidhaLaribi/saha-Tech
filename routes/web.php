@@ -54,3 +54,9 @@ Route::post("update", [resController::class, 'updateInfo'])->name("modify");
 Route::post('/upload-file', [resController::class, 'upload'])->name('files.upload');
 
 
+//Route::get("change-patient", [resController::class, ''])->name("changep.toggle");
+Route::post('/changep', [resController::class, 'changep'])->name('changep.toggle');
+
+Route::post("/addMember", [resController::class, "addMember"])->name("addMember");
+
+

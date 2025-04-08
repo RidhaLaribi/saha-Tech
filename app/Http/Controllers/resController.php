@@ -22,8 +22,16 @@ class resController extends Controller
             'phone' => 'required|regex:/^[0-9]{10,15}$/', // validate phone (you can adjust the regex pattern if needed)
         ]);
 
-        $user = auth::user();
-        $patient = $user->patient[0];
+        $user = auth()->user();
+        $patients = $user->patient;
+
+        $index = session('id_p', 0);
+        if (!isset($patients[$index])) {
+            $index = 0;
+            session(['id_p' => 0]);
+        }
+
+        $patient = $patients[$index];
         $path = $patient->pic; // Current image path
 
 
@@ -74,7 +82,17 @@ class resController extends Controller
                 // Store each file
                 $path = $file->store('medical_files', 'public');
                 $user = auth()->user();
-                $patient = $user->patient[0];
+
+                $patients = $user->patient;
+
+                $index = session('id_p', 0);
+                if (!isset($patients[$index])) {
+                    $index = 0;
+                    session(['id_p' => 0]);
+                }
+
+                $patient = $patients[$index];
+
                 // Save the file information in the database
                 MedecalFile::create([
                     'file_path' => $path, // Store the file path
@@ -93,7 +111,18 @@ class resController extends Controller
         }
 
         $user = auth()->user();
-        $patient = $user->patient[0];
+        $patients = $user->patient;
+
+        $index = session('id_p', 0);
+        if (!isset($patients[$index])) {
+            $index = 0;
+            session(['id_p' => 0]);
+        }
+
+        $patient = $patients[$index];
+
+
+
 
         $files = MedecalFile::where('patient_id', $patient->id)->get();
 
@@ -101,20 +130,67 @@ class resController extends Controller
         foreach ($files as $file) {
             $file->mime = Storage::disk('public')->mimeType($file->file_path);
         }
-
         return view(
             'profile',
             [
                 'patient' => $patient,
+                'patients' => $patients,
                 'files' => $files,
                 'r' => $patient->rendezvous,
-                'user' => $user
+                'user' => $user,
+                'totalNotifications' => null
             ]
         );
     }
+    public function changep(Request $request)
+    {
+        // Validate the incoming request to ensure 'id' is provided and is a number
+        $request->validate([
+            'id' => 'required|integer',
+        ]);
 
+        // Set the session variable to the new ID
+        session(['id_p' => $request->id]);
 
+        // Optionally, redirect back with a message
+        return redirect()->back()->with('success', 'Patient changed successfully!');
+    }
 
+    public function addMember(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+
+            'age' => 'required|integer',
+            'gender' => 'required|string',
+            'files.*' => 'nullable|file|max:5120' // 5MB max per file
+        ]);
+
+        $user = auth()->user();
+
+        // Create the patient
+        $p = Patient::create([
+            'user_id' => $user->id,
+            'name' => $request->name,
+            'age' => $request->age,
+            'sexe' => $request->gender,
+
+        ]);
+
+        // Handle file uploads
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $path = $file->store('medical_files', 'public');
+
+                MedecalFile::create([
+                    'file_path' => $path,
+                    'patient_id' => $p->id,
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Patient and files added successfully!');
+    }
 
 
 }
