@@ -14,10 +14,11 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    
+
 
 
     protected $fillable = [
+        'pic',
         'name',
         'email',
         'tel',
@@ -50,5 +51,10 @@ class User extends Authenticatable
     public function  doctor()
     {
         return $this->hasMany(doctor::class, "user_id");
+    }
+    public function medfiles()
+    {
+        return $this->hasMany(MedecalFile::class, "user_id");
+
     }
 }

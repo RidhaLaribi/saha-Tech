@@ -35,21 +35,23 @@ class authController extends Controller
         ]);
 
         $user = User::create([
+
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make(value: $request->password) // Hashing the password before storing
+            'password' => Hash::make(value: $request->password), // Hashing the password before storing
+            'tel' => $request->telephone
         ]);
 
 
         patient::create([
             'user_id' => $user->id,
+            'name' => $request->name,
             'age' => $request->age,
             'sexe' => $request->sexe,
-            'telephone' => $request->telephone
-        ]);
 
+        ]);
         return redirect()->route('login')
-        ->with('success', "Welcome to Sahateck Family! Your health journey starts here. We're honored to be part of your care.");
+            ->with('success', "Welcome to Sahateck Family! Your health journey starts here. We're honored to be part of your care.");
 
     }
 
