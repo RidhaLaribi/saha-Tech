@@ -13,6 +13,7 @@ class Patient extends Model
 
     protected $fillable = [
         'user_id',
+        'pic',
         'name',
         'age',
         'sexe',
@@ -22,5 +23,18 @@ class Patient extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function doctor()
+    {
+        return $this->hasMany(doctor::class, "user_id");
+    }
+    public function medfiles()
+    {
+        return $this->hasMany(MedecalFile::class, "user_id");
+
+    }
+    public function rendezvous()
+    {
+        return $this->hasMany(rendezvous::class, "patient_id");
     }
 }

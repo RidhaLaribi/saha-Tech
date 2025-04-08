@@ -11,14 +11,14 @@ class MedecalFile extends Model
     protected $table = "medecalfiles";
 
     protected $fillable = [
-        'user_id',
+        'patient_id',
         'file_path',
     ];
 
     // Relationship to User
     public function user()
     {
-        return $this->belongsTo(User::class, "id");
+        return $this->belongsTo(Patient::class, "id");
     }
 }
 

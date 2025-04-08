@@ -9,13 +9,12 @@ return new class extends Migration {
     {
         Schema::create('rendez_vous', function (Blueprint $table) {
             $table->integer('idrdv', true);
-            $table->integer('user_id');
+            $table->integer('patient_id');
             $table->integer('medcin_id');
             $table->dateTime('rendezvous');
             $table->enum('status', ['En Attente', 'Confirmé', 'Annulé', ''])->default('En Attente');
             $table->string('type', 100);
-
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('patient_id')->references('id')->on('patients');
             $table->foreign('medcin_id')->references('id')->on('doctors');
         });
     }

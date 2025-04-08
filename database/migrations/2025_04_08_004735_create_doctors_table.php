@@ -11,14 +11,14 @@ return new class extends Migration {
             $table->id();
             $table->unsignedInteger('user_id');
             $table->string('specialty');
-            $table->string('location');
-            $table->date('date');
-            $table->float('rating');
-            $table->integer('price');
+            $table->string('location')->nullable();
+            $table->date('date')->nullable();
+            $table->float('rating')->nullable();
+            $table->integer('price')->nullable();
             $table->enum('type', ['doctor', 'clinique', 'laboratoire']);
             $table->boolean('available')->default(true);
             $table->enum('gender', ['Homme', 'Femme']);
-            $table->string('doctor_ref', 50)->nullable();
+            $table->string('doctor_ref', 50);
             $table->integer('age');
             $table->timestamps();
 

@@ -10,7 +10,8 @@ return new class extends Migration {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->string('name', 10);
+            $table->binary('pic')->nullable();
+            $table->string('name');
             $table->integer('age');
             $table->enum('sexe', ['Homme', 'Femme']);
             $table->timestamps();

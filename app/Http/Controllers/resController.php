@@ -19,11 +19,13 @@ class resController extends Controller
         $request->validate([
             'pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // pic is optional
             'email' => 'required|email|unique:users,email,' . auth()->user()->id, // validate email
-            // 'phone' => 'required|regex:/^[0-9]{10,15}$/', // validate phone (you can adjust the regex pattern if needed)
+            'phone' => 'required|regex:/^[0-9]{10,15}$/', // validate phone (you can adjust the regex pattern if needed)
         ]);
 
         $user = auth::user();
-        $path = $user->pic; // Current image path
+        $patient = $user->patient[0];
+        $path = $patient->pic; // Current image path
+
 
         // If the user has a current image, delete it before uploading the new one
         if ($path && Storage::disk('public')->exists($path) && $request->hasFile('pic')) {
@@ -33,13 +35,12 @@ class resController extends Controller
         // Store the new image
         if ($request->hasFile('pic')) {
             $picPath = $request->file('pic')->store('profile_pictures', 'public'); // Store new image
-            $user->update(["pic" => $picPath]); // Update the user profile with the new image path
-
+            $patient->update(["pic" => $picPath]); // Update the user profile with the new image path
             return redirect()->back();
         }
 
         $user->update(["email" => $request->email]);
-        // $user->update(["tel" => $request->tel]);
+        $user->update(["tel" => $request->phone]);
 
 
 
@@ -72,11 +73,12 @@ class resController extends Controller
             foreach ($request->file('files') as $file) {
                 // Store each file
                 $path = $file->store('medical_files', 'public');
-
+                $user = auth()->user();
+                $patient = $user->patient[0];
                 // Save the file information in the database
                 MedecalFile::create([
                     'file_path' => $path, // Store the file path
-                    'user_id' => auth()->id(), // Assuming you're associating the file with the logged-in user
+                    'patient_id' => $patient->id, // Assuming you're associating the file with the logged-in user
                 ]);
             }
         }
@@ -91,8 +93,9 @@ class resController extends Controller
         }
 
         $user = auth()->user();
+        $patient = $user->patient[0];
 
-        $files = MedecalFile::where('user_id', $user->id)->get();
+        $files = MedecalFile::where('patient_id', $patient->id)->get();
 
         // Attach MIME types
         foreach ($files as $file) {
@@ -102,8 +105,9 @@ class resController extends Controller
         return view(
             'profile',
             [
+                'patient' => $patient,
                 'files' => $files,
-                'r' => $user->rendezvous,
+                'r' => $patient->rendezvous,
                 'user' => $user
             ]
         );

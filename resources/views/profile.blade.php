@@ -153,12 +153,12 @@ calendar links-->
                                 <div class="row g-0">
                                     <div class="col-md-4 gradient-custom text-center text-white"
                                         style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                                        @if ($user->pic == null)
+                                        @if ($patient->pic == null)
                                             <img src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
                                                 alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
                                         @else
                                             <a href="" id="changepic">
-                                                <img src="{{asset('storage/' . $user->pic)}}" alt=" Avatar"
+                                                <img src="{{asset('storage/' . $patient->pic)}}" alt=" Avatar"
                                                     class="img-fluid my-5"
                                                     style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #000;" />
                                             </a>
@@ -167,7 +167,7 @@ calendar links-->
 
 
 
-                                        <h5> {{$user->name}} </h5>
+                                        <h5> {{$patient->name}} </h5>
                                         <p>patient</p>
                                         <i class="far fa-edit mb-5"></i>
                                     </div>
@@ -185,7 +185,7 @@ calendar links-->
                                                     <h6>Phone</h6>
 
 
-                                                    <p class="text-muted">123 456 789</p>
+                                                    <p class="text-muted">{{ $user->tel }} </p>
 
                                                 </div>
                                             </div>
@@ -227,11 +227,11 @@ calendar links-->
                                     <div class="row g-0">
                                         <div class="col-md-4 gradient-custom text-center text-white"
                                             style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-                                            @if ($user->pic == null)
+                                            @if ($patient->pic == null)
                                                 <img src="https://t4.ftcdn.net/jpg/00/65/77/27/240_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
                                                     alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
                                             @else
-                                                <img src="{{asset('storage/' . $user->pic)}}" alt=" Avatar"
+                                                <img src="{{asset('storage/' . $patient->pic)}}" alt=" Avatar"
                                                     class="img-fluid my-5"
                                                     style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #000;" />
                                             @endif
@@ -239,7 +239,7 @@ calendar links-->
                                             <input type="file" name="pic" class="form-control">
 
 
-                                            <h5> {{$user->name}} </h5>
+                                            <h5> {{$patient->name}} </h5>
                                             <p>patient</p>
                                             <i class="far fa-edit mb-5"></i>
                                         </div>
@@ -257,7 +257,8 @@ calendar links-->
                                                     <div class="col-6 mb-3">
                                                         <h6>Phone</h6>
 
-                                                        <input type="text" placeholder="" value="123 456 789">
+                                                        <input type="text" name="phone" placeholder=""
+                                                            value="{{ $user->tel }}">
 
                                                     </div>
                                                 </div>
@@ -439,7 +440,7 @@ calendar links-->
                                                  },*/
 
                                                 @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {
                                                         title: 'Rendez-vous',
                                                         start: '{{$re->rendezvous}}',
                                                         url: 'https://youtube.com/',

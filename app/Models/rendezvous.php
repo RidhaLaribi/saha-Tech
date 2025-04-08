@@ -8,8 +8,8 @@ class rendezvous extends Model
 {
     protected $table = 'rendez_vous';
 
-    public function user()
+    public function patient()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(Patient::class, 'id');
     }
 }

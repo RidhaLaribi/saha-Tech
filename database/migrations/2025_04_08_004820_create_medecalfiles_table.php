@@ -9,11 +9,11 @@ return new class extends Migration {
     {
         Schema::create('medecalfiles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('patient_id');
             $table->string('file_path');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('patient_id')->references('id')->on('patients');
         });
     }
 
