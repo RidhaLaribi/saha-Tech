@@ -246,16 +246,7 @@
                 </div>
             </div>
         </nav>
-        @if(session('success'))
-            <!-- Notification Card -->
-            <div class="notification-card" id="welcomeNotification">
-                <i class="fas fa-heart"></i>
-                <div class="notification-text">
-                    <h3>Welcome to Sahateck Family! 🎉</h3>
-                    <p>{{ session('success') }}</p>
-                </div>
-            </div>
-        @endif
+        
 
         <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
             <div class="container">
@@ -264,7 +255,7 @@
                     <div class="col-lg-8 col-12 mx-auto">
                         <h1 class="text-white text-center">Discover</h1>
 
-                        <h6 class="text-center">...</h6>
+                       
 
                         <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
                             <div class="input-group input-group-lg">
@@ -359,9 +350,7 @@
                         <div class="text-center mb-5 pb-2">
                             <h1 class="text-white">our best doctors</h1>
 
-                            <p class="text-white">Listen it everywhere. Explore your fav podcasts.</p>
-
-                            <a href="#section_2" class="btn custom-btn smoothscroll mt-3">Start listening</a>
+                            
                         </div>
 
                         <div class="owl-carousel owl-theme">
@@ -619,7 +608,7 @@
                 <div class="col-lg-3 col-12 mb-4 pb-2">
                     <a class="navbar-brand mb-2" href="index.html">
                         <i class="bi-back"></i>
-                        <span>SehaTech</span>
+                        <span>HeyDoc</span>
                     </a>
                 </div>
 
@@ -668,9 +657,7 @@
 
                     </div>
 
-                    <p class="copyright-text mt-lg-5 mt-4">
-                        <br><br>Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a>
-                    </p>
+                    
 
                 </div>
 

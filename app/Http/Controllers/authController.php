@@ -116,7 +116,7 @@ class authController extends Controller
             
         ]);
     
-        return redirect()->route('home')
+        return redirect()->route('loginp')
             ->with('success', "Nous examinerons votre demande sous 48 heures ⏰.
             check ur email soon");
     }
