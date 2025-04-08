@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\returnArgument;
 use App\Models\User;
 use App\Models\patient;
+use App\Models\doctor;
 use Illuminate\Support\Facades\Hash;
 
 class authController extends Controller
@@ -82,6 +83,43 @@ class authController extends Controller
     }
 
 
+    public function registrp(Request $request)
+    {
+        $request->validate([
+            'doctor_ref' => 'integer',
+            'name'  => 'required|string|max:100',
+            'age'        => 'nullable|integer|min:18',
+            'sexe'     => 'required|in:Homme,Femme',
+            'type'     => 'required|in:doctor,clinique,laboratoire',
+            'telephone'      => 'required',
+            'email'      => 'required|email',
+            'specialite'  => 'required|string',
+            'password'   => 'required',
+        ]);
+    
+        $user= User ::create([
+            'name' =>$request->name,
+            'email'  => $request->email,
+            'tel'   => $request->telephone,
+            'password'   => Hash::make($request->password),
+        ]);
+    
+        $doctor = doctor::create([
+            'user_id' => $user->id,
+            'doctor_ref' => $request->enum,
+            'age'  => $request->age,
+            'gender'  => $request->sexe,
+            'type'  => $request->type,
+            'specialty'  => $request->specialite,
+            
+        ]);
+    
+        return redirect()->route('home')
+            ->with('success', "Nous examinerons votre demande sous 48 heures ⏰.
+            check ur email soon");
+    }
+    
+    }
 
 
-}
+

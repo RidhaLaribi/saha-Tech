@@ -22,7 +22,7 @@ Route::post("/login", [authController::class, 'login'])->name('login');
 
 Route::post("/sign", [authController::class, 'store'])->name('sign');
 
-Route::post('/registerp', [docController::class, 'store'])->name('registerp');
+Route::post('/registerp', [authController::class, 'registrp'])->name('registerp');
 
 /**** */
 Route::get('/docdash', function () {
@@ -41,7 +41,7 @@ Route::get('/profile', function () {
 
 Route::get('/loginp', function () {
     return view('loginp');
-});
+})->name('loginp');
 
 Route::get('/medecin', function () {
     return view('medecin');

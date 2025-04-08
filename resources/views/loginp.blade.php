@@ -313,10 +313,10 @@
         @csrf
         <div class="form-grid">
           <div class="input-group">
-            <input type="text" name="prenom" placeholder="Prénom" required>
+            <input type="text" name="enum" placeholder="doctor_ref" required>
           </div>
           <div class="input-group">
-            <input type="text" name="nom" placeholder="Nom de famille" required>
+            <input type="text" name="name" placeholder="full name" required>
           </div>
           <div class="input-group">
             <input type="number" name="age" placeholder="Âge" min="18" max="100" required>
@@ -345,6 +345,15 @@
               <option>Chirurgie 🏥</option>
             </select>
           </div>
+          <div class="input-group" style="grid-column: span 2;">
+          
+<select name="type" id="type" required>
+  <option value="clinique">Clinique</option>
+  <option value="laboratoire">Laboratoire</option>
+  <option value="doctor">Doctor</option>
+</select>
+</div>
+
         
 
            <!-- Password field moved higher (before specialty) -->
@@ -368,11 +377,14 @@
   </div>
 
   <!-- Notification Message -->
+  @if(session('success'))
   <div class="notification-message" id="notificationMessage">
     <h1>Merci pour votre candidature ! 🎉</h1>
-    <p>Nous examinerons votre demande sous 48 heures ⏰.<br>Merci de votre confiance !</p>
-    <button onclick="window.location.href='index.html'">Retour à l'accueil</button>
+    <p>{{session('success')}}<br>Merci de votre confiance !</p>
+    <p>check ur email for the response</p>
+    <a href='{{route('home')}}'>Retour à l'accueil</a>
   </div>
+@endif
 
   <script>
     // Toggle password visibility
@@ -406,6 +418,14 @@
     e.preventDefault(); // Only prevent submission if form is invalid
   }
 });
+
+
+setTimeout(function() {
+    var notification = document.getElementById('welcomenotification');
+    if (notification) {
+      notification.style.display = 'none';
+    }
+  }, 6000);
 
   </script>
 </body>

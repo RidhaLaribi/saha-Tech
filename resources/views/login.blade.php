@@ -468,6 +468,7 @@
       <p>{{ session('success') }}</p>
     </div>
   </div>
+  {{session('success')=null}}
 @endif
 
   <script>
