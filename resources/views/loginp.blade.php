@@ -269,6 +269,7 @@
       background: #fff;
       color: #00796b;
       border: none;
+      font-weight: bold; 
       padding: 12px 20px;
       border-radius: 8px;
       font-size: 1rem;
@@ -276,6 +277,7 @@
       display: block;
       margin: 0 auto;
       transition: background 0.3s ease;
+      text-decoration: none;
     }
 
     .notification-message a:hover {
@@ -383,7 +385,7 @@
     <h1>Merci pour votre candidature ! 🎉</h1>
     <p>{{session('success')}}<br>Merci de votre confiance !</p>
     <p>check ur email for the response</p>
-    <a href='{{route('home')}}'>Retour à l'accueil</a>
+    <a href='{{route('home')}}' >Retour à l'accueil</a>
   </div>
 @endif
 
