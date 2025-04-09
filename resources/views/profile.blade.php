@@ -444,7 +444,7 @@ calendar links-->
                                                  },*/
 
                                                 @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {
                                                         title: 'Rendez-vous',
                                                         start: '{{$re->rendezvous}}',
                                                         url: 'https://youtube.com/',
@@ -738,6 +738,22 @@ calendar links-->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @if (session('modifying'))
+
+                                                                <form action="addnote" method="post">
+
+                                                                    <tr>
+                                                                        <th scope="row"><input type="submit" value="add">
+                                                                        </th>
+                                                                        <td>{{ $user->name }} </td>
+                                                                        <td> {{ $user->name }} </td>
+                                                                        <input type="hidden" name="rdvid" value="1">
+                                                                        <input type="hidden" name="docid" value="1">
+                                                                        <td> <input type="text" name="note" id=""> </td>
+                                                                    </tr>
+                                                                </form>
+                                                            @endif
+
                                                             <tr>
                                                                 <th scope="row">1</th>
                                                                 <td>Mark</td>
@@ -745,24 +761,6 @@ calendar links-->
                                                                 <td> {{$user->role}} </td>
                                                             </tr>
 
-                                                            <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>Mark</td>
-                                                                <td>Otto</td>
-                                                                <td>@mdo</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>Jacob</td>
-                                                                <td>Thornton</td>
-                                                                <td>@fat</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">3</th>
-                                                                <td>Larry</td>
-                                                                <td>the Bird</td>
-                                                                <td>@twitter</td>
-                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>

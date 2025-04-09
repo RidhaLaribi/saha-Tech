@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\consultation;
 use App\Models\MedecalFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -199,6 +200,21 @@ class resController extends Controller
         ]);
         Patient::where(['id' => $request->id])->delete();
         return redirect()->back()->with('success', 'Patient and files deleted successfully!');
+    }
+    function storeNote(Request $request)
+    {
+        $request->validate([
+            'note' => 'required',
+            'rdvid' => 'required',
+            'docid' => 'required',
+        ]);
+        consultation::created([
+            "note" => $request->note,
+            'rendez_vous_id' => $request->rdvid,
+            'doctor_id' => $request->docid
+        ]);
+        return redirect()->back()->with('success', 'note successfully added!');
+
     }
 
 
