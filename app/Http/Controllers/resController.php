@@ -114,13 +114,12 @@ class resController extends Controller
         $patients = $user->patient;
 
         $index = session('id_p', 0);
-        if (!isset($patients[$index])) {
+        if (!isset($patients[session('id_p')])) {
             $index = 0;
             session(['id_p' => 0]);
         }
 
         $patient = $patients[$index];
-
 
 
 
@@ -130,6 +129,7 @@ class resController extends Controller
         foreach ($files as $file) {
             $file->mime = Storage::disk('public')->mimeType($file->file_path);
         }
+
         return view(
             'profile',
             [

@@ -444,7 +444,7 @@ calendar links-->
                                                  },*/
 
                                                 @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           {
                                                         title: 'Rendez-vous',
                                                         start: '{{$re->rendezvous}}',
                                                         url: 'https://youtube.com/',
@@ -805,7 +805,7 @@ calendar links-->
 
 
 
-                                    @if ($patients->count() == 0)
+                                    @if ($patients->count() == 1)
                                         <h1>No members</h1>
                                         {{-- Show members here --}}
 
@@ -890,6 +890,7 @@ calendar links-->
                                                         <label for="person">Choose a Person:</label>
                                                         <select id="person" name="id">
                                                             <option value="" disabled selected>Select...</option>
+
                                                             @foreach ($patients->skip(1) as $p)
                                                                 <option value="{{ $p->id }}">{{ $p->name }}</option>
                                                             @endforeach
