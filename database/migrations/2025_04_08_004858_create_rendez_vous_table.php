@@ -8,14 +8,14 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('rendez_vous', function (Blueprint $table) {
-            $table->integer('idrdv', true);
+            $table->id();
             $table->integer('patient_id');
-            $table->integer('medcin_id');
+            $table->integer('doctor_id');
             $table->dateTime('rendezvous');
             $table->enum('status', ['En Attente', 'Confirmé', 'Annulé', ''])->default('En Attente');
             $table->string('type', 100);
             $table->foreign('patient_id')->references('id')->on('patients');
-            $table->foreign('medcin_id')->references('id')->on('doctors');
+            $table->foreign('doctor_id')->references('id')->on('doctors');
         });
     }
 

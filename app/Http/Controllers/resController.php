@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\returnArgument;
 use App\Models\User;
 use App\Models\patient;
+use App\Models\rendezvous;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class resController extends Controller
 {
@@ -114,6 +116,7 @@ class resController extends Controller
         $user = auth()->user();
         $patients = $user->patient;
 
+
         $index = session('id_p', 0);
         if (!isset($patients[session('id_p')])) {
             $index = 0;
@@ -124,12 +127,44 @@ class resController extends Controller
 
 
 
+
         $files = MedecalFile::where('patient_id', $patient->id)->get();
 
         // Attach MIME types
         foreach ($files as $file) {
             $file->mime = Storage::disk('public')->mimeType($file->file_path);
         }
+        $notes = $patient->notes;
+
+
+
+        // Assume this is your list of appointments (could be from DB or array of Carbon dates)
+        $dates = [
+            '2025-04-09 12:30:00',
+            '2025-04-10 10:00:00',
+            '2025-04-08 16:00:00', // past
+        ];
+
+        $now = Carbon::now();
+
+        // Convert all to Carbon and filter future dates
+        // $upcoming = collect($dates)
+        //     ->map(fn($d) => Carbon::parse($d))
+        //     ->filter(fn($date) => $date->greaterThan($now))
+        //     ->sort()
+        //     ->first(); // Get the soonest one
+
+        // if ($upcoming) {
+        //     echo "Next appointment: " . $upcoming->toDateTimeString();
+        // } else {
+        //     echo "No upcoming appointments";
+        // }
+
+        $next = rendezvous::where('patient_id', $patient->id)
+            ->where('rendezvous', '>', now())
+            ->orderBy('rendezvous', 'asc')
+            ->first();
+
 
         return view(
             'profile',
@@ -139,7 +174,9 @@ class resController extends Controller
                 'files' => $files,
                 'r' => $patient->rendezvous,
                 'user' => $user,
-                'totalNotifications' => null
+                'notes' => $notes,
+                'next' => $next
+                ,
             ]
         );
     }
@@ -161,7 +198,7 @@ class resController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-
+            'relation' => 'required|string',
             'age' => 'required|integer',
             'gender' => 'required|string',
             'files.*' => 'nullable|file|max:5120' // 5MB max per file
@@ -175,7 +212,7 @@ class resController extends Controller
             'name' => $request->name,
             'age' => $request->age,
             'sexe' => $request->gender,
-
+            'rel' => $request->relation,
         ]);
 
         // Handle file uploads
@@ -201,15 +238,29 @@ class resController extends Controller
         Patient::where(['id' => $request->id])->delete();
         return redirect()->back()->with('success', 'Patient and files deleted successfully!');
     }
-    function storeNote(Request $request)
+    function addNote(Request $request)
     {
         $request->validate([
             'note' => 'required',
             'rdvid' => 'required',
             'docid' => 'required',
         ]);
-        consultation::created([
+
+        $user = auth()->user();
+        $patients = $user->patient;
+
+        $index = session('id_p', 0);
+        if (!isset($patients[session('id_p')])) {
+            $index = 0;
+            session(['id_p' => 0]);
+        }
+
+        $patient = $patients[$index];
+
+
+        consultation::create([
             "note" => $request->note,
+            'patient_id' => $patient->id,
             'rendez_vous_id' => $request->rdvid,
             'doctor_id' => $request->docid
         ]);

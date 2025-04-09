@@ -310,10 +310,10 @@ calendar links-->
                                     <div>
                                         <h5 class="mb-2">Next Appointment </h5>
 
-                                        <p class="mb-0">Monday, March 31 at 8 AM</p>
+                                        <p class="mb-0">{{ $next->rendezvous }}</p>
                                     </div>
 
-                                    <span class="badge bg-design rounded-pill ms-auto">37</span>
+                                    {{-- <span class="badge bg-design rounded-pill ms-auto">37</span> --}}
                                 </div>
 
                                 <img src="images/topics/undraw_Remote_design_team_re_urdx.png"
@@ -322,7 +322,7 @@ calendar links-->
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-12">
+                    {{-- <div class="col-lg-6 col-12">
                         <div class="custom-block custom-block-overlay">
                             <div class="d-flex flex-column h-100">
                                 <img src="" class="custom-block-image img-fluid" alt="">
@@ -347,7 +347,7 @@ calendar links-->
                                 <div class="section-overlay"></div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
@@ -444,7 +444,7 @@ calendar links-->
                                                  },*/
 
                                                 @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           {
                                                         title: 'Rendez-vous',
                                                         start: '{{$re->rendezvous}}',
                                                         url: 'https://youtube.com/',
@@ -506,10 +506,9 @@ calendar links-->
                                                     <table class="table">
                                                         <thead>
                                                             <tr>
-                                                                <th scope="col">#</th>
+                                                                <th scope="col">date</th>
                                                                 <th scope="col">specialite</th>
                                                                 <th scope="col">name</th>
-                                                                <th scope="col">date</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -519,12 +518,11 @@ calendar links-->
                                                                 @foreach ($r as $re)
 
                                                                     <tr>
-                                                                        <th scope="row">1</th>
-                                                                        <td>Mark</td>
-                                                                        <td>Otto</td>
-                                                                        <td>
-                                                                            {{substr($re->rendezvous, 0, 10)}}
-                                                                        </td>
+                                                                        <th scope="row">{{substr($re->rendezvous, 0, 10)}}</th>
+
+                                                                        <td>{{ $re->doctor->specialty }}</td>
+                                                                        <td>{{ $re->doctor->user->name }}</td>
+
                                                                     </tr>
                                                                 @endforeach
 
@@ -740,26 +738,34 @@ calendar links-->
                                                         <tbody>
                                                             @if (session('modifying'))
 
-                                                                <form action="addnote" method="post">
-
+                                                                <form action="{{ route('addnote') }}" method="post"
+                                                                    style="display: none;">
+                                                                    @csrf
                                                                     <tr>
                                                                         <th scope="row"><input type="submit" value="add">
                                                                         </th>
-                                                                        <td>{{ $user->name }} </td>
-                                                                        <td> {{ $user->name }} </td>
-                                                                        <input type="hidden" name="rdvid" value="1">
-                                                                        <input type="hidden" name="docid" value="1">
+                                                                        <td>{{ Str::limit($user->name, 10, '...') }} </td>
+                                                                        <td> {{ Str::limit($user->name, 10, '...') }} </td>
+                                                                        <input type="hidden" name="rdvid" value="1"
+                                                                            style="display: none;">
+                                                                        <input type="hidden" name="docid" value="1"
+                                                                            style="display: none;">
                                                                         <td> <input type="text" name="note" id=""> </td>
                                                                     </tr>
                                                                 </form>
                                                             @endif
 
-                                                            <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>Mark</td>
-                                                                <td>Otto</td>
-                                                                <td> {{$user->role}} </td>
-                                                            </tr>
+                                                            @foreach ($notes as $note)
+                                                                <tr>
+                                                                    <th scope="row">
+                                                                        {{ Str::limit($note->rend->rendezvous, 10, '') }}
+                                                                    </th>
+                                                                    <td>{{ $note->doctor->specialty }}</td>
+                                                                    <td>{{ $note->doctor->user->name }}</td>
+                                                                    <td>{{ $note->note }}</td>
+                                                                </tr>
+                                                            @endforeach
+
 
                                                         </tbody>
                                                     </table>
@@ -836,7 +842,7 @@ calendar links-->
                                                         onclick="event.preventDefault(); document.getElementById('changep{{ $index }}').submit();">
                                                         <div class="d-flex">
                                                             <div>
-                                                                <h5 class="mb-2">{{ $p->name }} </h5>
+                                                                <h5 class="mb-2">{{ $p->rel }} </h5>
                                                                 <p class="mb-0">Click to see more about</p>
                                                             </div>
                                                         </div>
@@ -890,7 +896,7 @@ calendar links-->
                                                             <option value="" disabled selected>Select...</option>
 
                                                             @foreach ($patients->skip(1) as $p)
-                                                                <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                                                <option value="{{ $p->id }}">{{ $p->rel }}</option>
                                                             @endforeach
 
                                                         </select>
@@ -924,7 +930,7 @@ calendar links-->
                                                                 class="custom-input" name="name" required>
 
                                                             <input type="text" placeholder="Relation"
-                                                                class="custom-input" name="relation">
+                                                                class="custom-input" name="relation" required>
 
                                                             <input type="number" placeholder="Age" class="custom-input"
                                                                 name="age" required>

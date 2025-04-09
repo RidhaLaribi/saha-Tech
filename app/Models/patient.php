@@ -17,6 +17,7 @@ class Patient extends Model
         'name',
         'age',
         'sexe',
+        'rel'
     ];
 
     // Define the relationship: A patient belongs to a user
@@ -36,5 +37,9 @@ class Patient extends Model
     public function rendezvous()
     {
         return $this->hasMany(rendezvous::class, "patient_id");
+    }
+    public function notes()
+    {
+        return $this->hasMany(consultation::class, "patient_id");
     }
 }

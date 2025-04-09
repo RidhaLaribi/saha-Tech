@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->string('name');
             $table->integer('age');
             $table->enum('sexe', ['Homme', 'Femme']);
+            $table->string('rel')->default('self');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

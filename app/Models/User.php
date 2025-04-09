@@ -39,14 +39,10 @@ class User extends Authenticatable
     {
         return $this->password;
     }
-    public function rendezvous()
-    {
-        return $this->hasMany(rendezvous::class, "patient_id");
-    }
 
     public function patient()
     {
-        return $this->hasMany(patient::class, "user_id");
+        return $this->hasMany(patient::class, "user_id", "id");
     }
     public function doctor()
     {
