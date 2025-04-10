@@ -305,25 +305,26 @@ calendar links-->
 
                     <div class="col-lg-4 col-12 mb-4 mb-lg-0">
                         <div class="custom-block bg-white shadow-lg">
-                            <a href="topics-detail.html">
-                                <div class="d-flex">
-                                    <div>
-                                        <h5 class="mb-2">Next Appointment </h5>
-                                        @if ($next != null)
-                                            <p class="mb-0">{{ $next->rendezvous }}</p>
 
-                                        @else
-                                            <p class="mb-0"> No dates</p>
+                            <div class="d-flex">
+                                <div>
+                                    <h5 class="mb-2">Next Appointment </h5>
+                                    @if ($next != null)
+                                        <p class="mb-0">{{ $next->rendezvous }}</p>
+                                        <p class="mb-0">{{ $next->type }}</p>
 
-                                        @endif
-                                    </div>
+                                    @else
+                                        <p class="mb-0"> No dates</p>
 
-                                    {{-- <span class="badge bg-design rounded-pill ms-auto">37</span> --}}
+                                    @endif
                                 </div>
 
-                                <img src="images/topics/undraw_Remote_design_team_re_urdx.png"
-                                    class="custom-block-image img-fluid" alt="">
-                            </a>
+                                {{-- <span class="badge bg-design rounded-pill ms-auto">37</span> --}}
+                            </div>
+
+                            <img src="images/topics/undraw_Remote_design_team_re_urdx.png"
+                                class="custom-block-image img-fluid" alt="">
+
                         </div>
                     </div>
 
@@ -449,7 +450,7 @@ calendar links-->
                                                  },*/
 
                                                 @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       {
                                                         title: 'Rendez-vous',
                                                         start: '{{$re->rendezvous}}',
                                                         url: 'https://youtube.com/',

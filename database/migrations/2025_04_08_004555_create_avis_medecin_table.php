@@ -15,6 +15,7 @@ return new class extends Migration {
 
             $table->foreign('id_medecin')->references('id')->on('doctors');
             $table->foreign('user_id')->references('id')->on('users');
+
         });
     }
 
