@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\authController;
 use App\Http\Controllers\resController;
-
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\docController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MyController;
+use App\Http\Controllers\dashboardcontroller;
 
 
 
@@ -26,11 +27,21 @@ Route::post("/sign", [authController::class, 'store'])->name('sign');
 
 Route::post('/registerp', [authController::class, 'registrp'])->name('registerp');
 
+
+Route::post('/docDash', [NotificationController::class, 'clear'])->name('clearnotif');
+Route::post('/docDash', [dashboardcontroller::class, 'index'])->name('dashboard');
+
+
 /**** */
 Route::get('/docdash', function () {
     return view('doctors');
 })->name('doctors');
-
+Route::get('/news', function () {
+    return view('news');
+})->name('news');
+Route::get('/rend', function () {
+    return view('requestrendi');
+})->name('rend');
 Route::get('/profile', [resController::class, "showProfile"])->name('profile');
 
 Route::get('/loginp', function () {
@@ -49,6 +60,11 @@ Route::post('toggle-modify', [resController::class, 'toggleModify'])->name('modi
 
 Route::post("update", [resController::class, 'updateInfo'])->name("modify");
 
+
+
+Route::get('/rend', [NotificationController::class, 'index'])->name('doctors');
+Route::get('/docdash', [NotificationController::class, 'index'])->name('doctors');
+Route::post('/rend', [NotificationController::class, 'clear'])->name('clearnotif');
 
 
 Route::post('/upload-file', [resController::class, 'upload'])->name('files.upload');

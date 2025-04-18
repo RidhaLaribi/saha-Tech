@@ -1,61 +1,283 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        /* NOTIFICATION CARD */
-        .notification-card {
-          position: fixed;
-          bottom: 30px;
-          right: 30px;
-          background: #fff;
-          padding: 20px;
-          border-radius: 12px;
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-          border-left: 4px solid #00796b;
-         
-          align-items: center;
-          gap: 15px;
-          max-width: 350px;
-          animation: slideIn 0.5s ease-out;
-          z-index: 1000;
-        }
-        .notification-card i {
-          color: #00796b;
-          font-size: 1.8rem;
-        }
-        .notification-text h3 {
-          color: #00796b;
-          margin-bottom: 8px;
-        }
-        @keyframes slideIn {
-          from {
-            transform: translateX(100%);
-          }
-          to {
-            transform: translateX(0);
-          }
-        }
-        .dark-mode .notification-card {
-          background: #363636;
-          border-color: #00a896;
-        }
-        </style>
+    <title>Admin Dashboard</title>
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/stylesDashboard.css">
+    <script src="js/doctordash.js" defer></script>
+    
 </head>
 <body>
-    <h1>done</h1>
-    @if(session('success'))
-    <!-- Notification Card -->
-    <div class="notification-card" id="welcomeNotification">
-      <i class="fas fa-heart"></i>
-      <div class="notification-text">
-        <h3>Welcome to Sahateck Family! 🎉</h3>
-        <p>{{ session('success') }}</p>
-      </div>
+{{-- <?php
+       
+       include("notificationmanage.php");
+       include_once("pendingo.php");
+       ?>   --}}
+<div class="admin-sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="admin-logo">
+                <div class="logo-circle">
+                    <i class="fas fa-university"></i>
+                </div>
+                <span class="fs-5 fw-bold"> Dashboard</span>
+            </a>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="Dashboard.php" class="nav-link active"><i class="fas fa-tachometer-alt"></i>‎  Dashboard</a>
+            <a href="Requests.php" class="nav-link "><i class="fas fa-file-alt"></i>‎  Manage Requests</a>
+            <a href="News.php" class="nav-link"><i class="fas fa-users"></i>‎  News </a>
+            <a href="newadmine.php" class="nav-link "><i class="fas fa-user-graduate"></i>‎ Users</a>
+
+        </nav>
     </div>
-  @endif
+    
+    <div class="sidebar" id="accountSidebar">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="m-0">Account</h4>
+            <button class="btn btn-link text-dark" onclick="toggleSidebar()">
+                <i class="fas fa-times fs-4"></i>
+            </button>
+        </div>
+        <div class="profile-section">
+                <!-- i need to add admin image -->
+            <img src="Admin_pic.png" alt="Profile" class="profile-image">
+            <h1>Welcome, </h1>
+            <p>Your role is:</p>
+            <p>Your id is </p>
+        </div>
+        <form action="logout.php" method="POST">
+            <button type="submit" class="btn btn-danger w-100 mt-4">
+                <i class="fas fa-sign-out-alt me-2"></i>
+                Sign Out
+            </button>
+        </form>
+    </div>
+    <div class="main-content">
+    <div class="admin-header d-flex justify-content-between align-items-center p-3">
+            <!-- Logo and University Name Section -->
+            <div class="brand d-flex align-items-center">
+                <img src="logo.png" alt="Boumerdes University Logo" 
+                     class="logo me-3" 
+                     style="height: 45px; width: auto; object-fit: contain;">
+                <div class="university-name">
+                    <h4 class="mb-0 fw-bold">Boumerdes University</h4>
+                    <small class="text-muted">University of M'Hamed Bougara</small>
+                </div>
+            </div>
+            <div class="actions d-flex align-items-center gap-4">
+              <!-- Notifications -->
+              <div class="notifications">
+                  <button class="btn btn-light position-relative rounded-circle p-2 shadow-sm "data-bs-toggle="modal" data-bs-target="#notificationModal">
+                  <i class="fas fa-bell fs-5"></i>
+                   @if($totalNotifications > 0)
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                               {{$totalNotifications}}
+                              <span class="visually-hidden">unread notifications</span>
+                          </span>
+                       @endif
+                  </button>
+              </div>
+        
+                <!-- Profile Circle -->
+                <div class="profile-circle d-flex align-items-center justify-content-center rounded-circle bg-primary text-white"
+                     style="width: 40px; height: 40px; font-weight: 500;">
+                    AD
+                </div>
+            </div>
+        </div>
+
+        
+       
+        
+
+        <div class="welcome-section">
+            <h4 class="mb-1">Welcome back,</h4>
+            <p class="mb-0">Here's your activity overview for today.</p>
+        </div>
+
+        <!-- make them dynamique  -->
+        <div class="row mb-4">
+    <div class="col-md-3">
+        <div class="stats-card text-center">
+            <div class="stats-icon text-primary"><i class="fas fa-tasks"></i></div>
+            <h6>Total Requests</h6>
+            <h4></h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card text-center">
+            <div class="stats-icon text-warning"><i class="fas fa-clock"></i></div>
+            <h6>Pending Requests</h6>
+            <h4></h4>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card text-center">
+            <div class="stats-icon text-success"><i class="fas fa-check-circle"></i></div>
+            <h6>Processed Requests</h6>
+            {{-- <h4><?= htmlspecialchars($processedRequests, ENT_QUOTES, 'UTF-8'); ?></h4> --}}
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card text-center">
+            <div class="stats-icon text-danger"><i class="fas fa-times-circle"></i></div>
+            <h6>Rejected Requests</h6>
+            {{-- <h4><?= htmlspecialchars($rejectedRequests, ENT_QUOTES, 'UTF-8'); ?></h4> --}}
+        </div>
+    </div>
+</div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <canvas id="requestsChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="chart-container">
+                    <canvas id="RequestsPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+          <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header border-bottom-0">
+                  <h5 class="modal-title fw-bold" id="notificationModalLabel">
+                      <i class="fas fa-bell me-2"></i> Notifications
+                      <span class="badge bg-gradient ms-2">{{ $totalNotifications }}</span>
+                  </h5>
+                  <div class="ms-auto d-flex gap-2 align-items-center">
+                      <form method="POST" action="{{route('clearnotif')}}">
+                          @csrf
+                          <button type="submit" class="btn btn-sm mark-read-btn">
+                              <i class="fas fa-check-double me-1"></i> Mark all as read
+                          </button>
+                      </form>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+              </div>
+  
+              <!-- Modal Body -->
+              <div class="modal-body p-0">
+                  <div class="notifications-list">
+                      @if($notifications->isEmpty())
+                          <p class="text-center text-muted my-3">No notifications</p>
+                      @else
+                          @foreach ($notifications as $notification)
+                              <div class="notification-item unread">
+                                  <div class="d-flex">
+                                      <div class="notification-icon">
+                                          <i class="fas fa-book"></i>
+                                      </div>
+                                      <div class="notification-content">
+                                          <div class="d-flex justify-content-between align-items-center">
+                                              <h6 class="mb-0">New Notification available</h6>
+                                              <small class="text-muted">
+                                                  {{ \Carbon\Carbon::parse($notification->created_at)->format('d M Y H:i') }}
+                                              </small>
+                                          </div>
+                                          <p class="mb-0">{{ $notification->message }}</p>
+                                      </div>
+                                  </div>
+                              </div>
+                          @endforeach
+                      @endif
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
+   
+{{-- 
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          // Get data from backend
+          const months = @json($months);
+          const totalRequests = @json($totalRequests);
+          const processedRequests = @json($processedRequests);
+          const pieData = {
+              processed: {{ $pieData->processed }},
+              pending: {{ $pieData->pending }},
+              rejected: {{ $pieData->rejected }},
+          };
+      
+          // Line Chart
+          const requestsCtx = document.getElementById('requestsChart').getContext('2d');
+          new Chart(requestsCtx, {
+              type: 'line',
+              data: {
+                  labels: months,
+                  datasets: [
+                      {
+                          label: 'Total Requests',
+                          data: totalRequests,
+                          borderColor: '#4169E1',
+                          backgroundColor: 'rgba(65, 105, 225, 0.1)',
+                          tension: 0.4
+                      },
+                      {
+                          label: 'Processed Requests',
+                          data: processedRequests,
+                          borderColor: '#27ae60',
+                          backgroundColor: 'rgba(39, 174, 96, 0.1)',
+                          tension: 0.4
+                      }
+                  ]
+              },
+              options: {
+                  responsive: true,
+                  plugins: {
+                      legend: { position: 'top' }
+                  },
+                  scales: {
+                      y: { beginAtZero: true }
+                  }
+              }
+          });
+      
+          // Pie Chart
+          const pieCtx = document.getElementById('RequestsPieChart').getContext('2d');
+          new Chart(pieCtx, {
+              type: 'pie',
+              data: {
+                  labels: ['Processed', 'Pending', 'Rejected'],
+                  datasets: [{
+                      label: 'Requests Performance',
+                      data: [pieData.processed, pieData.pending, pieData.rejected],
+                      backgroundColor: ['#27ae60', '#f1c40f', '#e74c3c'],
+                  }]
+              },
+              options: {
+                  responsive: true,
+              }
+          });
+      });
+      </script>
+       --}}
+      
+    
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+
+
+    
 </body>
 </html>

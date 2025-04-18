@@ -1,0 +1,359 @@
+:root {
+    --primary-color: #4169E1;
+    --secondary-color: #34495e;
+    --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, #283593 100%);
+    --accent-color: #e74c3c;
+    --light-bg: #f8f9fa;
+    --dark-bg: #1a237e;
+    --success: #27ae60;
+    --warning: #f1c40f;
+    --danger: #e74c3c;
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-bg);
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    width: 280px;
+    background: var(--gradient-primary);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 1.5rem;
+    color: white;
+    transition: var(--transition);
+    z-index: 1000;
+}
+
+.sidebar-header {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+.admin-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+    text-decoration: none;
+}
+
+.admin-logo:hover {
+    color: #fff;
+    opacity: 0.9;
+}
+
+.logo-circle {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    transition: var(--transition);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transform: translateX(5px);
+}
+
+.nav-link i {
+    width: 20px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.main-content {
+    margin-left: 280px;
+    padding: 2rem;
+}
+
+.admin-header {
+    background: white;
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.table-responsive {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.student-filter-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.student-filter-card .form-label {
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+
+.student-filter-card .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.student-filter-card .btn-primary:hover {
+    background-color: var(--dark-bg);
+    border-color: var(--dark-bg);
+    transform: translateY(-2px);
+}
+
+#accountSidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background: white;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    padding: 2rem;
+    z-index: 1001;
+}
+
+.profile-section {
+    text-align: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+}
+
+#accountSidebar.active {
+    right: 0;
+}
+
+#accountSidebar .nav-link {
+    color: var(--secondary-color);
+    border-radius: 8px;
+    transition: var(--transition);
+    margin-bottom: 0.5rem;
+}
+
+#accountSidebar .nav-link:hover {
+    background-color: var(--light-bg);
+    color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.import-dropdown {
+    position: relative;
+}
+
+.import-dropdown .dropdown-menu {
+    padding: 1rem;
+    min-width: 250px;
+}
+
+.file-upload-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.file-upload-wrapper input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.upload-box {
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    background: var(--light-bg);
+    transition: var(--transition);
+}
+
+.upload-box:hover {
+    border-color: var(--primary-color);
+}
+
+.file-format-info {
+    font-size: 0.875rem;
+    color: var(--secondary-color);
+    margin-top: 0.5rem;
+}
+
+.import-history {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+/* the main part the Name / logo / notif / admin profile */
+
+.admin-header {
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    min-height: 70px;
+}
+
+.university-name h4 {
+    color: #2c3e50;
+    font-size: 1.25rem;
+}
+
+.notifications button:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+}
+
+.profile-circle {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.profile-circle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px rgb(55, 254, 11);
+}
+
+.logo {
+    transition: all 0.2s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+/* Pop up notif */
+
+.modal-content {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    background-color: var(--light-bg);
+    border-radius: 15px 15px 0 0;
+    padding: 1.5rem;
+}
+
+.badge.bg-gradient {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.notification-item {
+    padding: 1.2rem 1.5rem;
+    transition: var(--transition);
+    border-bottom: 1px solid var(--light-bg);
+}
+
+.notification-item:hover {
+    background-color: var(--light-bg);
+    transform: translateX(5px);
+}
+
+.notification-item.unread {
+    background-color: rgba(65, 105, 225, 0.05);
+}
+
+.notification-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-right: 1rem;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-content h6 {
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.notification-content p {
+    color: var(--secondary-color);
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+.mark-read-btn {
+    color: var(--primary-color);
+    background: transparent;
+    border: 1px solid var(--primary-color);
+    transition: var(--transition);
+}
+
+.mark-read-btn:hover {
+    background: var(--gradient-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.modal-dialog {
+    max-width: 400px;
+}
+
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 1rem;
+    }
+}
