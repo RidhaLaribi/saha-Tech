@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MyController;
 use App\Http\Controllers\dashboardcontroller;
+use App\Notifications\SomeNotification;
+
 
 
 
@@ -28,8 +30,7 @@ Route::post("/sign", [authController::class, 'store'])->name('sign');
 Route::post('/registerp', [authController::class, 'registrp'])->name('registerp');
 
 
-Route::post('/docDash', [NotificationController::class, 'clear'])->name('clearnotif');
-Route::post('/docDash', [dashboardcontroller::class, 'index'])->name('dashboard');
+
 
 
 /**** */
@@ -62,9 +63,8 @@ Route::post("update", [resController::class, 'updateInfo'])->name("modify");
 
 
 
-Route::get('/rend', [NotificationController::class, 'index'])->name('doctors');
-Route::get('/docdash', [NotificationController::class, 'index'])->name('doctors');
-Route::post('/rend', [NotificationController::class, 'clear'])->name('clearnotif');
+
+
 
 
 Route::post('/upload-file', [resController::class, 'upload'])->name('files.upload');
@@ -77,5 +77,17 @@ Route::post("/addMember", [resController::class, "addMember"])->name("addMember"
 Route::post("del", [resController::class, 'delPatient'])->name("remove_P");
 Route::post("addNote", [resController::class, 'addNote'])->name("addnote");
 
+Route::middleware('auth')->group(function () {
+    // Mark all as read
+    Route::post('/docdash', [NotificationController::class, 'clear'])
+         ->name('clearnotif');
 
 
+
+     Route::post('/rend', [NotificationController::class, 'clear'])->name('clearnotif');
+    // Send a test notification
+    
+});
+Route::get('/test-notif', [NotificationController::class,'sendTest'])
+     ->middleware('auth')
+     ->name('notifications.test');

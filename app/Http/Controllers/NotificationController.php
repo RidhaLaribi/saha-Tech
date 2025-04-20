@@ -3,33 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Notification;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\SomeNotification;
+use Illuminate\Support\Facades\Notification;
+
+
 
 class NotificationController extends Controller
 {
-
-    public function index()
-    {
-        $allNotifications = auth()->user()
-                      ->notifications()
-                      ->orderBy('created_at', 'desc')
-                      ->get();
-
-        $totalNotifications = $allNotifications->count();
-
-        return view('doctors')->with([
-            'notifications' => $allNotifications,
-            'totalNotifications' => $totalNotifications,
-        ]);
-    }
-    // Clear all notifications
+    /**
+     * Mark all unread notifications as read.
+     */
     public function clear()
     {
-        
-        auth()->user()->notifications()->delete();
+        Auth::user()->unreadNotifications->markAsRead();
 
-        return redirect()->back()->with('success', 'All notifications cleared.');
-    }
+        return back()->with('success', 'All notifications marked as read.');
     }
 
-
+    /**
+     * Send a test notification into the database.
+     */
+    public function sendTest()
+    {
+        Notification::send(
+            Auth::user(),
+            new SomeNotification([
+               'message' => '🚀 Test via façade!',
+               'url'     => url('/'),
+            ])
+        );
+    
+        return back()->with('success','Sent via Notification::send()');
+    }
+    
+}
