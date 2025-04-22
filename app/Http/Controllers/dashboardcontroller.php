@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Requestm; 
+use App\Models\Requestm;
 use Illuminate\Http\Request;
 
 class dashboardcontroller extends Controller
@@ -22,4 +22,5 @@ class dashboardcontroller extends Controller
             'pieData'
         ));
     }
+
 }

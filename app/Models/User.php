@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'tel',
+        'role',
         'password',
     ];
 
@@ -58,5 +59,5 @@ class User extends Authenticatable
         return $this->hasMany(Patient::class, "user_id");
 
     }
-    
+
 }
