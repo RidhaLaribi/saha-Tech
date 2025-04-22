@@ -35,12 +35,6 @@ Route::post('/registerp', [authController::class, 'registrp'])->name('registerp'
 
 
 /**** */
-Route::get('/docdash', function () {
-    return view('doctors');
-})->name('doctors');
-Route::get('/news', function () {
-    return view('news');
-})->name('news');
 Route::get('/rend', function () {
     return view('requestrendi');
 })->name('rend');
