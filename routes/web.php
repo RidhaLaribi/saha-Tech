@@ -91,3 +91,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/test-notif', [NotificationController::class,'sendTest'])
      ->middleware('auth')
      ->name('notifications.test');
+
+     Route::middleware(['auth'])
+     ->get('/docdash', [dashboardController::class, 'dashboard'])
+     ->name('dashboard');
