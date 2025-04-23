@@ -9,12 +9,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MyController;
 use App\Http\Controllers\dashboardcontroller;
 use App\Notifications\SomeNotification;
+use App\Http\Controllers\doctorController;
 
 
 
 
 Route::get('/', function () {
-
+    // return Auth::user();
     return view('welcome')->with("id", Auth::user());
 })->name('home');
 
@@ -34,12 +35,6 @@ Route::post('/registerp', [authController::class, 'registrp'])->name('registerp'
 
 
 /**** */
-Route::get('/docdash', function () {
-    return view('doctors');
-})->name('doctors');
-Route::get('/news', function () {
-    return view('news');
-})->name('news');
 Route::get('/rend', function () {
     return view('requestrendi');
 })->name('rend');
@@ -80,18 +75,37 @@ Route::post("addNote", [resController::class, 'addNote'])->name("addnote");
 Route::middleware('auth')->group(function () {
     // Mark all as read
     Route::post('/docdash', [NotificationController::class, 'clear'])
-         ->name('clearnotif');
+        ->name('clearnotif');
 
 
 
-     Route::post('/rend', [NotificationController::class, 'clear'])->name('clearnotif');
+    Route::post('/rend', [NotificationController::class, 'clear'])->name('clearnotif');
     // Send a test notification
-    
+
 });
 Route::get('/test-notif', [NotificationController::class,'sendTest'])
      ->middleware('auth')
      ->name('notifications.test');
 
+     Route::get("/doctorDashBoard", function () {
+        return view('doctors');
+    })->name("docdash");
+    
      Route::middleware(['auth'])
-     ->get('/docdash', [dashboardController::class, 'dashboard'])
+     ->get('/doctorDashBoard', [dashboardController::class, 'dashboard'])
      ->name('dashboard');
+
+
+Route::get('/test-notif', [NotificationController::class, 'sendTest'])
+    ->middleware('auth')
+    ->name('notifications.test');
+
+
+
+
+
+Route::get("/availability", [doctorController::class, 'showAvPage'])->name("avbl")->middleware('auth');
+
+Route::post('/availability/update-info', [doctorController::class, 'updateInfo'])
+    ->name('doctor.updateInfo')
+    ->middleware('auth');

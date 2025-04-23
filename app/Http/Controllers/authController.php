@@ -103,6 +103,7 @@ class authController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'tel' => $request->telephone,
+            'role' => $request->type,
             'password' => Hash::make($request->password),
         ]);
 

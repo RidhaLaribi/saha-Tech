@@ -99,10 +99,18 @@
                 </a>
 
                 @if ($id != null)
+                    @if (Auth::user()->role == "doctor")
+                        <div class="d-lg-none ms-auto me-4">
+                            <a href="{{ route('docdash') }}" class="navbar-icon bi-person smoothscroll"></a>
+                        </div>
+                    @else
+                        <div class="d-lg-none ms-auto me-4">
+                            <a href="{{ route('profile') }}" class="navbar-icon bi-person smoothscroll"></a>
+                        </div>
 
-                    <div class="d-lg-none ms-auto me-4">
-                        <a href="{{ route('profile') }}" class="navbar-icon bi-person smoothscroll"></a>
-                    </div>
+                    @endif
+
+
                 @endif
 
 
@@ -131,50 +139,50 @@
 
                     </ul>
 
-                    <!-- Fixed: ID syntax and class attribute -->
-                    <a href="{{ url('/loginp') }}" id="smoothLoginButton" class="praticien-link" style="
-    margin-right: 20px;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: color 0.3s ease;
-" onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#002b3a';">
-                        Vous êtes praticien !
-                    </a>
-
-                    <script>
-                        // Fixed: Add CSS transition to body first
-                        document.body.style.transition = 'opacity 0.5s ease';
-
-                        // Fixed: Match JavaScript ID with HTML ID (case-sensitive)
-                        document.getElementById('smoothLoginButton').addEventListener('click', function (event) {
-                            event.preventDefault();
-                            const targetUrl = this.href;
-
-                            // Fixed: Match transition duration with timeout
-                            document.body.style.opacity = '0';
-
-                            setTimeout(() => {
-                                window.location.href = targetUrl;
-                            }, 500); // Now matches 0.5s transition
-                        });
-                    </script>
-
-                    <style>
-                        /* Required for initial opacity state */
-                        body {
-                            opacity: 1;
-                        }
-
-                        /* Fixed hover color behavior */
-                        .praticien-link:hover {
-                            color: #ffffff !important;
-                            /* Ensures hover color overrides */
-                        }
-                    </style>
                     @if ($id == null)
+                        <!-- Fixed: ID syntax and class attribute -->
+                        <a href="{{ url('/loginp') }}" id="smoothLoginButton" class="praticien-link" style="
+                            margin-right: 20px;
+                            color: white;
+                            font-family: 'Montserrat', sans-serif;
+                            font-size: 14px;
+                            font-weight: 600;
+                            text-decoration: none;
+                            transition: color 0.3s ease;
+                            " onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#002b3a';">
+                            Vous êtes praticien !
+                        </a>
+
+                        <script>
+                            // Fixed: Add CSS transition to body first
+                            document.body.style.transition = 'opacity 0.5s ease';
+
+                            // Fixed: Match JavaScript ID with HTML ID (case-sensitive)
+                            document.getElementById('smoothLoginButton').addEventListener('click', function (event) {
+                                event.preventDefault();
+                                const targetUrl = this.href;
+
+                                // Fixed: Match transition duration with timeout
+                                document.body.style.opacity = '0';
+
+                                setTimeout(() => {
+                                    window.location.href = targetUrl;
+                                }, 500); // Now matches 0.5s transition
+                            });
+                        </script>
+
+                        <style>
+                            /* Required for initial opacity state */
+                            body {
+                                opacity: 1;
+                            }
+
+                            /* Fixed hover color behavior */
+                            .praticien-link:hover {
+                                color: #ffffff !important;
+                                /* Ensures hover color overrides */
+                            }
+                        </style>
                         <style>
                             body {
                                 opacity: 1;
@@ -242,16 +250,23 @@
                             });
                         </script>
                     @else
-                        <div class="d-none d-lg-block">
-                            <a href="{{ route('profile') }}" class="navbar-icon bi-person smoothscroll"></a>
-                        </div>
+                        @if (Auth::user()->role == "doctor")
+                            <div class="d-none d-lg-block">
+                                <a href="{{ route('docdash') }}" class="navbar-icon bi-person smoothscroll"></a>
+                            </div>
+                        @else
+                            <div class="d-none d-lg-block">
+                                <a href="{{ route('profile') }}" class="navbar-icon bi-person smoothscroll"></a>
+                            </div>
+
+                        @endif
                     @endif
 
                     <!-- Cleaned up closing tags -->
                 </div>
             </div>
         </nav>
-        
+
 
         <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
             <div class="container">
@@ -260,7 +275,7 @@
                     <div class="col-lg-8 col-12 mx-auto">
                         <h1 class="text-white text-center">Discover</h1>
 
-                       
+
 
                         <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
                             <div class="input-group input-group-lg">
@@ -355,7 +370,7 @@
                         <div class="text-center mb-5 pb-2">
                             <h1 class="text-white">our best doctors</h1>
 
-                            
+
                         </div>
 
                         <div class="owl-carousel owl-theme">
@@ -662,7 +677,7 @@
 
                     </div>
 
-                    
+
 
                 </div>
 

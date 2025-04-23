@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('tel');
             $table->string('password');
             $table->string('remember_token', 100)->nullable();
-            $table->enum('role', ['admin', 'patient', 'medecin'])->default('patient');
+            $table->enum('role', ['admin', 'patient', 'doctor'])->default('patient');
             $table->timestamps();
         });
     }
