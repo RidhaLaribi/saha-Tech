@@ -101,7 +101,7 @@
                 @if ($id != null)
                     @if (Auth::user()->role == "doctor")
                         <div class="d-lg-none ms-auto me-4">
-                            <a href="{{ route('docdash') }}" class="navbar-icon bi-person smoothscroll"></a>
+                            <a href="{{ route('dashboard') }}" class="navbar-icon bi-person smoothscroll"></a>
                         </div>
                     @else
                         <div class="d-lg-none ms-auto me-4">
@@ -252,7 +252,7 @@
                     @else
                         @if (Auth::user()->role == "doctor")
                             <div class="d-none d-lg-block">
-                                <a href="{{ route('docdash') }}" class="navbar-icon bi-person smoothscroll"></a>
+                                <a href="{{ route('dashboard') }}" class="navbar-icon bi-person smoothscroll"></a>
                             </div>
                         @else
                             <div class="d-none d-lg-block">
