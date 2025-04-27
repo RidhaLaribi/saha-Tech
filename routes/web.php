@@ -10,6 +10,7 @@ use App\Http\Controllers\MyController;
 use App\Http\Controllers\dashboardcontroller;
 use App\Notifications\SomeNotification;
 use App\Http\Controllers\doctorController;
+use App\Http\Controllers\PatientController;
 
 
 
@@ -72,25 +73,18 @@ Route::post("/addMember", [resController::class, "addMember"])->name("addMember"
 Route::post("del", [resController::class, 'delPatient'])->name("remove_P");
 Route::post("addNote", [resController::class, 'addNote'])->name("addnote");
 
-Route::middleware('auth')->group(function () {
-    // Mark all as read
-    Route::post('/docdash', [NotificationController::class, 'clear'])
-        ->name('clearnotif');
 
-
-
-    Route::post('/rend', [NotificationController::class, 'clear'])->name('clearnotif');
-    // Send a test notification
-
-});
-Route::get('/test-notif', [NotificationController::class, 'sendTest'])
+Route::get('/test-notif', [NotificationController::class,'sendTest'])
     ->middleware('auth')
     ->name('notifications.test');
 
 
-Route::get("/doctorDashBoard", function () {
-    return view('doctors');
-})->name("docdash");
+
+Route::middleware(['auth'])
+->get('/doctorDashBoard', [dashboardController::class, 'dashboard'])
+->name('dashboard');
+
+
 
 
 Route::get("/availability", [doctorController::class, 'showAvPage'])->name("avbl")->middleware('auth');
@@ -98,3 +92,41 @@ Route::get("/availability", [doctorController::class, 'showAvPage'])->name("avbl
 Route::post('/availability/update-info', [doctorController::class, 'updateInfo'])
     ->name('doctor.updateInfo')
     ->middleware('auth');
+
+Route::middleware(['auth'])
+    ->get('/rend', [
+        dashboardcontroller::class, 'index'
+    ])->name('doctor.appointments.index');
+
+
+
+
+Route::middleware(['auth'])
+->patch(
+'/rend/{appointment}',
+[dashboardcontroller::class, 'updateStatus']
+)
+->name('doctor.appointments.update');
+
+
+
+
+
+
+Route::middleware('auth')->group(function () {
+    // Mark all as read
+Route::post('/doctorDashBoard', [NotificationController::class, 'clear'])
+    ->name('clearnotif');
+
+
+
+Route::post('/rend', [NotificationController::class, 'clear'])->name('clearnotif');
+// Send a test notification
+
+});
+
+
+
+Route::middleware('auth')
+     ->get('rend/{patient}', [PatientController::class, 'show'])
+     ->name('doctor.patient.show');

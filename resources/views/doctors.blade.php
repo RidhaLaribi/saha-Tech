@@ -109,52 +109,51 @@
         </div>
 
         <!-- make them dynamique  -->
-        <div class="row mb-4">
-            <div class="col-md-3">
-                <div class="stats-card text-center">
-                    <div class="stats-icon text-primary"><i class="fas fa-tasks"></i></div>
-                    <h6>Total Requests</h6>
-                    <h4></h4>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stats-card text-center">
-                    <div class="stats-icon text-warning"><i class="fas fa-clock"></i></div>
-                    <h6>Pending Requests</h6>
-                    <h4></h4>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stats-card text-center">
-                    <div class="stats-icon text-success"><i class="fas fa-check-circle"></i></div>
-                    <h6>Processed Requests</h6>
-                    {{-- <h4>
-                        <?= htmlspecialchars($processedRequests, ENT_QUOTES, 'UTF-8'); ?>
-                    </h4> --}}
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stats-card text-center">
-                    <div class="stats-icon text-danger"><i class="fas fa-times-circle"></i></div>
-                    <h6>Rejected Requests</h6>
-                    {{-- <h4>
-                        <?= htmlspecialchars($rejectedRequests, ENT_QUOTES, 'UTF-8'); ?>
-                    </h4> --}}
-                </div>
-            </div>
-        </div>
+     <div class="row mb-4">
+  <div class="col-md-3">
+    <div class="stats-card text-center">
+      <div class="stats-icon text-primary"><i class="fas fa-tasks"></i></div>
+      <h6>Total Requests</h6>
+      <h4>{{ $totalRequests }}</h4>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stats-card text-center">
+      <div class="stats-icon text-warning"><i class="fas fa-clock"></i></div>
+      <h6>Pending Requests</h6>
+      <h4>{{ $pendingRequests }}</h4>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stats-card text-center">
+      <div class="stats-icon text-success"><i class="fas fa-check-circle"></i></div>
+      <h6>Processed Requests</h6>
+      <h4>{{ $processedRequests }}</h4>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stats-card text-center">
+      <div class="stats-icon text-danger"><i class="fas fa-times-circle"></i></div>
+      <h6>Rejected Requests</h6>
+      <h4>{{ $rejectedRequests }}</h4>
+    </div>
+  </div>
+</div>
+
 
 
         <div class="row">
             <div class="col-md-6">
                 <div class="chart-container">
-                    <canvas id="requestsChart"></canvas>
+                    <canvas id="rendezvousChart"></canvas>
+
+
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="chart-container">
-                    <canvas id="RequestsPieChart"></canvas>
+                    <canvas id="rendezvousPieChart"></canvas>
                 </div>
             </div>
         </div>
@@ -167,76 +166,73 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 
+   
 
-    {{--
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Get data from backend
-            const months = @json($months);
-            const totalRequests = @json($totalRequests);
-            const processedRequests = @json($processedRequests);
-            const pieData = {
-                processed: {{ $pieData-> processed
-        }},
-            pending: {{ $pieData-> pending }},
-            rejected: {{ $pieData-> rejected }},
-          };
+document.addEventListener("DOMContentLoaded", function () {
+    // renamed variables
+    const months        = @json($months);
+    const totalRendezV  = @json($totals);
+    const confirmedRV   = @json($confirmed);
 
-        // Line Chart
-        const requestsCtx = document.getElementById('requestsChart').getContext('2d');
-        new Chart(requestsCtx, {
-            type: 'line',
-            data: {
-                labels: months,
-                datasets: [
-                    {
-                        label: 'Total Requests',
-                        data: totalRequests,
-                        borderColor: '#4169E1',
-                        backgroundColor: 'rgba(65, 105, 225, 0.1)',
-                        tension: 0.4
-                    },
-                    {
-                        label: 'Processed Requests',
-                        data: processedRequests,
-                        borderColor: '#27ae60',
-                        backgroundColor: 'rgba(39, 174, 96, 0.1)',
-                        tension: 0.4
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: 'top' }
-                },
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
-        });
+    const statusCounts = {
+      confirmed: {{ $pieData->confirmed }},
+      pending:   {{ $pieData->pending }},
+      cancelled: {{ $pieData->cancelled }},
+    };
 
-        // Pie Chart
-        const pieCtx = document.getElementById('RequestsPieChart').getContext('2d');
-        new Chart(pieCtx, {
-            type: 'pie',
-            data: {
-                labels: ['Processed', 'Pending', 'Rejected'],
-                datasets: [{
-                    label: 'Requests Performance',
-                    data: [pieData.processed, pieData.pending, pieData.rejected],
-                    backgroundColor: ['#27ae60', '#f1c40f', '#e74c3c'],
-                }]
-            },
-            options: {
-                responsive: true,
-            }
-        });
-      });
-    </script>
-    --}}
+    // — Line chart for appointments —
+    const ctxLine = document.getElementById('rendezvousChart').getContext('2d');
+    new Chart(ctxLine, {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: [
+          {
+            label: 'Total RDVs',
+            data: totalRendezV,
+            borderColor: '#4169E1',
+            backgroundColor: 'rgba(65,105,225,0.1)',
+            tension: 0.4,
+          },
+          {
+            label: 'Confirmés',
+            data: confirmedRV,
+            borderColor: '#27ae60',
+            backgroundColor: 'rgba(39,174,96,0.1)',
+            tension: 0.4,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'top' } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
 
+    // — Pie chart for status breakdown —
+    const ctxPie = document.getElementById('rendezvousPieChart').getContext('2d');
+    new Chart(ctxPie, {
+      type: 'pie',
+      data: {
+        labels: ['Confirmé', 'En Attente', 'Annulé'],
+        datasets: [{
+          data: [
+            statusCounts.confirmed,
+            statusCounts.pending,
+            statusCounts.cancelled
+          ],
+          backgroundColor: ['#27ae60', '#f1c40f', '#e74c3c'],
+        }]
+      },
+      options: { responsive: true }
+    });
+});
+</script>
 
+      
+    
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 
 

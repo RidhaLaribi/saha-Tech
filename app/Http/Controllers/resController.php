@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\returnArgument;
 use App\Models\User;
 use App\Models\patient;
-use App\Models\rendezvous;
+use App\Models\Rendezvous;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 
@@ -160,7 +160,7 @@ class resController extends Controller
         //     echo "No upcoming appointments";
         // }
 
-        $next = rendezvous::where('patient_id', $patient->id)
+        $next = Rendezvous::where('patient_id', $patient->id)
             ->where('rendezvous', '>', now())
             ->orderBy('rendezvous', 'asc')
             ->first();
