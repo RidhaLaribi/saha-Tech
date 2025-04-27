@@ -10,6 +10,7 @@ use App\Http\Controllers\MyController;
 use App\Http\Controllers\dashboardcontroller;
 use App\Notifications\SomeNotification;
 use App\Http\Controllers\doctorController;
+use App\Http\Controllers\PatientController;
 
 
 
@@ -123,3 +124,9 @@ Route::post('/rend', [NotificationController::class, 'clear'])->name('clearnotif
 // Send a test notification
 
 });
+
+
+
+Route::middleware('auth')
+     ->get('rend/{patient}', [PatientController::class, 'show'])
+     ->name('doctor.patient.show');

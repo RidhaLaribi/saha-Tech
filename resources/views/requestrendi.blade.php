@@ -148,7 +148,7 @@
                               <td>{{ $apt->id }}</td>
                               <td class="d-flex align-items-center">
                                 <img src="{{ asset('storage/' . $apt->patient->pic) }}"
-                                  class="rounded-circle me-2" width="32" height="32"
+                                  class="rounded-circle me-2" width="50" height="50"
                                   alt="Avatar">
                               {{ $apt->patient->name }}
                               </td>
@@ -168,6 +168,13 @@
                                 </span>
                               </td>
                               <td>
+                                <td>
+                                  {{-- View Patient Profile --}}
+                                  <a href="{{ route('doctor.patient.show', $apt->patient->id) }}"
+                                     class="btn btn-sm btn-outline-primary me-1"
+                                     title="Voir le profil">
+                                    <i class="fas fa-user"></i>
+                                  </a>
                                 {{-- Accept button --}}
                                 <form action="{{ route('doctor.appointments.update', $apt) }}"
                                       method="POST" class="d-inline">
@@ -181,6 +188,8 @@
                                   </button>
                                 </form>
                       
+
+                               
                                 {{-- Decline button --}}
                                 <form action="{{ route('doctor.appointments.update', $apt) }}"
                                       method="POST" class="d-inline">
