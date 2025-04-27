@@ -147,10 +147,10 @@
                             <tr>
                               <td>{{ $apt->id }}</td>
                               <td class="d-flex align-items-center">
-                                <img src="{{ $apt->patient->photo_url }}"
-                                     class="rounded-circle me-2" width="32" height="32"
-                                     alt="Avatar">
-                                {{ $apt->patient->name }}
+                                <img src="{{ asset('storage/' . $apt->patient->pic) }}"
+                                  class="rounded-circle me-2" width="32" height="32"
+                                  alt="Avatar">
+                              {{ $apt->patient->name }}
                               </td>
                               <td>{{ $apt->rendezvous->format('d M Y, H:i') }}</td>
                               <td>{{ $apt->type }}</td>
