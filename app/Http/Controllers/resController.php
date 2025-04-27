@@ -175,8 +175,7 @@ class resController extends Controller
                 'r' => $patient->rendezvous,
                 'user' => $user,
                 'notes' => $notes,
-                'next' => $next
-                ,
+                'next' => $next,
             ]
         );
     }

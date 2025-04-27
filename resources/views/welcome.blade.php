@@ -134,17 +134,18 @@
 
                     </ul>
 
+
                     @if ($id == null)
                         <!-- Fixed: ID syntax and class attribute -->
                         <a href="{{ url('/loginp') }}" id="smoothLoginButton" class="praticien-link" style="
-                            margin-right: 20px;
-                            color: white;
-                            font-family: 'Montserrat', sans-serif;
-                            font-size: 14px;
-                            font-weight: 600;
-                            text-decoration: none;
-                            transition: color 0.3s ease;
-                            " onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#002b3a';">
+                                    margin-right: 20px;
+                                    color: white;
+                                    font-family: 'Montserrat', sans-serif;
+                                    font-size: 14px;
+                                    font-weight: 600;
+                                    text-decoration: none;
+                                    transition: color 0.3s ease;
+                                    " onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#002b3a';">
                             Vous êtes praticien !
                         </a>
 
@@ -245,6 +246,17 @@
                             });
                         </script>
                     @else
+
+                        <div class="d-none d-lg-block" style="padding-right: 5px">
+                            <a href="{{ route('logout') }}" class="navbar-icon b-logout"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="bi bi-box-arrow-right"></i> <!-- Bootstrap logout icon -->
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
                         @if (Auth::user()->role == "doctor")
                             <div class="d-none d-lg-block">
                                 <a href="{{ route('docdash') }}" class="navbar-icon bi-person smoothscroll"></a>

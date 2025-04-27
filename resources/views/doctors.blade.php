@@ -12,6 +12,17 @@
 
 </head>
 
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap"
+    rel="stylesheet">
+
+<link href="css/bootstrap-icons.css" rel="stylesheet">
+
 <body>
     {{--
     <?php
@@ -72,7 +83,9 @@
             </div>
             <div class="actions d-flex align-items-center gap-4">
                 <!-- Notifications -->
+
                 <x-notifications-dropdown />
+
 
 
                 <!-- Profile Circle -->
