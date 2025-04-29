@@ -63,7 +63,7 @@ Route::post("update", [resController::class, 'updateInfo'])->name("modify");
 
 
 
-Route::post('/upload-file', [resController::class, 'upload'])->name('files.upload');
+Route::post('upload-file', [resController::class, 'upload'])->name('files.upload');
 
 
 //Route::get("change-patient", [resController::class, ''])->name("changep.toggle");
@@ -71,18 +71,17 @@ Route::post('/changep', [resController::class, 'changep'])->name('changep.toggle
 
 Route::post("/addMember", [resController::class, "addMember"])->name("addMember");
 Route::post("del", [resController::class, 'delPatient'])->name("remove_P");
-Route::post("addNote", [resController::class, 'addNote'])->name("addnote");
 
 
-Route::get('/test-notif', [NotificationController::class,'sendTest'])
+Route::get('/test-notif', [NotificationController::class, 'sendTest'])
     ->middleware('auth')
     ->name('notifications.test');
 
 
 
 Route::middleware(['auth'])
-->get('/doctorDashBoard', [dashboardController::class, 'dashboard'])
-->name('dashboard');
+    ->get('/doctorDashBoard', [dashboardController::class, 'dashboard'])
+    ->name('dashboard');
 
 
 
@@ -95,18 +94,19 @@ Route::post('/availability/update-info', [doctorController::class, 'updateInfo']
 
 Route::middleware(['auth'])
     ->get('/rend', [
-        dashboardcontroller::class, 'index'
+        dashboardcontroller::class,
+        'index'
     ])->name('doctor.appointments.index');
 
 
 
 
 Route::middleware(['auth'])
-->patch(
-'/rend/{appointment}',
-[dashboardcontroller::class, 'updateStatus']
-)
-->name('doctor.appointments.update');
+    ->patch(
+        '/rend/{appointment}',
+        [dashboardcontroller::class, 'updateStatus']
+    )
+    ->name('doctor.appointments.update');
 
 
 
@@ -115,18 +115,21 @@ Route::middleware(['auth'])
 
 Route::middleware('auth')->group(function () {
     // Mark all as read
-Route::post('/doctorDashBoard', [NotificationController::class, 'clear'])
-    ->name('clearnotif');
+    Route::post('/doctorDashBoard', [NotificationController::class, 'clear'])
+        ->name('clearnotif');
 
 
 
-Route::post('/rend', [NotificationController::class, 'clear'])->name('clearnotif');
-// Send a test notification
+    Route::post('/rend', [NotificationController::class, 'clear'])->name('clearnotif');
+    // Send a test notification
 
 });
+Route::post("addNote", [doctorController::class, 'addNote'])->name("addnote");
 
 
 
-Route::middleware('auth')
-     ->get('rend/{patient}', [PatientController::class, 'show'])
-     ->name('doctor.patient.show');
+Route::
+    get('profile{patient}', [doctorController::class, 'showThisPatient'])
+    ->
+    middleware('auth')
+    ->name('doctor.patient.show');

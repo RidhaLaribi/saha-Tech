@@ -23,24 +23,10 @@
 
 
 <body>
-    <div class="admin-sidebar">
-        <div class="sidebar-header">
-            <a href="#" class="admin-logo">
-                <div class="logo-circle">
-                    <i class="fas fa-university"></i>
-                </div>
-                <span class="fs-5 fw-bold">News Dashboard</span>
-            </a>
-        </div>
 
-        <nav class="sidebar-nav">
-            <a href="Dashboard.php" class="nav-link "><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-            <a href="Requests.php" class="nav-link "><i class="fas fa-file-alt"></i> Manage Requests</a>
-            <a href="News.php" class="nav-link active"><i class="fas fa-users"></i> News </a>
-            <a href="newadmine.php" class="nav-link "><i class="fas fa-user-graduate"></i>Users</a>
 
-        </nav>
-    </div>
+    <x-sidebar />
+
 
     <div class="sidebar" id="accountSidebar">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -139,7 +125,7 @@
                                     // },
 
                                     @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           {
                                             title: 'Rendez-vous',
                                             start: '{{$re->rendezvous}}',
                                             url: 'https://youtube.com/',

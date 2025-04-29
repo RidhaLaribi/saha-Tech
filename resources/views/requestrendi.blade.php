@@ -1,236 +1,213 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Requests Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/stylesRequests.css">
-    <script src="Requests.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Requests Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/stylesRequests.css">
+  <script src="Requests.js" defer></script>
 </head>
+
 <body>
-<div class="admin-sidebar">
-        <div class="sidebar-header">
-            <a href="#" class="admin-logo">
-                <div class="logo-circle">
-                    <i class="fas fa-university"></i>
-                </div>
-                <span class="fs-5 fw-bold">Requests Dashboard</span>
-            </a>
-        </div>
-        
-        <nav class="sidebar-nav">
-            <a href="Dashboard.php" class="nav-link "><i class="fas fa-tachometer-alt"></i>‎  Dashboard</a>
-            <a href="Requests.php" class="nav-link active"><i class="fas fa-file-alt"></i>‎  Manage Requests</a>
-            <a href="News.php" class="nav-link"><i class="fas fa-users"></i>‎  News </a>
-            <a href="newadmine.php" class="nav-link "><i class="fas fa-user-graduate"></i>‎ Users</a>
 
-        </nav>
+  <x-sidebar />
+
+
+  <div class="sidebar" id="accountSidebar">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="m-0">Account</h4>
+      <button class="btn btn-link text-dark" onclick="toggleSidebar()">
+        <i class="fas fa-times fs-4"></i>
+      </button>
     </div>
-    
-    <div class="sidebar" id="accountSidebar">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="m-0">Account</h4>
-            <button class="btn btn-link text-dark" onclick="toggleSidebar()">
-                <i class="fas fa-times fs-4"></i>
-            </button>
-        </div>
-        <div class="profile-section">
-                <!-- i need to add admin image -->
-            <img src="Admin_pic.png" alt="Profile" class="profile-image">
-            <h1>Welcome,
-                 {{-- <?php echo htmlspecialchars($_SESSION['username']); ?>! --}}
-                </h1>
-            <p>Your role is: <strong>
-                {{-- <?php echo htmlspecialchars($_SESSION['role']); ?> --}}
-            </strong>.</p>
-            <p>Your id is :
-                {{-- <?php echo htmlspecialchars($_SESSION['id']); ?> --}}
-            </strong>.</p>
-        </div>
-        <form action="logout.php" method="POST">
-            <button type="submit" class="btn btn-danger w-100 mt-4">
-                <i class="fas fa-sign-out-alt me-2"></i>
-                Sign Out
-            </button>
-        </form>
+    <div class="profile-section">
+      <!-- i need to add admin image -->
+      <img src="Admin_pic.png" alt="Profile" class="profile-image">
+      <h1>Welcome,
+        {{--
+        <?php echo htmlspecialchars($_SESSION['username']); ?>! --}}
+      </h1>
+      <p>Your role is: <strong>
+
+        </strong>.
+      </p>
     </div>
-    <div class="main-content">
+    <form action="logout.php" method="POST">
+      <button type="submit" class="btn btn-danger w-100 mt-4">
+        <i class="fas fa-sign-out-alt me-2"></i>
+        Sign Out
+      </button>
+    </form>
+  </div>
+  <div class="main-content">
     <div class="admin-header d-flex justify-content-between align-items-center p-3">
-            <!-- Logo and University Name Section -->
-            <div class="brand d-flex align-items-center">
-                <img src="logo.png" alt="Boumerdes University Logo" 
-                     class="logo me-3" 
-                     style="height: 45px; width: auto; object-fit: contain;">
-                <div class="university-name">
-                    <h4 class="mb-0 fw-bold">Boumerdes University</h4>
-                    <small class="text-muted">University of M'Hamed Bougara</small>
-                </div>
-            </div>
-        
-            <!-- Right Side Actions -->
-            <div class="actions d-flex align-items-center gap-4">
-                <x-notifications-dropdown />
-                <!-- Profile Circle -->
-                <div class="profile-circle d-flex align-items-center justify-content-center rounded-circle bg-primary text-white"
-                     style="width: 40px; height: 40px; font-weight: 500;">
-                    AD
-                </div>
-            </div>
+      <!-- Logo and University Name Section -->
+      <div class="brand d-flex align-items-center">
+        <img src="logo.png" alt="Boumerdes University Logo" class="logo me-3"
+          style="height: 45px; width: auto; object-fit: contain;">
+        <div class="university-name">
+          <h4 class="mb-0 fw-bold">Boumerdes University</h4>
+          <small class="text-muted">University of M'Hamed Bougara</small>
         </div>
+      </div>
 
-        
-        
-
-        <!-- Table Section -->
-        <div class="table-responsive">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-               <h5 class="mb-0">Recent requests</h5>
-               
-            </div>
-            <div class="container">
-
-                {{-- Filters --}}
-                <form class="row g-3 mb-4">
-                  <div class="col-md-4">
-                    <input type="text"
-                           name="search"
-                           value="{{ $search }}"
-                           class="form-control"
-                           placeholder="Search patient name…">
-                  </div>
-                  <div class="col-md-3">
-                    <select name="type" class="form-select">
-                      <option value="">All Types</option>
-                      <option value="bonne_conduite" {{ $type=='bonne_conduite'?'selected':'' }}>
-                        Bonne Conduite
-                      </option>
-                      <option value="certificat de scolarité" {{ $type=='certificat de scolarité'?'selected':'' }}>
-                        Certificat de Scolarité
-                      </option>
-                      <option value="relevé de note" {{ $type=='relevé de note'?'selected':'' }}>
-                        Relevé de Note
-                      </option>
-                    </select>
-                  </div>
-                  <div class="col-md-3">
-                    <select name="status" class="form-select">
-                      <option value="">All Statuses</option>
-                      <option value="En Attente" {{ $status=='En Attente'?'selected':'' }}>En Attente</option>
-                      <option value="Confirmé"   {{ $status=='Confirmé'?'selected':'' }}>Confirmé</option>
-                      <option value="Annulé"     {{ $status=='Annulé'?'selected':'' }}>Annulé</option>
-                    </select>
-                  </div>
-                  <div class="col-md-2">
-                    <button class="btn btn-primary w-100">
-                      <i class="fas fa-filter me-1"></i> Filter
-                    </button>
-                  </div>
-                </form>
-              
-                {{-- Table --}}
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle">
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>Patient</th>
-                            <th>Date &amp; Time</th>
-                            <th>Type</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @forelse($appointments as $apt)
-                            <tr>
-                              <td>{{ $apt->id }}</td>
-                              <td class="d-flex align-items-center">
-                                <img src="{{ asset('storage/' . $apt->patient->pic) }}"
-                                  class="rounded-circle me-2" width="50" height="50"
-                                  alt="Avatar">
-                              {{ $apt->patient->name }}
-                              </td>
-                              <td>{{ $apt->rendezvous->format('d M Y, H:i') }}</td>
-                              <td>{{ $apt->type }}</td>
-                              <td>
-                                @php
-                                  $badge = match($apt->status) {
-                                    'Confirmé'   => 'success',
-                                    'En Attente' => 'warning',
-                                    'Annulé'     => 'danger',
-                                    default      => 'secondary',
-                                  };
-                                @endphp
-                                <span class="badge bg-{{ $badge }}">
-                                  {{ $apt->status }}
-                                </span>
-                              </td>
-                              <td>
-                                <td>
-                                  {{-- View Patient Profile --}}
-                                  <a href="{{ route('doctor.patient.show', $apt->patient->id) }}"
-                                     class="btn btn-sm btn-outline-primary me-1"
-                                     title="Voir le profil">
-                                    <i class="fas fa-user"></i>
-                                  </a>
-                                {{-- Accept button --}}
-                                <form action="{{ route('doctor.appointments.update', $apt) }}"
-                                      method="POST" class="d-inline">
-                                  @csrf
-                                  @method('PATCH')
-                                  <input type="hidden" name="status" value="Confirmé">
-                                  <button type="submit"
-                                          class="btn btn-sm btn-success"
-                                          title="Accept">
-                                    <i class="fas fa-check"></i>
-                                  </button>
-                                </form>
-                      
-
-                               
-                                {{-- Decline button --}}
-                                <form action="{{ route('doctor.appointments.update', $apt) }}"
-                                      method="POST" class="d-inline">
-                                  @csrf
-                                  @method('PATCH')
-                                  <input type="hidden" name="status" value="Annulé">
-                                  <button type="submit"
-                                          class="btn btn-sm btn-danger"
-                                          title="Decline">
-                                    <i class="fas fa-times"></i>
-                                  </button>
-                                </form>
-                              </td>
-                            </tr>
-                          @empty
-                            <tr>
-                              <td colspan="6" class="text-center">No appointments found.</td>
-                            </tr>
-                          @endforelse
-                        </tbody>
-                      </table>
-                      
-                </div>
-              
-                {{-- Pagination --}}
-                <div class="mt-3">
-                  {{ $appointments->links() }}
-                </div>
-              </div>
-        </div> 
+      <!-- Right Side Actions -->
+      <div class="actions d-flex align-items-center gap-4">
+        <x-notifications-dropdown />
+        <!-- Profile Circle -->
+        <div
+          class="profile-circle d-flex align-items-center justify-content-center rounded-circle bg-primary text-white"
+          style="width: 40px; height: 40px; font-weight: 500;">
+          AD
         </div>
+      </div>
     </div>
-    
 
-   
-      
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-    
-   
+
+
+
+    <!-- Table Section -->
+    <div class="table-responsive">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h5 class="mb-0">Recent requests</h5>
+
+      </div>
+      <div class="container">
+
+        {{-- Filters --}}
+        <form class="row g-3 mb-4">
+          <div class="col-md-4">
+            <input type="text" name="search" value="{{ $search }}" class="form-control"
+              placeholder="Search patient name…">
+          </div>
+          <div class="col-md-3">
+            <select name="type" class="form-select">
+              <option value="">All Types</option>
+              <option value="bonne_conduite" {{ $type == 'bonne_conduite' ? 'selected' : '' }}>
+                type
+              </option>
+              <option value="certificat de scolarité" {{ $type == 'certificat de scolarité' ? 'selected' : '' }}>
+                type
+              </option>
+              <option value="relevé de note" {{ $type == 'relevé de note' ? 'selected' : '' }}>
+                type 3
+              </option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <select name="status" class="form-select">
+              <option value="">All Statuses</option>
+              <option value="En Attente" {{ $status == 'En Attente' ? 'selected' : '' }}>En Attente</option>
+              <option value="Confirmé" {{ $status == 'Confirmé' ? 'selected' : '' }}>Confirmé</option>
+              <option value="Annulé" {{ $status == 'Annulé' ? 'selected' : '' }}>Annulé</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary w-100">
+              <i class="fas fa-filter me-1"></i> Filter
+            </button>
+          </div>
+        </form>
+
+        {{-- Table --}}
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Patient</th>
+                <th>Date &amp; Time</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @forelse($appointments as $apt)
+                <tr>
+                <td>{{ $apt->id }}</td>
+                <td class="d-flex align-items-center">
+                  <img src="{{ asset('storage/' . $apt->patient->pic) }}" class="rounded-circle me-2" width="50"
+                  height="50" alt="Avatar">
+                  {{ $apt->patient->name }}
+                </td>
+                <td>{{ $apt->rendezvous->format('d M Y, H:i') }}</td>
+                <td>{{ $apt->type }}</td>
+                <td>
+                  @php
+            $badge = match ($apt->status) {
+            'Confirmé' => 'success',
+            'En Attente' => 'warning',
+            'Annulé' => 'danger',
+            default => 'secondary',
+            };
+        @endphp
+                  <span class="badge bg-{{ $badge }}">
+                  {{ $apt->status }}
+                  </span>
+                </td>
+                <td>
+                <td>
+                  {{-- View Patient Profile --}}
+                  <a href="{{ route('doctor.patient.show', $apt->patient) }}"
+                  class="btn btn-sm btn-outline-primary me-1" title="Voir le profil">
+                  <i class="fas fa-user"></i>
+                  </a>
+
+
+                  {{-- Accept button --}}
+                  <form action="{{ route('doctor.appointments.update', $apt) }}" method="POST" class="d-inline">
+                  @csrf
+                  @method('PATCH')
+                  <input type="hidden" name="status" value="Confirmé">
+                  <button type="submit" class="btn btn-sm btn-success" title="Accept">
+                    <i class="fas fa-check"></i>
+                  </button>
+                  </form>
+
+
+
+                  {{-- Decline button --}}
+                  <form action="{{ route('doctor.appointments.update', $apt) }}" method="POST" class="d-inline">
+                  @csrf
+                  @method('PATCH')
+                  <input type="hidden" name="status" value="Annulé">
+                  <button type="submit" class="btn btn-sm btn-danger" title="Decline">
+                    <i class="fas fa-times"></i>
+                  </button>
+                  </form>
+                </td>
+                </tr>
+        @empty
+        <tr>
+        <td colspan="6" class="text-center">No appointments found.</td>
+        </tr>
+      @endforelse
+            </tbody>
+          </table>
+
+        </div>
+
+        {{-- Pagination --}}
+        <div class="mt-3">
+          {{ $appointments->links() }}
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
+
 </body>
+
 </html>

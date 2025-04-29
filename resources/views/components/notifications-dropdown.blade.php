@@ -1,18 +1,16 @@
 <div class="notifications">
-  <a href="#" class="navbar-icon b-notification smoothscroll position-relative" data-bs-toggle="modal"
+  <button class="btn btn-light position-relative rounded-circle p-2 shadow-sm" data-bs-toggle="modal"
     data-bs-target="#notificationModal">
-    <i class="bi bi-bell"></i>
-    {{-- Bell icon --}}
+    <i class="fas fa-bell fs-5"></i>
+    {{-- Bell button --}}
     @if($unreadCount > 0)
     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
       {{ $unreadCount }}
       <span class="visually-hidden">unread notifications</span>
     </span>
   @endif
-  </a>
+  </button>
 </div>
-
-
 
 
 

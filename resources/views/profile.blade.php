@@ -18,11 +18,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap"
         rel="stylesheet">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/bootstrap-icons.css" rel="stylesheet">
 
-    <link href="css/profile.css" rel="stylesheet">
+    <link href="../css/profile.css" rel="stylesheet">
     <!--
 
 TemplateMo 590 topic listing
@@ -31,17 +31,17 @@ https://templatemo.com/tm-590-topic-listing
 
 calendar links-->
 
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="../fonts/icomoon/style.css">
 
-    <link href='fullcalendar/packages/core/main.css' rel='stylesheet' />
-    <link href='fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+    <link href='../fullcalendar/packages/core/main.css' rel='stylesheet' />
+    <link href='../fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
 
 
     <!-- Bootstrap CSS -->
 
 
     <!-- Style -->
-    <link rel="stylesheet" href="css/calendstyle.css">
+    <link rel="stylesheet" href="../css/calendstyle.css">
 
 </head>
 
@@ -110,24 +110,29 @@ calendar links-->
                             <i class="bi bi-bell"></i> <!-- Bootstrap bell icon -->
                         </a>
                     </div> --}}
-                    <x-notifications-dropdown />
+                    @if ($user->role == 'patient')
+
+
+
+                        <x-notifications-dropdown />
 
 
 
 
 
-                    <div class="d-none d-lg-block" style="padding-left: 5px">
-                        <a href="#" class="navbar-icon b-notification smoothscroll"
-                            onclick="event.preventDefault();document.getElementById('modify').submit()">
-                            <i class="bi bi-pencil-square"></i> <!-- Bootstrap edit/modification icon -->
-                        </a>
-                        <form method="POST" action="{{ route('modify.toggle') }}" id="modify">
-                            @csrf
+                        <div class="d-none d-lg-block" style="padding-left: 5px">
+                            <a href="#" class="navbar-icon b-notification smoothscroll"
+                                onclick="event.preventDefault();document.getElementById('modify').submit()">
+                                <i class="bi bi-pencil-square"></i> <!-- Bootstrap edit/modification icon -->
+                            </a>
+                            <form method="POST" action="{{ route('modify.toggle') }}" id="modify">
+                                @csrf
 
-                        </form>
-                    </div>
+                            </form>
+                        </div>
 
 
+                    @endif
 
 
 
@@ -148,7 +153,7 @@ calendar links-->
         </nav>
 
 
-        @if(!session('modifying'))
+        @if(!session('modifying') || $user->role != 'patient')
 
             <section class="hero-section d-flex justify-content-center align-items-center" id="section_1" class="vh-100">
                 <div class="container py-5 h-100">
@@ -184,14 +189,15 @@ calendar links-->
                                             <div class="row pt-1">
                                                 <div class="col-6 mb-3">
                                                     <h6>Email</h6>
-                                                    <p class="text-muted">{{$user->email}} </p>
+                                                    <p class="text-muted">{{$patients->get(session('id_p'))->user->email}}
+                                                    </p>
                                                 </div>
                                                 <div class="col-6 mb-3">
                                                     <h6>Phone</h6>
 
 
-                                                    <p class="text-muted">{{ $user->tel }} </p>
-
+                                                    <p class="text-muted">{{$patients->get(session('id_p'))->user->tel}}
+                                                    </p>
                                                 </div>
                                             </div>
                                             <h6></h6>
@@ -395,12 +401,14 @@ calendar links-->
                                 aria-selected="false">Members</button>
                         </li>
 
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="finance-tab" data-bs-toggle="tab"
-                                data-bs-target="#finance-tab-pane" type="button" role="tab"
-                                aria-controls="finance-tab-pane" aria-selected="false">add member</button>
-                        </li>
+                        @if ($user->role == 'patient')
 
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="finance-tab" data-bs-toggle="tab"
+                                    data-bs-target="#finance-tab-pane" type="button" role="tab"
+                                    aria-controls="finance-tab-pane" aria-selected="false">add member</button>
+                            </li>
+                        @endif
 
 
                         <!--<li class="nav-item" role="presentation">
@@ -451,7 +459,7 @@ calendar links-->
                                                  },*/
 
                                                 @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       {
                                                         title: 'Rendez-vous',
                                                         start: '{{$re->rendezvous}}',
                                                         url: 'https://youtube.com/',
@@ -625,6 +633,8 @@ calendar links-->
                                                             @csrf
                                                             <input type="file" name="files[]" id="fileInput" multiple
                                                                 onchange="document.getElementById('uploadForm').submit();">
+                                                            <input type="hidden" name="pid"
+                                                                value="{{ $patients[session('id_p')]->user_id}}">
                                                         </form>
                                                     @endif
                                                     <!-- Trigger link -->
@@ -751,11 +761,15 @@ calendar links-->
                                                                     <tr>
                                                                         <th scope="row"><input type="submit" value="add">
                                                                         </th>
-                                                                        <td>{{ Str::limit($user->name, 10, '...') }} </td>
+                                                                        <td>{{ Str::limit($user->doctor[0]->specialty, 1000, '...') }}
+                                                                        </td>
                                                                         <td> {{ Str::limit($user->name, 10, '...') }} </td>
                                                                         <input type="hidden" name="rdvid" value="1"
                                                                             style="display: none;">
                                                                         <input type="hidden" name="docid" value="1"
+                                                                            style="display: none;">
+                                                                        <input type="hidden" name="ptnid"
+                                                                            value="{{ $patients[session('id_p')]->id }}"
                                                                             style="display: none;">
                                                                         <td> <input type="text" name="note" id=""> </td>
                                                                     </tr>
@@ -884,80 +898,32 @@ calendar links-->
 
                                 </div>
                             </div>
+                            @if ($user->role == 'patient')
 
-                            <div class="tab-pane fade" id="finance-tab-pane" role="tabpanel"
-                                aria-labelledby="finance-tab" tabindex="0">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-0">
-                                        <div class="custom-block bg-white shadow-lg">
-                                            <!--  <a href="topics-detail.html">                rani mna7i -->
-                                            <div class="d-flex">
-                                                <div>
-                                                    <h5 class="mb-2">remove a member</h5>
-                                                    <p class="mb-0"></p>
-                                                    <form class="person-form-container person-form"
-                                                        action="{{route('remove_P') }}" method="post">
-                                                        @csrf
-                                                        <label for="person">Choose a Person:</label>
-                                                        <select id="person" name="id">
-                                                            <option value="" disabled selected>Select...</option>
-
-                                                            @foreach ($patients->skip(1) as $p)
-                                                                <option value="{{ $p->id }}">{{ $p->rel }}</option>
-                                                            @endforeach
-
-                                                        </select>
-                                                        <button type="submit">Submit</button>
-                                                    </form>
-
-
-                                                </div>
-
-
-                                            </div>
-
-
-                                            <!--</a>-->
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-md-6 col-12">
-                                        <div class="custom-block custom-block-overlay">
-                                            <div class="d-flex flex-column h-100">
-
-
-                                                <div class="custom-block-overlay-text d-flex">
+                                <div class="tab-pane fade" id="finance-tab-pane" role="tabpanel"
+                                    aria-labelledby="finance-tab" tabindex="0">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-0">
+                                            <div class="custom-block bg-white shadow-lg">
+                                                <!--  <a href="topics-detail.html">                rani mna7i -->
+                                                <div class="d-flex">
                                                     <div>
-                                                        <h5 class="text-white mb-2">Add member</h5>
-                                                        <form class="custom-form" action="{{ route('addMember') }}"
-                                                            method="POST" enctype="multipart/form-data">
+                                                        <h5 class="mb-2">remove a member</h5>
+                                                        <p class="mb-0"></p>
+                                                        <form class="person-form-container person-form"
+                                                            action="{{route('remove_P') }}" method="post">
                                                             @csrf
+                                                            <label for="person">Choose a Person:</label>
+                                                            <select id="person" name="id">
+                                                                <option value="" disabled selected>Select...</option>
 
-                                                            <input type="text" placeholder="Full Name"
-                                                                class="custom-input" name="name" required>
+                                                                @foreach ($patients->skip(1) as $p)
+                                                                    <option value="{{ $p->id }}">{{ $p->rel }}</option>
+                                                                @endforeach
 
-                                                            <input type="text" placeholder="Relation"
-                                                                class="custom-input" name="relation" required>
-
-                                                            <input type="number" placeholder="Age" class="custom-input"
-                                                                name="age" required>
-
-                                                            <select class="custom-input" name="gender" required>
-                                                                <option value="" disabled selected>Gender</option>
-                                                                <option value="Homme">Homme</option>
-                                                                <option value="Femme">Femme</option>
                                                             </select>
-
-                                                            <label for="file-upload" class="custom-file-label">
-                                                                Choose Medical Files
-                                                                <input type="file" id="file-upload" name="files[]"
-                                                                    class="custom-file-input" multiple>
-                                                            </label>
-
-                                                            <button type="submit" class="custom-button">Submit</button>
+                                                            <button type="submit">Submit</button>
                                                         </form>
-
-
 
 
                                                     </div>
@@ -965,23 +931,73 @@ calendar links-->
 
                                                 </div>
 
-                                                <div class="social-share d-flex">
-                                                    <p class="text-white me-4"></p>
+
+                                                <!--</a>-->
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="custom-block custom-block-overlay">
+                                                <div class="d-flex flex-column h-100">
+
+
+                                                    <div class="custom-block-overlay-text d-flex">
+                                                        <div>
+                                                            <h5 class="text-white mb-2">Add member</h5>
+                                                            <form class="custom-form" action="{{ route('addMember') }}"
+                                                                method="POST" enctype="multipart/form-data">
+                                                                @csrf
+
+                                                                <input type="text" placeholder="Full Name"
+                                                                    class="custom-input" name="name" required>
+
+                                                                <input type="text" placeholder="Relation"
+                                                                    class="custom-input" name="relation" required>
+
+                                                                <input type="number" placeholder="Age" class="custom-input"
+                                                                    name="age" required>
+
+                                                                <select class="custom-input" name="gender" required>
+                                                                    <option value="" disabled selected>Gender</option>
+                                                                    <option value="Homme">Homme</option>
+                                                                    <option value="Femme">Femme</option>
+                                                                </select>
+
+                                                                <label for="file-upload" class="custom-file-label">
+                                                                    Choose Medical Files
+                                                                    <input type="file" id="file-upload" name="files[]"
+                                                                        class="custom-file-input" multiple>
+                                                                </label>
+
+                                                                <button type="submit" class="custom-button">Submit</button>
+                                                            </form>
 
 
 
 
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="social-share d-flex">
+                                                        <p class="text-white me-4"></p>
+
+
+
+
+                                                    </div>
+
+                                                    <div class="section-overlay"></div>
                                                 </div>
-
-                                                <div class="section-overlay"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
 
 
+                            @endif
 
                         </div>
 
@@ -1000,7 +1016,7 @@ calendar links-->
             <div class="row">
 
                 <div class="col-lg-3 col-12 mb-4 pb-2">
-                    <a class="navbar-brand mb-2" href="index.html">
+                    <a class="navbar-brand mb-2" href="{{ route('home') }}">
                         <i class="bi-back"></i>
                         <span>SehaTech</span>
                     </a>
