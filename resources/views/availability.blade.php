@@ -23,75 +23,49 @@
 
 
 <body>
-    <div class="admin-sidebar">
-        <div class="sidebar-header">
-            <a href="#" class="admin-logo">
-                <div class="logo-circle">
-                    <i class="fas fa-university"></i>
-                </div>
-                <span class="fs-5 fw-bold">News Dashboard</span>
-            </a>
-        </div>
 
-        <nav class="sidebar-nav">
-            <a href="{{ route("dashboard") }}" class="nav-link active"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
-            <a href="{{ route("rend") }}" class="nav-link "><i class="fas fa-file-alt"></i> Manage appointments</a>
-            <a href="{{ route("avbl") }}" class="nav-link"><i class="fas fa-users"></i> options</a>
+  
+    <x-admin-sidebar/>
 
-        </nav>
-    </div>
-
-    <div class="sidebar" id="accountSidebar">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="m-0">Account</h4>
-            <button class="btn btn-link text-dark" onclick="toggleSidebar()">
-                <i class="fas fa-times fs-4"></i>
-            </button>
-        </div>
-        <div class="profile-section">
-            <!-- i need to add admin image -->
-            <img src="Admin_pic.png" alt="Profile" class="profile-image">
-            <h1>Welcome,
-
-            </h1>
-            <p>Your role is: <strong>
-
-                </strong>.</p>
-            <p>Your id is :
-                </strong>.</p>
-        </div>
-        <form action="logout.php" method="POST">
-            <button type="submit" class="btn btn-danger w-100 mt-4">
-                <i class="fas fa-sign-out-alt me-2"></i>
-                Sign Out
-            </button>
-        </form>
-    </div>
+    
     <div class="main-content">
         <div class="admin-header d-flex justify-content-between align-items-center p-3">
             <!-- Logo and University Name Section -->
             <div class="brand d-flex align-items-center">
-                <img src="logo.png" alt="Boumerdes University Logo" class="logo me-3"
-                    style="height: 45px; width: auto; object-fit: contain;">
+                
+                   
                 <div class="university-name">
-                    <h4 class="mb-0 fw-bold">Boumerdes University</h4>
-                    <small class="text-muted">University of M'Hamed Bougara</small>
+                    <h4 class="mb-0 fw-bold">Doctor dashboard</h4>
+                    
                 </div>
             </div>
-
-            <!-- Right Side Actions -->
             <div class="actions d-flex align-items-center gap-4">
                 <!-- Notifications -->
                 <x-notifications-dropdown />
 
+
                 <!-- Profile Circle -->
-                <div class="profile-circle d-flex align-items-center justify-content-center rounded-circle bg-primary text-white"
-                    style="width: 40px; height: 40px; font-weight: 500;">
-                    AD
-                </div>
+                <img
+                src="{{ asset('storage/' . (Auth::user()->doctor->pic ?? 'defaults/avatar.png')) }}"
+                alt="Profile"
+                class="profile-circle rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                style="width:60px; height:60px; object-fit: cover; cursor: pointer;border: 2px solid black;"
+                onclick="document.getElementById('accountSidebar').classList.toggle('active')"
+              />
+        
+
+      {{-- <div>
+      <a href="{{ route('notifications.test') }}" class="btn btn-sm btn-outline-primary">
+          Send me a test notification
+        </a>
+  </div> --}}
             </div>
         </div>
 
+        <x-account-sidebar :user="Auth::user()"/>
+
+
+        
         <div class="container-fluid py-4">
             <!-- News Management Header -->
             <div class="news-management-header d-flex justify-content-between align-items-center">
@@ -136,14 +110,19 @@
                                     //     url: 'http://google.com/',
 
                                     // },
+                                    @if ($r != null)
 
-                                    @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       {
-                                            title: 'Rendez-vous',
-                                            start: '{{$re->rendezvous}}',
-                                            url: 'https://youtube.com/',
-                                        },
-                                    @endforeach 
+                                        @foreach ($r as $re)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {
+                                                title: 'Rendez-vous',
+                                                start: '{{$re->rendezvous}}',
+                                                url: 'https://youtube.com/',
+                                            },
+                                        @endforeach
+
+
+                                    @endif
+
 
 
 
@@ -422,7 +401,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 
-
+        <script src="{{ asset('js/sidebar.js') }}"></script>
 </body>
 
 </html>

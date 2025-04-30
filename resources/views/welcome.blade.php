@@ -37,10 +37,12 @@
     <link rel="stylesheet" href="css/templatecarousel.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     <!-- Or for RTL support -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
-    
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
+
     <style>
         /* NOTIFICATION CARD */
         .notification-card {
@@ -139,17 +141,19 @@
 
                     </ul>
 
+
                     @if ($id == null)
                         <!-- Fixed: ID syntax and class attribute -->
                         <a href="{{ url('/loginp') }}" id="smoothLoginButton" class="praticien-link" style="
-                            margin-right: 20px;
-                            color: white;
-                            font-family: 'Montserrat', sans-serif;
-                            font-size: 14px;
-                            font-weight: 600;
-                            text-decoration: none;
-                            transition: color 0.3s ease;
-                            " onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#002b3a';">
+                                                                                                        margin-right: 20px;
+                                                                                                        color: white;
+                                                                                                        font-family: 'Montserrat', sans-serif;
+                                                                                                        font-size: 14px;
+                                                                                                        font-weight: 600;
+                                                                                                        text-decoration: none;
+                                                                                                        transition: color 0.3s ease;
+                                                                                                        "
+                            onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#002b3a';">
                             Vous êtes praticien !
                         </a>
 
@@ -250,6 +254,17 @@
                             });
                         </script>
                     @else
+
+                        <div class="d-none d-lg-block" style="padding-right: 5px">
+                            <a href="{{ route('logout') }}" class="navbar-icon b-logout"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="bi bi-box-arrow-right"></i> <!-- Bootstrap logout icon -->
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
                         @if (Auth::user()->role == "doctor")
                             <div class="d-none d-lg-block">
                                 <a href="{{ route('dashboard') }}" class="navbar-icon bi-person smoothscroll"></a>
@@ -270,6 +285,104 @@
 
         <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
             <div class="container">
+                <style>
+                    /* Container: White background, shadow */
+                    /* Container: White background, shadow */
+                    .tm-search-bar {
+                        background: #ffffff;
+                        border: 1px solid #dee2e6;
+                        border-radius: 20px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: flex-start;
+                        align-items: center;
+                        padding: 0.75rem 1rem;
+                        /* Reduced padding to make it more compact */
+                    }
+
+                    /* Inputs */
+                    .tm-form-control {
+                        background: #fff;
+                        border: 1px solid #ced4da;
+                        border-radius: 20px;
+                        padding: 0.5rem 0.75rem;
+                        /* Reduced padding */
+                        font-size: 0.9rem;
+                        /* Slightly smaller text */
+                        line-height: 1.3;
+                        /* Tighter line height */
+                        color: #495057;
+                        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+                        width: 100%;
+                    }
+
+                    .tm-form-control::placeholder {
+                        color: #adb5bd;
+                    }
+
+                    .tm-form-control:focus {
+                        border-color: #80d0c7;
+                        box-shadow: 0 0 0 4px rgba(128, 208, 199, 0.2);
+                    }
+
+                    /* Search Button */
+                    .tm-btn {
+                        display: inline-block;
+                        padding: 0.5rem 1rem;
+                        /* Reduced padding */
+                        background: #80d0c7;
+                        border: none;
+                        color: #ffffff;
+                        font-family: 'Montserrat', sans-serif;
+                        font-size: 1rem;
+                        /* Slightly smaller text */
+                        font-weight: 600;
+                        border-radius: 50px;
+                        /* Smaller rounded corners */
+                        transition: background-color 0.3s, color 0.3s;
+                        max-width: 160px;
+                        max-height: 2.5rem;
+                        /* Limit height */
+                        line-height: 1.2;
+                        /* Tighter line height */
+                        margin-top: 10px;
+                    }
+
+                    .tm-btn:hover {
+                        background: #13547a;
+                        color: #ffffff;
+                    }
+
+                    /* Small Screen Adjustments */
+                    @media (max-width: 768px) {
+                        .tm-search-bar {
+                            flex-direction: column;
+                            align-items: stretch;
+                        }
+
+                        .tm-search-group {
+                            width: 100%;
+                            margin-bottom: 1rem;
+                        }
+
+                        .tm-btn {
+                            width: 100%;
+                        }
+                    }
+
+                    /* For large screens, the button remains inline with inputs */
+                    @media (min-width: 769px) {
+                        .tm-search-bar {
+                            flex-direction: row;
+                            justify-content: flex-start;
+                        }
+
+                        .tm-btn {
+                            margin-top: 0;
+                        }
+                    }
+                </style>
+
                 <div class="row">
 
                     <div class="col-lg-8 col-12 mx-auto">
@@ -277,7 +390,8 @@
 
 
 
-                        <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
+
+                        {{-- <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bi-search" id="basic-addon1">
 
@@ -288,7 +402,39 @@
 
                                 <button type="submit" class="form-control">Search</button>
                             </div>
-                        </form>
+                        </form> --}}
+                        <div class="tm-search-bar d-flex flex-wrap align-items-center p-4 rounded shadow-sm">
+                            <!-- Specialty autocomplete -->
+                            <div class="tm-search-group me-3 mb-3 position-relative flex-grow-1">
+                                <input list="specialtyList" id="specialtyInput" class="form-control tm-form-control"
+                                    placeholder="Spécialité…">
+                                <datalist id="specialtyList">
+                                    <option value="Dentiste">
+                                    <option value="Cardiologue">
+                                    <option value="Dermatologue">
+                                    <option value="Ophtalmologue">
+                                    <option value="Pédiatre">
+                                </datalist>
+                            </div>
+
+                            <!-- Location field -->
+                            <div class="tm-search-group me-3 mb-3 position-relative flex-grow-1">
+                                <input type="text" id="locationInput" class="form-control tm-form-control"
+                                    placeholder="Localisation…">
+                            </div>
+
+                            <!-- Date picker -->
+                            <div class="tm-search-group me-3 mb-3">
+                                <input type="date" id="dateInput" class="form-control tm-form-control">
+                            </div>
+
+                            <!-- Search button -->
+                            <div class="mb-3">
+                                <button id="searchBtn" class="tm-btn">
+                                    Rechercher
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                 </div>

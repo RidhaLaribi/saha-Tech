@@ -11,6 +11,17 @@
     
 
 </head>
+{{--
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap"
+  rel="stylesheet">
+
+<link href="css/bootstrap-icons.css" rel="stylesheet"> --}}
 
 <body>
   
@@ -117,54 +128,54 @@
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 
-   
 
-    <script>
-document.addEventListener("DOMContentLoaded", function () {
-    // renamed variables
-    const months        = @json($months);
-    const totalRendezV  = @json($totals);
-    const confirmedRV   = @json($confirmed);
 
-    const statusCounts = {
-      confirmed: {{ $pieData->confirmed }},
-      pending:   {{ $pieData->pending }},
-      cancelled: {{ $pieData->cancelled }},
-    };
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // renamed variables
+      const months = @json($months);
+      const totalRendezV = @json($totals);
+      const confirmedRV = @json($confirmed);
 
-    // — Line chart for appointments —
-    const ctxLine = document.getElementById('rendezvousChart').getContext('2d');
-    new Chart(ctxLine, {
-      type: 'line',
-      data: {
-        labels: months,
-        datasets: [
-          {
-            label: 'Total RDVs',
-            data: totalRendezV,
-            borderColor: '#4169E1',
-            backgroundColor: 'rgba(65,105,225,0.1)',
-            tension: 0.4,
-          },
-          {
-            label: 'Confirmés',
-            data: confirmedRV,
-            borderColor: '#27ae60',
-            backgroundColor: 'rgba(39,174,96,0.1)',
-            tension: 0.4,
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { position: 'top' } },
-        scales: { y: { beginAtZero: true } }
-      }
-    });
+      const statusCounts = {
+        confirmed: {{ $pieData->confirmed }},
+        pending:   {{ $pieData->pending }},
+        cancelled: {{ $pieData->cancelled }},
+      };
+
+      // — Line chart for appointments —
+      const ctxLine = document.getElementById('rendezvousChart').getContext('2d');
+      new Chart(ctxLine, {
+        type: 'line',
+        data: {
+          labels: months,
+          datasets: [
+            {
+              label: 'Total RDVs',
+              data: totalRendezV,
+              borderColor: '#4169E1',
+              backgroundColor: 'rgba(65,105,225,0.1)',
+              tension: 0.4,
+            },
+            {
+              label: 'Confirmés',
+              data: confirmedRV,
+              borderColor: '#27ae60',
+              backgroundColor: 'rgba(39,174,96,0.1)',
+              tension: 0.4,
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { position: 'top' } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
 
     // — Pie chart for status breakdown —
     const ctxPie = document.getElementById('rendezvousPieChart').getContext('2d');

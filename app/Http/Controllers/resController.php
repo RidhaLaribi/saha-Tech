@@ -76,15 +76,17 @@ class resController extends Controller
     {
         // Validate that multiple files are being uploaded, no specific type
         $request->validate([
-            'files.*' => 'required|file', // Allow all file types up to 2MB
+            'files.*' => 'required|file',
+            'pid' => 'required',
+            // Allow all file types up to 2MB
         ]);
-
         // Loop through the uploaded files and store them
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $file) {
                 // Store each file
                 $path = $file->store('medical_files', 'public');
-                $user = auth()->user();
+
+                $user = User::findOrFail($request->pid);
 
                 $patients = $user->patient;
 
@@ -175,8 +177,7 @@ class resController extends Controller
                 'r' => $patient->rendezvous,
                 'user' => $user,
                 'notes' => $notes,
-                'next' => $next
-                ,
+                'next' => $next,
             ]
         );
     }
@@ -238,35 +239,7 @@ class resController extends Controller
         Patient::where(['id' => $request->id])->delete();
         return redirect()->back()->with('success', 'Patient and files deleted successfully!');
     }
-    function addNote(Request $request)
-    {
-        $request->validate([
-            'note' => 'required',
-            'rdvid' => 'required',
-            'docid' => 'required',
-        ]);
 
-        $user = auth()->user();
-        $patients = $user->patient;
-
-        $index = session('id_p', 0);
-        if (!isset($patients[session('id_p')])) {
-            $index = 0;
-            session(['id_p' => 0]);
-        }
-
-        $patient = $patients[$index];
-
-
-        consultation::create([
-            "note" => $request->note,
-            'patient_id' => $patient->id,
-            'rendez_vous_id' => $request->rdvid,
-            'doctor_id' => $request->docid
-        ]);
-        return redirect()->back()->with('success', 'note successfully added!');
-
-    }
 
 
 }
