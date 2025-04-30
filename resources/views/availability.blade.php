@@ -34,10 +34,9 @@
         </div>
 
         <nav class="sidebar-nav">
-            <a href="Dashboard.php" class="nav-link "><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-            <a href="Requests.php" class="nav-link "><i class="fas fa-file-alt"></i> Manage Requests</a>
-            <a href="News.php" class="nav-link active"><i class="fas fa-users"></i> News </a>
-            <a href="newadmine.php" class="nav-link "><i class="fas fa-user-graduate"></i>Users</a>
+            <a href="{{ route("dashboard") }}" class="nav-link active"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+            <a href="{{ route("rend") }}" class="nav-link "><i class="fas fa-file-alt"></i> Manage appointments</a>
+            <a href="{{ route("avbl") }}" class="nav-link"><i class="fas fa-users"></i> options</a>
 
         </nav>
     </div>

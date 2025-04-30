@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->integer('age');
 
             $table->boolean('home_visit')->default(false);
-
+            $table->string('pic')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

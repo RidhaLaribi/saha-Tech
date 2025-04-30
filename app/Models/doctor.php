@@ -16,6 +16,7 @@ class doctor extends Model
         'gender',
         'type',
         'specialty',
+        'pic',
         'location',
         'price',
         'description',

@@ -6,6 +6,8 @@ use App\Models\Doctor;
 use App\Models\Rendezvous;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\CarbonImmutable;
+
 
 class DashboardController extends Controller
 {
@@ -44,8 +46,15 @@ class DashboardController extends Controller
         $months    = [];
         $totals    = [];
         $confirmed = [];
+        
+
+
+
+        
+        $base = CarbonImmutable::now();
         for ($i = 5; $i >= 0; $i--) {
-            $label = now()->subMonths($i)->format('M');
+            // use no-overflow so that Feb 30 becomes Feb 28 (or 29)
+            $label = $base->subMonthsNoOverflow($i)->format('M');
             $months[] = $label;
             if (isset($chartData[$label])) {
                 $totals[]    = (int) $chartData[$label]->total;
@@ -124,4 +133,27 @@ class DashboardController extends Controller
 
         return back()->with('success', 'Statut mis à jour.');
     }
+
+
+    public function uploadPic(Request $request)
+{
+    $request->validate([
+        'pic' => 'required|image|mimes:jpeg,png,jpg,gif',
+    ]);
+
+    $doctor = Auth::user()->doctor;
+
+    if ($request->hasFile('pic')) {
+        $file = $request->file('pic');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('doctor_pics', $filename, 'public');
+
+        // Update the doctor's pic path
+        $doctor->pic = $path;
+        $doctor->save();
+    }
+
+    return back()->with('success', 'Profile picture updated!');
+}
+
 }

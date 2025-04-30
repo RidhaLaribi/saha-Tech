@@ -36,9 +36,7 @@ Route::post('/registerp', [authController::class, 'registrp'])->name('registerp'
 
 
 /**** */
-Route::get('/rend', function () {
-    return view('requestrendi');
-})->name('rend');
+
 Route::get('/profile', [resController::class, "showProfile"])->name('profile');
 
 Route::get('/loginp', function () {
@@ -93,10 +91,12 @@ Route::post('/availability/update-info', [doctorController::class, 'updateInfo']
     ->name('doctor.updateInfo')
     ->middleware('auth');
 
+    
+    
 Route::middleware(['auth'])
     ->get('/rend', [
         dashboardcontroller::class, 'index'
-    ])->name('doctor.appointments.index');
+    ])->name('rend');
 
 
 
@@ -130,3 +130,6 @@ Route::post('/rend', [NotificationController::class, 'clear'])->name('clearnotif
 Route::middleware('auth')
      ->get('rend/{patient}', [PatientController::class, 'show'])
      ->name('doctor.patient.show');
+
+
+     Route::post('/doctorDashBoard', [dashboardcontroller::class, 'uploadPic'])->name('uploadpic');

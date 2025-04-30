@@ -55,15 +55,16 @@ class Rendezvous extends Model
     public static function getStatusSummary($doctorId = null)
     {
         $doctorId = $doctorId ?: Auth::id();
-
+    
         return self::forDoctor($doctorId)
             ->selectRaw(
-                "SUM(CASE WHEN status = 'Confirmé'   THEN 1 ELSE 0 END) AS confirmed,"
-              . " SUM(CASE WHEN status = 'En Attente' THEN 1 ELSE 0 END) AS pending,"
-              . " SUM(CASE WHEN status = 'Annulé'     THEN 1 ELSE 0 END) AS cancelled"
+                "COALESCE(SUM(CASE WHEN status = 'Confirmé' THEN 1 ELSE 0 END), 0) AS confirmed," .
+                " COALESCE(SUM(CASE WHEN status = 'En Attente' THEN 1 ELSE 0 END), 0) AS pending," .
+                " COALESCE(SUM(CASE WHEN status = 'Annulé' THEN 1 ELSE 0 END), 0) AS cancelled"
             )
             ->first();
     }
+    
 
     public function patient()
     {

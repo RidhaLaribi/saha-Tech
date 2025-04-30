@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Saha-Tech</title>
+  <title>heyDoc</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -405,10 +405,10 @@
 </head>
 <body>
   <nav class="navbar">
-    <div class="navbar__brand">Saha-Tech</div>
+    <div class="navbar__brand">heyDoc</div>
     <div class="navbar__actions">
       <button class="dark-mode-toggle" id="darkModeBtn">Dark Mode</button>
-      <button id="loginBtn">Se connecter</button>
+      <button id="loginBtn">inscrire</button>
     </div>
   </nav>
 
@@ -447,7 +447,7 @@
     <div class="tabs">
       <button class="active" data-tab="all">Tous</button>
       <button data-tab="praticien">Praticiens</button>
-      <button data-tab="clinique">Cliniques</button>
+      <button data-tab="laboratoire">laboratoire</button>
     </div>
 
     <div class="doctor-list" id="doctorList"></div>
@@ -496,7 +496,7 @@
         rating: 4.5,
         price: 2000,
         type: 'praticien',
-        image: 'https://via.placeholder.com/100',
+        image: '{{ asset('storage/' . Auth::user()->doctor->pic) }}',
         available: true,
         phone: '+213123456789'
       },
@@ -570,8 +570,8 @@
     };
 
     tabs[0].innerHTML = `Tous (${counts.all})`;
-    tabs[1].innerHTML = `Praticiens (${counts.praticien})`;
-    tabs[2].innerHTML = `Cliniques (${counts.clinique})`;
+    tabs[1].innerHTML = `doctors (${counts.praticien})`;
+    tabs[2].innerHTML = `laboratoire (${counts.clinique})`;
 
     function renderDoctors(filter = 'all') {
       doctorListEl.innerHTML = '';
