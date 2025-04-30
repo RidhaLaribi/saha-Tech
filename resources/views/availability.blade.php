@@ -123,14 +123,19 @@
                                     //     url: 'http://google.com/',
 
                                     // },
+                                    @if ($r != null)
 
-                                    @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           {
-                                            title: 'Rendez-vous',
-                                            start: '{{$re->rendezvous}}',
-                                            url: 'https://youtube.com/',
-                                        },
-                                    @endforeach 
+                                        @foreach ($r as $re)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {
+                                                title: 'Rendez-vous',
+                                                start: '{{$re->rendezvous}}',
+                                                url: 'https://youtube.com/',
+                                            },
+                                        @endforeach
+
+
+                                    @endif
+
 
 
 
