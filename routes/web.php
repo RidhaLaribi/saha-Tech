@@ -11,8 +11,8 @@ use App\Http\Controllers\dashboardcontroller;
 use App\Notifications\SomeNotification;
 use App\Http\Controllers\doctorController;
 use App\Http\Controllers\PatientController;
-
-
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\UserManagementController;
 
 
 Route::get('/', function () {
@@ -81,7 +81,13 @@ Route::middleware(['auth'])
     ->get('/doctorDashBoard', [dashboardController::class, 'dashboard'])
     ->name('dashboard');
 
+    Route::get('/admindash', [AdminDashboardController::class, 'index'])
+    ->name('admindash')
+    ->middleware('auth');
 
+    Route::middleware(['auth'])
+    ->get('/rendad', [dashboardcontroller::class, 'index'
+    ])->name('rendad');
 
 
 Route::get("/availability", [doctorController::class, 'showAvPage'])->name("avbl")->middleware('auth');
@@ -136,3 +142,12 @@ Route::
     ->
     middleware('auth')
     ->name('doctor.patient.show');
+
+
+    Route::get('users', [UserManagementController::class, 'index'])
+     ->name('admin.users.index');
+    //  ->middleware('can:admin');
+
+Route::post('users', [UserManagementController::class, 'store'])
+     ->name('admin.users.store');
+    //  ->middleware('can:admin');

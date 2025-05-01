@@ -14,8 +14,8 @@
     <!-- Left hero section -->
     <div class="hero-section">
       <i class="fas fa-heartbeat"></i>
-      <h1>Portail Patient</h1>
-      <p>Connectez-vous et accédez à vos soins</p>
+      <h1>Patient Portal</h1>
+      <p>Log in and access your care</p>
     </div>
 
     <!-- Right form section -->

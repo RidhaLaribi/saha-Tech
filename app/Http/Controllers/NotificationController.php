@@ -29,7 +29,7 @@ class NotificationController extends Controller
         Notification::send(
             Auth::user(),
             new SomeNotification([
-               'message' => '🚀 Test via façade!',
+               'message' => 'new appointement request added',
                'url'     => url('/'),
             ])
         );

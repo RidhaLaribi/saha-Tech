@@ -4,7 +4,8 @@
             <div class="logo-circle">
                 <i class="fas fa-university"></i>
             </div>
-            <span class="fs-5 fw-bold"> Dashboard</span>
+            
+            <span class="fs-5 fw-bold"> HeyDoc</span>
         </a>
     </div>
 
@@ -13,10 +14,10 @@
             <i class="fas fa-tachometer-alt"></i> Dashboard
         </a>
         <a href="{{ route('rend') }}" class="nav-link @if(request()->routeIs('rend')) active @endif">
-            <i class="fas fa-file-alt"></i> Manage appointments
+            <i class="fas fa-file-alt"></i> Manage doctors Request
         </a>
         <a href="{{ route('avbl') }}" class="nav-link @if(request()->routeIs('avbl')) active @endif">
-            <i class="fas fa-users"></i> Options
+            <i class="fas fa-users"></i> Users
         </a>
     </nav>
 </div>

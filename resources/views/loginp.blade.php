@@ -304,10 +304,10 @@
   <div class="container" id="registrationContainer">
     <div class="hero-section">
       <i class="fas fa-user-md medical-icon"></i>
-      <h2 class="hero-title">Plateforme Praticiens</h2>
+      <h2 class="hero-title">Practitioners Platform</h2>
       <p class="hero-text">
-        Rejoignez notre réseau de professionnels de la santé pour échanger, collaborer et innover.<br>
-        Ensemble, améliorons les soins de demain !
+        Join our network of healthcare professionals to connect, collaborate, and innovate.<br>
+        Together, let's improve the care of tomorrow!
       </p>
     </div>
     <div class="form-section">
@@ -349,12 +349,12 @@
           </div>
           <div class="input-group" style="grid-column: span 2;">
           
-<select name="type" id="type" required>
-  <option value="clinique">Clinique</option>
-  <option value="laboratoire">Laboratoire</option>
-  <option value="doctor">Doctor</option>
-</select>
-</div>
+          <select name="type" id="type" required>
+            
+            <option value="laboratoire">Laboratoire</option>
+            <option value="doctor">Doctor</option>
+          </select>
+          </div>
 
         
 

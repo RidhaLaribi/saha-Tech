@@ -97,7 +97,7 @@
             <div class="container">
                 <a class="navbar-brand" href="index.html">
                     <i class="bi-back"></i>
-                    <span>Sehatech</span>
+                    <span>HeyDoc</span>
                 </a>
 
                 @if ($id != null)
@@ -386,12 +386,12 @@
                 <div class="row">
 
                     <div class="col-lg-8 col-12 mx-auto">
-                        <h1 class="text-white text-center">Discover</h1>
+                        
 
 
 
-
-                        {{-- <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
+{{-- 
+                        <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bi-search" id="basic-addon1">
 
@@ -403,39 +403,49 @@
                                 <button type="submit" class="form-control">Search</button>
                             </div>
                         </form> --}}
-                        <div class="tm-search-bar d-flex flex-wrap align-items-center p-4 rounded shadow-sm">
-                            <!-- Specialty autocomplete -->
-                            <div class="tm-search-group me-3 mb-3 position-relative flex-grow-1">
-                                <input list="specialtyList" id="specialtyInput" class="form-control tm-form-control"
-                                    placeholder="Spécialité…">
-                                <datalist id="specialtyList">
-                                    <option value="Dentiste">
-                                    <option value="Cardiologue">
-                                    <option value="Dermatologue">
-                                    <option value="Ophtalmologue">
-                                    <option value="Pédiatre">
-                                </datalist>
-                            </div>
+                        <!-- Include Bootstrap Icons (optional for button icon) -->
 
-                            <!-- Location field -->
-                            <div class="tm-search-group me-3 mb-3 position-relative flex-grow-1">
-                                <input type="text" id="locationInput" class="form-control tm-form-control"
-                                    placeholder="Localisation…">
-                            </div>
 
-                            <!-- Date picker -->
-                            <div class="tm-search-group me-3 mb-3">
-                                <input type="date" id="dateInput" class="form-control tm-form-control">
-                            </div>
+<div class="tm-search-bar d-flex flex-wrap align-items-center p-4  shadow-sm"
+     style="background-color: #ffffff; border: 1px solid #e3e6f0; border-radius: 3rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
 
-                            <!-- Search button -->
-                            <div class="mb-3">
-                                <button id="searchBtn" class="tm-btn">
-                                    Rechercher
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Specialty autocomplete -->
+    <div class="tm-search-group me-3 mb-3 position-relative flex-grow-1">
+        <input list="specialtyList" id="specialtyInput" class="form-control tm-form-control"
+               placeholder="Spécialité…"
+               style="border-radius: 0.75rem; border: 1px solid #ced4da; transition: all 0.3s ease;">
+        <datalist id="specialtyList">
+            <option value="Dentiste">
+            <option value="Cardiologue">
+            <option value="Dermatologue">
+            <option value="Ophtalmologue">
+            <option value="Pédiatre">
+        </datalist>
+    </div>
+
+    <!-- Location field -->
+    <div class="tm-search-group me-3 mb-3 position-relative flex-grow-1">
+        <input type="text" id="locationInput" class="form-control tm-form-control"
+               placeholder="Localisation…"
+               style="border-radius: 0.75rem; border: 1px solid #ced4da; transition: all 0.3s ease;">
+    </div>
+
+    <!-- Date picker -->
+    <div class="tm-search-group me-3 mb-3">
+        <input type="date" id="dateInput" class="form-control tm-form-control"
+               style="border-radius: 0.75rem; border: 1px solid #ced4da; transition: all 0.3s ease;">
+    </div>
+
+    <!-- Search button -->
+    <div class="mb-3">
+        <button id="searchBtn" class="tm-btn"
+                style="background-color: #0d6efd; color: #fff; border: none; padding: 0.6rem 1.2rem;
+                       border-radius: 0.75rem; font-weight: 500; transition: background-color 0.3s ease, transform 0.2s ease;">
+            <i class="bi bi-search me-1"></i> 
+        </button>
+    </div>
+</div>
+
 
                 </div>
             </div>
