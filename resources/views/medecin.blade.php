@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <title>heyDoc</title>
@@ -36,7 +37,7 @@
       align-items: center;
       background: var(--secondary);
       padding: 1rem 2rem;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
     .navbar__brand {
@@ -64,7 +65,7 @@
 
     .navbar__actions button:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .container {
@@ -78,7 +79,7 @@
       border-radius: 12px;
       padding: 1.5rem;
       margin: 2rem 0;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
@@ -108,9 +109,11 @@
     .location-wrapper {
       position: relative;
     }
+
     .location-wrapper input {
       padding-right: 3rem;
     }
+
     .location-wrapper .location-icon {
       position: absolute;
       right: 1rem;
@@ -120,12 +123,19 @@
       width: 24px;
       height: 24px;
     }
+
     .location-icon.loading {
       animation: spin 1s linear infinite;
     }
+
     @keyframes spin {
-      0% { transform: translateY(-50%) rotate(0deg); }
-      100% { transform: translateY(-50%) rotate(360deg); }
+      0% {
+        transform: translateY(-50%) rotate(0deg);
+      }
+
+      100% {
+        transform: translateY(-50%) rotate(360deg);
+      }
     }
 
     .search-bar__button {
@@ -188,7 +198,7 @@
 
     .doctor-item:hover {
       transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
     }
 
     .doctor-item__avatar {
@@ -334,10 +344,12 @@
       margin-bottom: 0.5rem;
       color: var(--primary);
     }
+
     .modal p {
       margin-bottom: 1rem;
       color: #555;
     }
+
     .calendar {
       width: 100%;
       padding: 0.75rem;
@@ -352,21 +364,42 @@
       background-color: #121212;
       color: #e0e0e0;
     }
+
     body.dark-mode .navbar {
       background: #2d2d2d;
     }
+
     body.dark-mode .search-bar,
     body.dark-mode .modal,
     body.dark-mode .doctor-item {
       background: #1e1e1e;
       border-color: #444;
     }
+
     body.dark-mode .search-bar__group select,
-    body.dark-mode .search-bar__group input {
-      background: #2e2e2e;
-      border-color: #444;
-      color: #e0e0e0;
+    body.dark-mode .search-bar__group input,
+    {
+    background: #2e2e2e;
+    border-color: #444;
+    color: #e0e0e0;
     }
+
+    body.dark-mode .tabs button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: #e0e0e0;
+      font-weight: 500;
+      transition: background 0.3s, color 0.3s;
+      cursor: pointer;
+    }
+
+    body.dark-mode .tabs .active {
+      background: var(--primary);
+      color: white;
+    }
+
     body.dark-mode .doctor-item__location,
     body.dark-mode .doctor-item__date {
       color: #bbb;
@@ -382,11 +415,12 @@
       padding: 0.75rem;
       border-radius: 50%;
       cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
       display: none;
       transition: opacity 0.3s;
       z-index: 1100;
     }
+
     .back-to-top.show {
       display: block;
     }
@@ -397,12 +431,14 @@
         flex-direction: column;
         gap: 1rem;
       }
+
       .search-bar {
         grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
+
 <body>
   <nav class="navbar">
     <div class="navbar__brand">heyDoc</div>
@@ -424,12 +460,13 @@
       </div>
       <div class="search-bar__group">
         <div class="location-wrapper">
-          
+
           <input type="text" id="locationInput" placeholder="Localisation">
           <span class="location-icon" id="locationIcon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#212529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="7"/>
-              <circle cx="12" cy="12" r="3" fill="#80D0C7"/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#212529" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="7" />
+              <circle cx="12" cy="12" r="3" fill="#80D0C7" />
               <line x1="12" y1="1" x2="12" y2="3"></line>
               <line x1="12" y1="21" x2="12" y2="23"></line>
               <line x1="1" y1="12" x2="3" y2="12"></line>
@@ -495,8 +532,8 @@
         date: '2023-02-28',
         rating: 4.5,
         price: 2000,
-        type: 'praticien',
-        image: '{{ asset('storage/' . Auth::user()->doctor->pic) }}',
+        type: 'doctor',
+        image: 'https://via.placeholder.com/100',
         available: true,
         phone: '+213123456789'
       },
@@ -565,8 +602,8 @@
     // Update tab counts
     const counts = {
       all: doctors.length,
-      praticien: doctors.filter(d => d.type === 'praticien').length,
-      clinique: doctors.filter(d => d.type === 'clinique').length
+      praticien: doctors.filter(d => d.type === 'doctor').length,
+      clinique: doctors.filter(d => d.type === 'laboratoiare').length
     };
 
     tabs[0].innerHTML = `Tous (${counts.all})`;
@@ -584,7 +621,7 @@
 
       filtered.forEach(doctor => {
         const starRating = '★★★★★'.slice(0, Math.floor(doctor.rating)) +
-                           '☆'.repeat(5 - Math.ceil(doctor.rating));
+          '☆'.repeat(5 - Math.ceil(doctor.rating));
         const doctorItem = document.createElement('div');
         doctorItem.className = 'doctor-item';
         doctorItem.innerHTML = `
@@ -624,8 +661,8 @@
 
     darkModeBtn.addEventListener('click', () => {
       document.body.classList.toggle('dark-mode');
-      darkModeBtn.textContent = document.body.classList.contains('dark-mode') 
-        ? 'Light Mode' 
+      darkModeBtn.textContent = document.body.classList.contains('dark-mode')
+        ? 'Light Mode'
         : 'Dark Mode';
     });
 
@@ -689,4 +726,5 @@
     });
   </script>
 </body>
+
 </html>
