@@ -81,12 +81,14 @@ Route::middleware(['auth'])
     ->get('/doctorDashBoard', [dashboardController::class, 'dashboard'])
     ->name('dashboard');
 
-    Route::get('/admindash', [AdminDashboardController::class, 'index'])
+Route::get('/admindash', [AdminDashboardController::class, 'index'])
     ->name('admindash')
     ->middleware('auth');
 
-    Route::middleware(['auth'])
-    ->get('/rendad', [dashboardcontroller::class, 'index'
+Route::middleware(['auth'])
+    ->get('/rendad', [
+        AdminDashboardController::class,
+        'validateDocShow'
     ])->name('rendad');
 
 
@@ -96,12 +98,14 @@ Route::post('/availability/update-info', [doctorController::class, 'updateInfo']
     ->name('doctor.updateInfo')
     ->middleware('auth');
 
-    
-    
+
+
 Route::middleware(['auth'])
-    ->get('/rend', [dashboardcontroller::class, 'index'
+    ->get('/rend', [
+        dashboardcontroller::class,
+        'index'
     ])->name('rend');
-   
+
 
 
 Route::middleware(['auth'])
@@ -132,11 +136,11 @@ Route::post("addNote", [doctorController::class, 'addNote'])->name("addnote");
 
 
 Route::middleware('auth')
-     ->get('rend/{patient}', [PatientController::class, 'show'])
-     ->name('doctor.patient.show');
+    ->get('rend/{patient}', [PatientController::class, 'show'])
+    ->name('doctor.patient.show');
 
 
-     Route::post('/doctorDashBoard', [dashboardcontroller::class, 'uploadPic'])->name('uploadpic');
+Route::post('/doctorDashBoard', [dashboardcontroller::class, 'uploadPic'])->name('uploadpic');
 Route::
     get('profile{patient}', [doctorController::class, 'showThisPatient'])
     ->
@@ -144,10 +148,12 @@ Route::
     ->name('doctor.patient.show');
 
 
-    Route::get('users', [UserManagementController::class, 'index'])
-     ->name('admin.users.index');
-    //  ->middleware('can:admin');
+Route::get('users', [UserManagementController::class, 'index'])
+    ->name('admin.users.index');
+//  ->middleware('can:admin');
 
 Route::post('users', [UserManagementController::class, 'store'])
-     ->name('admin.users.store');
-    //  ->middleware('can:admin');
+    ->name('admin.users.store');
+//  ->middleware('can:admin');
+
+Route::patch('/admin/doctors/{doctor}/validate', [AdminDashboardController::class, 'validateDoctor'])->name('admin.doctor.validate');
