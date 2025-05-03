@@ -105,16 +105,159 @@ calendar links-->
                     </ul>
 
 
-                    {{-- <div class="d-none d-lg-block">
-                        <a href="#top" class="navbar-icon b-notification smoothscroll">
-                            <i class="bi bi-bell"></i> <!-- Bootstrap bell icon -->
-                        </a>
-                    </div> --}}
                     @if ($user->role == 'patient')
+                        <div class="d-none d-lg-block position-relative">
+                            <a href="#" class="navbar-icon b-notification" id="notificationToggle">
+                                <i class="bi bi-bell"></i>
+                                @if ($notifications->count())
+                                    <span
+                                        class="badge bg-danger position-absolute top-0 start-100 translate-middle p-1 rounded-circle"></span>
+                                @endif
+                            </a>
+
+                            <div id="notificationDropdown"
+                                class="card shadow-lg position-absolute end-0 mt-2 rounded-3 border-0"
+                                style="display: none; width: 320px; z-index: 1000; transition: all 0.5s ease;">
+                                <div class="card-body p-3">
+
+                                    @if (session('success'))
+                                        <div class="alert alert-success p-2 mb-3 text-center rounded-2">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
+
+                                    <h6 class="card-title mb-3 fw-semibold text-primary">
+                                        <i class="bi bi-calendar-check me-1"></i> Upcoming Appointments
+                                    </h6>
+
+                                    <ul class="list-group list-group-flush">
+                                        @forelse ($notifications as $notif)
+                                            <li class="list-group-item d-flex align-items-start gap-2 border-0 ps-0">
+                                                <i class="bi bi-clock text-info mt-1"></i>
+                                                <div>
+                                                    <div class="fw-semibold text-dark">
+                                                        {{ \Carbon\Carbon::parse($notif->rendezvous)->format('Y-m-d H:i') }}
+                                                    </div>
+                                                    <div class="small text-muted">
+                                                        with Dr. {{ $notif->doctor->user->name }}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @empty
+                                            <li class="list-group-item text-muted small border-0 ps-0">No upcoming appointments.
+                                            </li>
+                                        @endforelse
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        @if (session('success'))
+                            <script>
+                                document.addEventListener('DOMContentLoaded', () => {
+                                    const dropdown = document.getElementById('notificationDropdown');
+                                    const toggle = document.getElementById('notificationToggle');
+                                    let isHovered = false;
+                                    let isVisible = false;
+
+                                    // Show with slide‑down animation
+                                    function showDropdown() {
+                                        dropdown.style.display = 'block';
+                                        dropdown.style.opacity = '0';
+                                        dropdown.style.transform = 'translateY(-20px)';
+                                        // Force a reflow to enable transition
+                                        dropdown.getBoundingClientRect();
+                                        dropdown.style.opacity = '1';
+                                        dropdown.style.transform = 'translateY(0)';
+                                        isVisible = true;
+                                    }
+
+                                    // Hide with slide‑up animation
+                                    function hideDropdown() {
+                                        dropdown.style.opacity = '0';
+                                        dropdown.style.transform = 'translateY(-20px)';
+                                        setTimeout(() => {
+                                            dropdown.style.display = 'none';
+                                            isVisible = false;
+                                        }, 300); // match your CSS transition duration
+                                    }
+
+                                    // 1) Auto‑open on load
+                                    showDropdown();
+
+                                    // 2) Auto‑close after 3s if not hovered
+                                    setTimeout(() => {
+                                        if (!isHovered) hideDropdown();
+                                    }, 3000);
+
+                                    // 3) Pause auto‑close while hovering
+                                    dropdown.addEventListener('mouseenter', () => isHovered = true);
+                                    dropdown.addEventListener('mouseleave', () => isHovered = false);
+
+                                    // 4) Manual toggle
+                                    toggle.addEventListener('click', e => {
+                                        e.preventDefault();
+                                        if (isVisible) hideDropdown();
+                                        else showDropdown();
+                                    });
+                                });
+
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    const toggle = document.getElementById('notificationToggle');
+                                    const dropdown = document.getElementById('notificationDropdown');
+
+                                    if (toggle && dropdown) {
+                                        // Show/hide the dropdown on bell click
+                                        toggle.addEventListener('click', function (e) {
+                                            e.preventDefault(); // prevent # or #! in URL
+                                            dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+                                        });
+
+                                        // Hide the dropdown when clicking outside
+                                        document.addEventListener('click', function (e) {
+                                            if (!toggle.contains(e.target) && !dropdown.contains(e.target)) {
+                                                dropdown.style.display = 'none';
+                                            }
+                                        });
+                                    }
+                                });
+                            </script>
+                        @endif
 
 
 
-                        <x-notifications-dropdown />
+
+
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const toggle = document.getElementById('notificationToggle');
+                                const dropdown = document.getElementById('notificationDropdown');
+
+                                if (toggle && dropdown) {
+                                    // Show/hide the dropdown on bell click
+                                    toggle.addEventListener('click', function (e) {
+                                        e.preventDefault(); // prevent # or #! in URL
+                                        dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+                                    });
+
+                                    // Hide the dropdown when clicking outside
+                                    document.addEventListener('click', function (e) {
+                                        if (!toggle.contains(e.target) && !dropdown.contains(e.target)) {
+                                            dropdown.style.display = 'none';
+                                        }
+                                    });
+                                }
+                            });
+                        </script>
+
+
+
+
+
+
 
 
 
@@ -302,6 +445,24 @@ calendar links-->
 
 
         @endif
+        {{--
+        @if (session('success'))
+        <div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert"
+            style="position: fixed; bottom: 20px; right: 20px; width: 250px; height: 80px; z-index: 1050; display: flex; align-items: center; justify-content: center;">
+            {{ session('success') }}
+        </div>
+
+        <script>
+            setTimeout(function () {
+                let alertBox = document.getElementById('success-alert');
+                if (alertBox) {
+                    alertBox.classList.remove('show');
+                    alertBox.classList.add('fade');
+                    setTimeout(() => alertBox.remove(), 500);
+                }
+            }, 3000);
+        </script>
+        @endif --}}
 
 
 
@@ -459,7 +620,7 @@ calendar links-->
                                                  },*/
 
                                                 @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           {
                                                         title: 'Rendez-vous',
                                                         start: '{{$re->rendezvous}}',
                                                         url: 'https://youtube.com/',
@@ -524,6 +685,7 @@ calendar links-->
                                                                 <th scope="col">date</th>
                                                                 <th scope="col">specialite</th>
                                                                 <th scope="col">name</th>
+                                                                <th scope="col"></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -531,15 +693,26 @@ calendar links-->
                                                             @if (!$r->isEmpty())
 
                                                                 @foreach ($r as $re)
-
                                                                     <tr>
-                                                                        <th scope="row">{{substr($re->rendezvous, 0, 10)}}</th>
-
+                                                                        <th scope="row">{{ $re->rendezvous }}</th>
                                                                         <td>{{ $re->doctor->specialty }}</td>
                                                                         <td>{{ $re->doctor->user->name }}</td>
 
+                                                                        <td>
+                                                                            <form
+                                                                                action="{{ route('rendezvous.destroy', $re->id) }}"
+                                                                                method="POST" class="d-inline">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="submit"
+                                                                                    class="btn btn-outline-danger btn-sm">
+                                                                                    <i class="bi bi-x-circle me-1"></i> Cancel
+                                                                                </button>
+                                                                            </form>
+                                                                        </td>
                                                                     </tr>
                                                                 @endforeach
+
 
                                                             @else
                                                                 <tr>
@@ -753,7 +926,7 @@ calendar links-->
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @if (session('modifying'))
+                                                            @if (session('modifying') && $user->role == 'doctor')
 
                                                                 <form action="{{ route('addnote') }}" method="post"
                                                                     style="display: none;">

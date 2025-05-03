@@ -55,7 +55,7 @@ class resController extends Controller
 
 
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Files uploaded successfully!');
 
 
 
@@ -130,7 +130,7 @@ class resController extends Controller
 
 
 
-        $files = MedecalFile::where('patient_id', $patient->id)->get();
+        $files = MedecalFile::where('patient_id', $patient->id)->orderBy('created_at', 'desc')->get();
 
         // Attach MIME types
         foreach ($files as $file) {
@@ -168,6 +168,12 @@ class resController extends Controller
             ->first();
 
 
+        $notifications = Rendezvous::where('patient_id', $patient->id)
+            ->whereDate('rendezvous', now()->addDay()->toDateString())
+            ->orderBy('rendezvous', 'asc')
+            ->get();
+
+
         return view(
             'profile',
             [
@@ -178,6 +184,7 @@ class resController extends Controller
                 'user' => $user,
                 'notes' => $notes,
                 'next' => $next,
+                'notifications' => $notifications,
             ]
         );
     }
@@ -239,6 +246,14 @@ class resController extends Controller
         Patient::where(['id' => $request->id])->delete();
         return redirect()->back()->with('success', 'Patient and files deleted successfully!');
     }
+    public function destroy($id)
+    {
+        $rendezvous = Rendezvous::findOrFail($id);
+        $rendezvous->delete();
+
+        return redirect()->back()->with('success', 'Rendezvous deleted successfully.');
+    }
+
 
 
 

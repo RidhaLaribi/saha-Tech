@@ -62,6 +62,7 @@ Route::post("update", [resController::class, 'updateInfo'])->name("modify");
 
 
 Route::post('upload-file', [resController::class, 'upload'])->name('files.upload');
+Route::delete('/rendezvous/{id}', [resController::class, 'destroy'])->name('rendezvous.destroy');
 
 
 //Route::get("change-patient", [resController::class, ''])->name("changep.toggle");
@@ -80,17 +81,6 @@ Route::get('/test-notif', [NotificationController::class, 'sendTest'])
 Route::middleware(['auth'])
     ->get('/doctorDashBoard', [dashboardController::class, 'dashboard'])
     ->name('dashboard');
-
-Route::get('/admindash', [AdminDashboardController::class, 'index'])
-    ->name('admindash')
-    ->middleware('auth');
-
-Route::middleware(['auth'])
-    ->get('/rendad', [
-        AdminDashboardController::class,
-        'validateDocShow'
-    ])->name('rendad');
-
 
 Route::get("/availability", [doctorController::class, 'showAvPage'])->name("avbl")->middleware('auth');
 
@@ -156,4 +146,23 @@ Route::post('users', [UserManagementController::class, 'store'])
     ->name('admin.users.store');
 //  ->middleware('can:admin');
 
+
+Route::get('/admindash', [AdminDashboardController::class, 'index'])
+    ->name('admindash')
+    ->middleware('auth');
+
+Route::middleware(['auth'])
+    ->get('/praticienRequest', [
+        AdminDashboardController::class,
+        'validateDocShow'
+    ])->name('rendadmin');
+
+Route::delete(
+    '/admin/doctors/{doctor}',
+    [AdminDashboardController::class, 'destroyDoctor']
+)
+    ->name('admin.doctor.destroy')
+    ->middleware('auth');
+
 Route::patch('/admin/doctors/{doctor}/validate', [AdminDashboardController::class, 'validateDoctor'])->name('admin.doctor.validate');
+

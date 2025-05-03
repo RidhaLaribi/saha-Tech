@@ -69,7 +69,6 @@
             <select name="type" class="form-select">
               <option value="">All Types</option>
               <option value="doctor" {{ ($type ?? '') == 'doctor' ? 'selected' : '' }}>Doctor</option>
-              <option value="clinique" {{ ($type ?? '') == 'clinique' ? 'selected' : '' }}>Clinique</option>
               <option value="laboratoire" {{ ($type ?? '') == 'laboratoire' ? 'selected' : '' }}>Laboratoire</option>
             </select>
           </div>
@@ -113,34 +112,80 @@
           <td>{{ $doctor->specialty }}</td>
           <td>{{ $doctor->location ?? 'Non spécifiée' }}</td>
           <td>
-            {{-- View Profile (if needed) --}}
-            <a href="" class="btn btn-sm btn-outline-primary me-1" title="Voir le profil">
+            {{-- View Profile --}}
+            <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal"
+            data-bs-target="#doctorModal{{ $doctor->id }}">
             <i class="fas fa-user"></i>
-            </a>
+            </button>
 
-            {{-- Validate Button --}}
+            {{-- Accept --}}
             <form action="{{ route('admin.doctor.validate', $doctor->id) }}" method="POST" class="d-inline">
             @csrf
-            @method('PATCH') <!-- Ensures the request is treated as PATCH -->
+            @method('PATCH')
             <button type="submit" class="btn btn-sm btn-success" title="Valider">
               <i class="fas fa-check"></i>
             </button>
             </form>
+
+            {{-- Refuse --}}
+            <form action="{{ route('admin.doctor.destroy', $doctor->id) }}" method="POST" class="d-inline"
+            onsubmit="return confirm('Êtes-vous sûr de vouloir refuser cette demande ?');">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-sm btn-outline-danger" title="Refuser">
+              <i class="fas fa-times"></i>
+            </button>
+            </form>
           </td>
           </tr>
-          @if (session('success'))
-        <div class="alert alert-success">
-        {{ session('success') }}
-        </div>
-      @endif
         @empty
-        <tr>
-        <td colspan="6" class="text-center">Aucun praticien à valider.</td>
-        </tr>
-      @endforelse
+          <tr>
+          <td colspan="6" class="text-center">Aucun praticien à valider.</td>
+          </tr>
+        @endforelse
             </tbody>
           </table>
         </div>
+
+        {{-- Modals --}}
+        @foreach($doctors as $doctor)
+      <div class="modal fade" id="doctorModal{{ $doctor->id }}" tabindex="-1"
+        aria-labelledby="doctorModalLabel{{ $doctor->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+          <img src="{{ asset('storage/image.png') }}" class="rounded-circle me-2" width="50" height="50"
+            alt="Avatar">
+          <h5 class="modal-title" id="doctorModalLabel{{ $doctor->id }}">
+            {{ $doctor->user->name ?? 'N/A' }}
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+
+          <ul class="list-group">
+            <li class="list-group-item"><strong>Nom:</strong> {{ $doctor->user->name ?? 'N/A' }}</li>
+            <li class="list-group-item"><strong>Spécialité:</strong> {{ $doctor->specialty }}</li>
+            <li class="list-group-item"><strong>Type:</strong> {{ $doctor->type }}</li>
+            <li class="list-group-item"><strong>Sexe:</strong> {{ ucfirst($doctor->gender) }}</li>
+            <li class="list-group-item"><strong>Âge:</strong> {{ $doctor->age }}</li>
+            <li class="list-group-item"><strong>Prix:</strong> {{ $doctor->price }} DA</li>
+            <li class="list-group-item"><strong>Disponible:</strong> {{ $doctor->available ? 'Oui' : 'Non' }}</li>
+            <li class="list-group-item"><strong>Consultation à domicile:</strong>
+            {{ $doctor->home_visit ? 'Oui' : 'Non' }}</li>
+            <li class="list-group-item"><strong>Adresse:</strong> {{ $doctor->location ?? 'Non spécifiée' }}</li>
+            <li class="list-group-item"><strong>Référence:</strong> {{ $doctor->doctor_ref ?? 'Non spécifiée' }}
+            </li>
+            <li class="list-group-item"><strong>Jours de travail:</strong> {{ $doctor->work_days }}</li>
+            <li class="list-group-item"><strong>Description:</strong> {{ $doctor->description }}</li>
+            <li class="list-group-item"><strong>Note:</strong> {{ $doctor->rating }}/5</li>
+          </ul>
+          </div>
+        </div>
+        </div>
+      </div>
+    @endforeach
+
 
 
 

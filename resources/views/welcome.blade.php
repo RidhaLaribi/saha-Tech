@@ -103,13 +103,18 @@
                 @if ($id != null)
                     @if (Auth::user()->role == "doctor")
                         <div class="d-lg-none ms-auto me-4">
-                            <a href="{{ route('dashboard') }}" class="navbar-icon bi-person smoothscroll"></a>
-                        </div>
-                    @else
-                        <div class="d-lg-none ms-auto me-4">
-                            <a href="{{ route('profile') }}" class="navbar-icon bi-person smoothscroll"></a>
+                            <a href="{{ route('dashboard') }}" class="navbar-icon bi-person"></a>
                         </div>
 
+                    @elseif (Auth::user()->role == "patient")
+                        <div class="d-lg-none ms-auto me-4">
+                            <a href="{{ route('profile') }}" class="navbar-icon bi-person"></a>
+                        </div>
+
+                    @elseif (Auth::user()->role == "admin")
+                        <div class="d-lg-none ms-auto me-4">
+                            <a href="{{ route('admindash') }}" class="navbar-icon bi-person"></a>
+                        </div>
                     @endif
 
 
@@ -144,16 +149,17 @@
 
                     @if ($id == null)
                         <!-- Fixed: ID syntax and class attribute -->
-                        <a href="{{ url('/loginp') }}" id="smoothLoginButton" class="praticien-link" style="
-                                                                                                        margin-right: 20px;
-                                                                                                        color: white;
-                                                                                                        font-family: 'Montserrat', sans-serif;
-                                                                                                        font-size: 14px;
-                                                                                                        font-weight: 600;
-                                                                                                        text-decoration: none;
-                                                                                                        transition: color 0.3s ease;
-                                                                                                        "
-                            onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#002b3a';">
+                        <a href="{{ url('/loginp') }}" id="smoothLoginButton" class="praticien-link"
+                            style="
+                                                                                                                                                margin-right: 20px;
+                                                                                                                                                color: white;
+                                                                                                                                                font-family: 'Montserrat', sans-serif;
+                                                                                                                                                font-size: 14px;
+                                                                                                                                                font-weight: 600;
+                                                                                                                                                text-decoration: none;
+                                                                                                                                                transition: color 0.3s ease;
+                                                                                                                                                " onmouseover="this.style.color='#ffffff';"
+                            onmouseout="this.style.color='#002b3a';">
                             Vous êtes praticien !
                         </a>
 
@@ -265,16 +271,23 @@
                                 @csrf
                             </form>
                         </div>
-                        @if (Auth::user()->role == "doctor")
+                        @if (Auth::user()->role === 'doctor')
                             <div class="d-none d-lg-block">
-                                <a href="{{ route('dashboard') }}" class="navbar-icon bi-person smoothscroll"></a>
-                            </div>
-                        @else
-                            <div class="d-none d-lg-block">
-                                <a href="{{ route('profile') }}" class="navbar-icon bi-person smoothscroll"></a>
+                                <a href="{{ route('dashboard') }}" class="navbar-icon bi-person"></a>
                             </div>
 
+                        @elseif (Auth::user()->role === 'patient')
+                            <div class="d-none d-lg-block">
+                                <a href="{{ route('profile') }}" class="navbar-icon bi-person"></a>
+                            </div>
+
+                        @elseif (Auth::user()->role === 'admin')
+                            <div class="d-none d-lg-block">
+                                <a href="{{ route('admindash') }}" class="navbar-icon bi-person"></a>
+                            </div>
                         @endif
+
+
                     @endif
 
                     <!-- Cleaned up closing tags -->
@@ -386,11 +399,11 @@
                 <div class="row">
 
                     <div class="col-lg-8 col-12 mx-auto">
-                        
 
 
 
-{{-- 
+
+                        {{--
                         <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bi-search" id="basic-addon1">
@@ -406,49 +419,49 @@
                         <!-- Include Bootstrap Icons (optional for button icon) -->
 
 
-<div class="tm-search-bar d-flex flex-wrap align-items-center p-4  shadow-sm"
-     style="background-color: #ffffff; border: 1px solid #e3e6f0; border-radius: 3rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+                        <div class="tm-search-bar d-flex flex-wrap align-items-center p-4  shadow-sm"
+                            style="background-color: #ffffff; border: 1px solid #e3e6f0; border-radius: 3rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
 
-    <!-- Specialty autocomplete -->
-    <div class="tm-search-group me-3 mb-3 position-relative flex-grow-1">
-        <input list="specialtyList" id="specialtyInput" class="form-control tm-form-control"
-               placeholder="Spécialité…"
-               style="border-radius: 0.75rem; border: 1px solid #ced4da; transition: all 0.3s ease;">
-        <datalist id="specialtyList">
-            <option value="Dentiste">
-            <option value="Cardiologue">
-            <option value="Dermatologue">
-            <option value="Ophtalmologue">
-            <option value="Pédiatre">
-        </datalist>
-    </div>
+                            <!-- Specialty autocomplete -->
+                            <div class="tm-search-group me-3 mb-3 position-relative flex-grow-1">
+                                <input list="specialtyList" id="specialtyInput" class="form-control tm-form-control"
+                                    placeholder="Spécialité…"
+                                    style="border-radius: 0.75rem; border: 1px solid #ced4da; transition: all 0.3s ease;">
+                                <datalist id="specialtyList">
+                                    <option value="Dentiste">
+                                    <option value="Cardiologue">
+                                    <option value="Dermatologue">
+                                    <option value="Ophtalmologue">
+                                    <option value="Pédiatre">
+                                </datalist>
+                            </div>
 
-    <!-- Location field -->
-    <div class="tm-search-group me-3 mb-3 position-relative flex-grow-1">
-        <input type="text" id="locationInput" class="form-control tm-form-control"
-               placeholder="Localisation…"
-               style="border-radius: 0.75rem; border: 1px solid #ced4da; transition: all 0.3s ease;">
-    </div>
+                            <!-- Location field -->
+                            <div class="tm-search-group me-3 mb-3 position-relative flex-grow-1">
+                                <input type="text" id="locationInput" class="form-control tm-form-control"
+                                    placeholder="Localisation…"
+                                    style="border-radius: 0.75rem; border: 1px solid #ced4da; transition: all 0.3s ease;">
+                            </div>
 
-    <!-- Date picker -->
-    <div class="tm-search-group me-3 mb-3">
-        <input type="date" id="dateInput" class="form-control tm-form-control"
-               style="border-radius: 0.75rem; border: 1px solid #ced4da; transition: all 0.3s ease;">
-    </div>
+                            <!-- Date picker -->
+                            <div class="tm-search-group me-3 mb-3">
+                                <input type="date" id="dateInput" class="form-control tm-form-control"
+                                    style="border-radius: 0.75rem; border: 1px solid #ced4da; transition: all 0.3s ease;">
+                            </div>
 
-    <!-- Search button -->
-    <div class="mb-3">
-        <button id="searchBtn" class="tm-btn"
-                style="background-color: #0d6efd; color: #fff; border: none; padding: 0.6rem 1.2rem;
+                            <!-- Search button -->
+                            <div class="mb-3">
+                                <button id="searchBtn" class="tm-btn"
+                                    style="background-color: #0d6efd; color: #fff; border: none; padding: 0.6rem 1.2rem;
                        border-radius: 0.75rem; font-weight: 500; transition: background-color 0.3s ease, transform 0.2s ease;">
-            <i class="bi bi-search me-1"></i> 
-        </button>
-    </div>
-</div>
+                                    <i class="bi bi-search me-1"></i>
+                                </button>
+                            </div>
+                        </div>
 
 
+                    </div>
                 </div>
-            </div>
         </section>
 
 

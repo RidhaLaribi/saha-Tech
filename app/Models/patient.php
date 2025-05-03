@@ -36,7 +36,7 @@ class Patient extends Model
     }
     public function rendezvous()
     {
-        return $this->hasMany(rendezvous::class, "patient_id");
+        return $this->hasMany(rendezvous::class, "patient_id")->orderBy('rendezvous', 'desc');
     }
     public function notes()
     {

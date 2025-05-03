@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
+use DB;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\Doctor;
@@ -122,10 +123,27 @@ class AdminDashboardController extends Controller
         $doctor->save();
 
         // Redirect back with a success message
-        return redirect()->route('rendad')->with('success', 'Doctor validated successfully.');
+        return redirect()->back()->with('success', 'Doctor validated successfully.');
     }
 
+    public function destroyDoctor(Doctor $doctor)
+    {
+        DB::transaction(function () use ($doctor) {
+            // Grab the linked user
+            $user = $doctor->user;
 
+            // Delete the doctor record first (if there are FK constraints)
+            $doctor->delete();
+
+            // Then delete the user
+            if ($user) {
+                $user->delete();
+            }
+        });
+
+        return redirect()->back()
+            ->with('success', 'Demande de praticien refusée et données supprimées.');
+    }
 
 }
 
