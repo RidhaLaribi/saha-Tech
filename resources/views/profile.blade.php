@@ -620,7 +620,7 @@ calendar links-->
                                                  },*/
 
                                                 @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               {
                                                         title: 'Rendez-vous',
                                                         start: '{{$re->rendezvous}}',
                                                         url: 'https://youtube.com/',
@@ -697,19 +697,21 @@ calendar links-->
                                                                         <th scope="row">{{ $re->rendezvous }}</th>
                                                                         <td>{{ $re->doctor->specialty }}</td>
                                                                         <td>{{ $re->doctor->user->name }}</td>
+                                                                        @if ($user->role == "patient")
 
-                                                                        <td>
-                                                                            <form
-                                                                                action="{{ route('rendezvous.destroy', $re->id) }}"
-                                                                                method="POST" class="d-inline">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="btn btn-outline-danger btn-sm">
-                                                                                    <i class="bi bi-x-circle me-1"></i> Cancel
-                                                                                </button>
-                                                                            </form>
-                                                                        </td>
+                                                                            <td>
+                                                                                <form
+                                                                                    action="{{ route('rendezvous.destroy', $re->id) }}"
+                                                                                    method="POST" class="d-inline">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-outline-danger btn-sm">
+                                                                                        <i class="bi bi-x-circle me-1"></i> Cancel
+                                                                                    </button>
+                                                                                </form>
+                                                                            </td>
+                                                                        @endif
                                                                     </tr>
                                                                 @endforeach
 
