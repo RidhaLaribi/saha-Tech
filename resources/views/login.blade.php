@@ -57,7 +57,7 @@
       </form>
 
       <!-- SIGN UP FORM (HIDDEN BY DEFAULT) -->
-      <form id="signUpForm" action="{{ route('sign') }}" method="POST">
+      <form id="signUpForm" action="{{ route('auth.sign') }}" method="POST">
         @csrf
         <h2 style="text-align: center; margin-bottom: 0.5rem; color: #00796b;">
           Création de Compte

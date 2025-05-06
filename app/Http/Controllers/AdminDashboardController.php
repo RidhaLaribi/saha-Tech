@@ -11,9 +11,20 @@ use App\Models\Patient;
 use App\Models\Doctor;
 use App\Models\Rendezvous;
 use Illuminate\Support\Carbon;
-
+use Illuminate\Support\Facades\Auth;
 class AdminDashboardController extends Controller
-{
+{    
+    public function __construct()
+    {
+        // Runs before every method in this controller:
+        $this->middleware(function($request, $next) {
+            $user = Auth::user();
+            if (! $user || $user->role !== 'admin') {
+                abort(403, 'Forbidden — you must be an administrator.');
+            }
+            return $next($request);
+        });
+    }
     public function index()
     {
         // Card totals

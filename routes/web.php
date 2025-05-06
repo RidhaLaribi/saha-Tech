@@ -27,7 +27,7 @@ Route::get('/login', function () {
 /*** */
 Route::post("/login", [authController::class, 'login'])->name('login');
 
-Route::post("/sign", [authController::class, 'store'])->name('sign');
+Route::post("/sign", [authController::class, 'store'])->name('auth.sign');
 
 Route::post('/registerp', [authController::class, 'registrp'])->name('registerp');
 
@@ -62,6 +62,7 @@ Route::post("update", [resController::class, 'updateInfo'])->name("modify");
 
 
 Route::post('upload-file', [resController::class, 'upload'])->name('files.upload');
+
 Route::delete('/rendezvous/{id}', [resController::class, 'destroy'])->name('rendezvous.destroy');
 
 
@@ -138,13 +139,9 @@ Route::
     ->name('doctor.patient.show');
 
 
-Route::get('users', [UserManagementController::class, 'index'])
-    ->name('admin.users.index');
-//  ->middleware('can:admin');
 
-Route::post('users', [UserManagementController::class, 'store'])
-    ->name('admin.users.store');
-//  ->middleware('can:admin');
+
+
 
 
 Route::get('/admindash', [AdminDashboardController::class, 'index'])
@@ -166,3 +163,30 @@ Route::delete(
 
 Route::patch('/admin/doctors/{doctor}/validate', [AdminDashboardController::class, 'validateDoctor'])->name('admin.doctor.validate');
 
+
+
+Route::get('/users', [UserManagementController::class, 'index'])
+    ->name('users');
+//  ->middleware('can:admin');
+
+
+
+Route::post('/users/sign', [UserManagementController::class, 'sign'])
+     ->name('users.sign');
+
+
+Route::post('/users/register', [UserManagementController::class, 'registrp'])
+     ->name('registerpad');
+
+Route::post('/users', [UserManagementController::class, 'store'])
+     ->name('store');
+
+ 
+
+Route::get('/users/search', [UserManagementController::class, 'search'])
+     ->name('users.search');
+
+    
+Route::delete('doctors/{doctor}',  [UserManagementController::class,  'destroydoc'])->name('doctors.destroy');
+Route::delete('patients/{patient}',[UserManagementController::class, 'destroy'])->name('patients.destroy');
+Route::delete('admins/{admin}',    [UserManagementController::class,   'destroyad'])->name('admins.destroy');

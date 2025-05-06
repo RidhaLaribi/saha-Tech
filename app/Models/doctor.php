@@ -21,7 +21,9 @@ class doctor extends Model
         'price',
         'description',
         'work_days',
+        'available',
         'home_visit',
+        'rating',
     ];
 
     public function user()

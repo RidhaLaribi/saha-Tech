@@ -23,3 +23,9 @@
         sidebar.classList.toggle('active');
     }
 
+    setTimeout(function () {
+        var notification = document.getElementById('welcomeNotification');
+        if (notification) {
+          notification.style.display = 'none';
+        }
+      }, 6000);

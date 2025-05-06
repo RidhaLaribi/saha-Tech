@@ -1,14 +1,31 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Models\User;             // your default user table
+use App\Models\User;            
+use App\Models\patient;  
+use App\Models\doctor;  
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class UserManagementController extends Controller
-{
+{        
+
+        
+    public function __construct()
+    {
+        // This middleware runs before every action in this controller
+        $this->middleware(function($request, $next) {
+            $user = Auth::user();
+            // If there's no logged‑in user OR they aren't an admin, abort:
+            if (! $user || $user->role !== 'admin') {
+                abort(403, 'Unauthorized.');
+            }
+            return $next($request);
+        });
+    }
     public function index()
     {
         // Admins
@@ -18,85 +35,194 @@ class UserManagementController extends Controller
         $patients = User::where('role', 'patient')->get();
 
         // Doctors; eager-load their one-to-one Doctor record and their many Patients
-        $doctors = User::with(['doctor', 'patient'])
-                       ->where('role', 'doctor')
-                       ->get();
+        $doctors = User::with('doctor')
+                   ->where('role', 'doctor')
+                   ->get();
 
         return view('adminusers', compact('admins', 'patients', 'doctors'));
-    }
+    } 
     public function store(Request $request)
     {
+        // 1) Validate —
         $data = $request->validate([
-            'pic'        => 'nullable|image|max:2048',
-            'name'       => 'required|string|max:255',
-            'email'      => 'required|email|unique:users',
-            'tel'        => 'required|string|max:20',
-            'role'       => ['required', Rule::in(['admin','patient','doctor'])],
-            'password'   => 'required|string|min:8|confirmed',
-    
-            // patient-specific
-            'age'        => 'required_if:role,patient|nullable|integer|min:0',
-            'sexe'       => 'required_if:role,patient|nullable|in:Homme,Femme',
-            'rel'        => 'nullable|string|max:255',
-    
-            // doctor-specific
-            'doctor_ref' => 'required_if:role,doctor|nullable|string|max:255',
-            'gender'     => 'required_if:role,doctor|nullable|in:male,female',
-            'type'       => 'required_if:role,doctor|nullable|string|max:50',
-            'specialty'  => 'required_if:role,doctor|nullable|string|max:100',
-            'location'   => 'nullable|string|max:255',
-            'price'      => 'nullable|numeric|min:0',
-            'description'=> 'nullable|string',
-            'work_days'  => 'nullable|array',
-            'home_visit' => 'nullable|boolean',
+            'pic'      => 'nullable|image',
+            'name'     => 'required|string|max:191',
+            'email'    => 'required|email|unique:users,email',
+            'tel'      => 'required|string|max:20',   // <— matches input name
+            'password' => 'required|string',
         ]);
     
-        // 1) Upload pic if present
-        if($request->hasFile('pic')){
-          $path = $request->file('pic')->store('avatars','public');
-          $data['pic'] = $path;
+        // 2) Upload avatar if given
+        if ($request->hasFile('pic')) {
+            $data['pic'] = $request->file('pic')
+                                  ->store('avatars','public');
         }
     
-        // 2) Create the base user
-        $user = User::create([
-          'pic'      => $data['pic'] ?? null,
-          'name'     => $data['name'],
-          'email'    => $data['email'],
-          'tel'      => $data['tel'],
-          'role'     => $data['role'],
-          'password' => Hash::make($data['password']),
-        ]);
+        // 3) Force role
+        $data['role']     = 'admin';
     
-        // 3) Depending on role, create related record
-        if($data['role'] === 'patient') {
-            Patient::create([
-              'user_id' => $user->id,
-              'pic'     => $data['pic'] ?? null,
-              'name'    => $data['name'],
-              'age'     => $data['age'],
-              'sexe'    => $data['sexe'],
-              'rel'     => $data['rel'] ?? null,
-            ]);
-        }
+        // 4) Hash password
+        $data['password'] = Hash::make($data['password']);
     
-        if($data['role'] === 'doctor') {
-            Doctor::create([
-              'user_id'     => $user->id,
-              'doctor_ref'  => $data['doctor_ref'],
-              'age'         => $data['age'],
-              'gender'      => $data['gender'],
-              'type'        => $data['type'],
-              'specialty'   => $data['specialty'],
-              'pic'         => $data['pic'] ?? null,
-              'location'    => $data['location'] ?? null,
-              'price'       => $data['price'] ?? null,
-              'description' => $data['description'] ?? null,
-              'work_days'   => isset($data['work_days']) ? json_encode($data['work_days']) : null,
-              'home_visit'  => $data['home_visit'] ?? false,
-            ]);
-        }
+       
     
-        return back()->with('success',"New {$data['role']} “{$data['name']}” added.");
+        // 6) Create the user
+        User::create($data);
+    
+        return back()->with('success','Admin user added successfully.');
     }
     
+    public function registrp(Request $request)
+    {
+        $request->validate([
+            'doctor_ref' => 'integer',
+            'name' => 'required|string|max:100',
+            'age' => 'nullable|integer|min:18',
+            'sexe' => 'required|in:Homme,Femme',
+            'type' => 'required|in:doctor,laboratoire',
+            'telephone' => 'required',
+            'email' => 'required|email',
+            'specialite' => 'required|string',
+            'password' => 'required',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'tel' => $request->telephone,
+            'role' => $request->type,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $doctor = doctor::create([
+            'user_id' => $user->id,
+            'doctor_ref' => $request->enum,
+            'age' => $request->age,
+            'gender' => $request->sexe,
+            'type' => $request->type,
+            'specialty' => $request->specialite,
+            'available'=>1,
+
+        ]);
+
+        return redirect()->route('users')
+            ->with('success', "doctor added");
+    }
+    
+    function sign(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'age' => 'required',
+            'sexe' => 'required',
+            'telephone' => 'required',
+            'password' => 'required'
+        ]);
+
+        $user = User::create([
+
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make(value: $request->password), // Hashing the password before storing
+            'tel' => $request->telephone
+        ]);
+
+
+        patient::create([
+            'user_id' => $user->id,
+            'name' => $request->name,
+            'age' => $request->age,
+            'sexe' => $request->sexe,
+
+        ]);
+        return redirect()->route('users')
+            ->with('success', "patient added!");
+
+    }
+
+    public function search(Request $request)
+{
+    // 1) grab filters
+    $type  = $request->input('type');    // 'admin','patient','doctor','lab' or null = all
+    $query = $request->input('q');       // search string
+
+    // 2) base query builder for users
+    $users = User::query();
+
+    // 3) filter by role/type if set
+    if ($type) {
+        $users->where('role', $type);
+    }
+
+    // 4) filter by id, name or role if search string provided
+    if ($query) {
+        $users->where(function($q) use ($query) {
+            // if they typed a number, match ID exactly
+            if (is_numeric($query)) {
+                $q->where('id', $query);
+            }
+            // match name or role by partial
+            $q->orWhere('name', 'like', "%{$query}%")
+              ->orWhere('role', 'like', "%{$query}%");
+        });
+    }
+
+    // 5) eager‑load relationships needed for each role
+    $admins   = (clone $users)->where('role','admin')->get();
+    $patients = (clone $users)->where('role','patient')->with('patient')->get();
+    $doctors  = (clone $users)->where('role','doctor')->with('doctor')->get();
+    $labs      = (clone $users)->where('role','lab')->with('lab')->get();
+
+    // 6) return view with filtered collections
+    return view('adminusers', compact('admins','patients','doctors','labs','type','query'));
+}
+
+public function destroy(Patient $patient): RedirectResponse
+{
+    // Grab the related user
+    $user = $patient->user;
+
+    // 1) Delete the patient row
+    $patient->delete();
+
+    // 2) Delete the user account
+    $user->delete();
+
+    return redirect()->back()
+                     ->with('success', 
+                           'Le patient et son compte utilisateur ont été supprimés.');
+}
+
+public function destroydoc(Doctor $doctor): RedirectResponse
+{
+    // 1) Grab the related user
+    $user = $doctor->user;
+    if (! $user) {
+        abort(404, 'Utilisateur lié introuvable.');
+    }
+
+    // 2) Delete the doctor row
+    $doctor->delete();
+
+    // 3) Delete the user account
+    $user->delete();
+
+    return redirect()
+        ->back()
+        ->with('success', 'Praticien et compte utilisateur supprimés avec succès.');
+}
+
+
+    public function destroyad(int $id): RedirectResponse
+    {
+        $admin = User::where('role', 'admin')->findOrFail($id);
+        $admin->delete();
+
+        return redirect()
+            ->back()
+            ->with('success', 'L’administrateur a bien été supprimé.');
+    }
+
+
 }

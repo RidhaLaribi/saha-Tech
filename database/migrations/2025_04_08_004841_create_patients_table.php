@@ -17,7 +17,11 @@ return new class extends Migration {
             $table->string('rel')->default('self');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+           
+        $table->foreign('user_id')
+        ->references('id')
+        ->on('users')
+        ->onDelete('cascade');
         });
     }
 

@@ -134,26 +134,37 @@ class DashboardController extends Controller
         return back()->with('success', 'Statut mis à jour.');
     }
 
-
     public function uploadPic(Request $request)
-{
-    $request->validate([
-        'pic' => 'required|image|mimes:jpeg,png,jpg,gif',
-    ]);
-
-    $doctor = Auth::user()->doctor;
-
-    if ($request->hasFile('pic')) {
-        $file = $request->file('pic');
+    {
+        $request->validate([
+            'pic' => 'required|image|mimes:jpeg,png,jpg,gif',
+        ]);
+    
+        $user = Auth::user();
+    
+        if (! $request->hasFile('pic')) {
+            return back()->withErrors(['pic' => 'No file uploaded.']);
+        }
+    
+        // store the file
+        $file     = $request->file('pic');
         $filename = time() . '_' . $file->getClientOriginalName();
-        $path = $file->storeAs('doctor_pics', $filename, 'public');
-
-        // Update the doctor's pic path
-        $doctor->pic = $path;
-        $doctor->save();
+        $path     = $file->storeAs('profile_pics', $filename, 'public');
+    
+        // decide where to save it
+        if ($user->role === 'doctor' && $user->doctor) {
+            // doctor: pic is on the doctor profile
+            $profile = $user->doctor;
+        } else {
+            
+            $profile = $user;
+        }
+    
+       
+        $profile->pic = $path;
+        $profile->save();
+    
+        return back()->with('success', 'Profile picture updated!');
     }
-
-    return back()->with('success', 'Profile picture updated!');
-}
 
 }
