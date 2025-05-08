@@ -193,4 +193,4 @@ Route::delete('patients/{patient}', [UserManagementController::class, 'destroy']
 Route::delete('admins/{admin}', [UserManagementController::class, 'destroyad'])->name('admins.destroy');
 
 
-Route::post('/medecin{doctor}', [PatientController::class, 'book'])->name('appointment.book');
+Route::post('/medecin', [PatientController::class, 'book'])->name('appointments.store');

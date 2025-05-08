@@ -22,21 +22,33 @@ class PatientController extends Controller
         return view('profile', compact('patient'));
     }
 
-    public function book(Request $request, $doctorId)
+
+    public function book(Request $request)
     {
         $data = $request->validate([
-            'appointment_type' => 'required|string',
-            'appointment_date' => 'required|date',
+            'doctor_id' => 'required|exists:doctors,id',
+            'scheduled_at' => 'required',
+            'type' => 'required|string',
+            'notes' => 'nullable|string',
         ]);
 
-        Rendezvous::create([
-            'patient_id' => Auth::id(),
-            'doctor_id' => $doctorId,
-            'rendezvous' => $data['appointment_date'],
-            'type' => $data['appointment_type'],
-            'status' => 'En Attente',
-        ]);
+        $datetimeString = $data['scheduled_at']; // e.g., "2025-05-10 14:00:00,2025-05-10 15:30:00"
 
-        return redirect()->back()->with('success', 'Rendez-vous réservé !');
+        $datetimeArray = array_filter(array_map('trim', explode(',', $datetimeString)));
+
+        // Optional: loop and save each appointment
+        foreach ($datetimeArray as $datetime) {
+
+            Rendezvous::create([
+                'patient_id' => auth()->id(),
+                'doctor_id' => $data['doctor_id'],
+                'rendezvous' => $datetime,
+                'type' => $data['type'],
+            ]);
+        }
+
+        return redirect()->back()
+            ->with('success', 'Ton rendez-vous a bien été enregistré !');
     }
+
 }

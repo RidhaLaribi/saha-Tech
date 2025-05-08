@@ -589,7 +589,8 @@
 
       <button class="appointment-btn open-modal-btn" data-doctor-id="{{ $doctor->id }}"
       data-doctor-name="{{ $doctor->user->name }}" data-doctor-specialty="{{ $doctor->specialty }}"
-      data-doctor-price="{{ $doctor->price }}" data-doctor-image="{{ $doctor->image ?? 'default-doctor.jpg' }}">
+      data-doctor-price="{{ $doctor->price }}"
+      data-doctor-image="{{ asset('storage/' . ($doctor->pic ?? 'image.png')) }}">
       <i class="fas fa-calendar-plus"></i> Prendre Rendez-vous
       </button>
       </div>
@@ -604,131 +605,404 @@
   </div>
 
   <!-- Appointment Modal -->
+  <!-- Appointment Modal -->
+  <!-- Appointment Modal -->
   <div class="modal-overlay" id="appointmentModal">
-    <div class="modal">
-      <div class="modal-header">
-        <button class="modal-close">&times;</button>
-        <h2>Prendre rendez-vous avec <span id="modalDoctorName"></span></h2>
-      </div>
-      <div class="modal-body">
-        <div class="doctor-profile">
-          <img id="modalDoctorImage" class="doctor-avatar" alt="Photo du médecin">
-          <div class="doctor-info">
-            <div class="specialty">
-              <i class="fas fa-stethoscope"></i> <span id="modalDoctorSpecialty"></span>
-            </div>
-            <div class="price">
-              <span class="badge"><span id="modalDoctorPrice"></span> DA</span>
+    <div class="booking-popup">
+      <!-- Close button -->
+      <button type="button" class="close-btn modal-close">&times;</button>
+
+      <!-- Form -->
+      <form method="POST" action="{{ route('appointments.store') }}">
+        @csrf
+
+        <div class="popup-grid">
+          <!-- LEFT: Doctor Info -->
+          <div class="popup-info">
+            <img id="modalDoctorImage" class="avatar" src="" alt="Photo du médecin">
+            <div class="info-text">
+              <h3 id="modalDoctorName">Dr. Nom Prénom</h3>
+              <p><i class="fas fa-stethoscope"></i> <span id="modalDoctorSpecialty">Spécialité</span></p>
+              <p><i class="fas fa-map-marker-alt"></i> {{ $doctor->location ?? 'Lieu' }}</p>
+              <p><strong><span id="modalDoctorPrice">0</span> DA</strong></p>
             </div>
           </div>
+
+          <!-- RIGHT: Schedule Picker -->
+          <div class="popup-schedule">
+            <div class="day-switcher">
+              <button type="button" id="prevDay">&lt;</button>
+              <div id="displayDate">---</div>
+              <button type="button" id="nextDay">&gt;</button>
+            </div>
+
+            <input type="hidden" name="doctor_id" id="formDoctorId">
+            <input type="hidden" name="scheduled_at" id="formDateTime">
+
+            <div class="slots-grid" id="slotsContainer">
+              <!-- JS will inject 30-min slots here -->
+            </div>
+
+            <!-- In your modal form, add wherever you want the checkbox -->
+            <div class="form-section">
+              <label class="custom-checkbox">
+                <input type="checkbox" name="reminder" id="reminderCheckbox">
+                <span class="box"></span>
+                <span class="label-text">In Home</span>
+              </label>
+            </div>
+            <style>
+              /* Custom styled checkbox */
+              .custom-checkbox {
+                display: inline-flex;
+                align-items: center;
+                cursor: pointer;
+                user-select: none;
+                gap: 0.5rem;
+              }
+
+              .custom-checkbox input {
+                position: absolute;
+                opacity: 0;
+                pointer-events: none;
+              }
+
+              .custom-checkbox .box {
+                width: 1.25rem;
+                height: 1.25rem;
+                border: 2px solid var(--primary-color);
+                border-radius: 0.25rem;
+                background: var(--white-color);
+                transition: background 0.2s, border-color 0.2s;
+                display: grid;
+                place-items: center;
+              }
+
+              .custom-checkbox .box::before {
+                content: '';
+                width: 0.5rem;
+                height: 0.9rem;
+                border-right: 2px solid transparent;
+                border-bottom: 2px solid transparent;
+                transform: rotate(45deg) scale(0);
+                transition: transform 0.1s ease-in-out;
+              }
+
+              .custom-checkbox input:checked+.box {
+                background: var(--primary-color);
+                border-color: var(--primary-color);
+              }
+
+              .custom-checkbox input:checked+.box::before {
+                border-color: var(--white-color);
+                transform: rotate(45deg) scale(1);
+              }
+
+              .custom-checkbox .label-text {
+                font-size: 0.9rem;
+                color: var(--dark-color);
+              }
+            </style>
+
+          </div>
         </div>
-
-
-
-        <input type="hidden" id="modalDoctorId" name="doctor_id">
-
-        <div class="form-section">
-          <h3>Type de rendez-vous</h3>
-          <div class="form-group">
-            <select name="appointment_type" required>
-              <option value="">Sélectionnez le type</option>
+        <div class="popup-footer">
+          <div class="form-section"><select name="type" required>
+              <option value="">Type de RDV…</option>
               <option value="consultation">Consultation générale</option>
               <option value="followup">Suivi de traitement</option>
               <option value="emergency">Urgence</option>
-            </select>
-          </div>
+            </select></div>
+          <div class="form-section"><textarea name="notes" placeholder="Notes supplémentaires…"></textarea></div>
+          <button type="submit" class="appointment-btn"><i class="fas fa-calendar-check"></i>Confirmer </button>
         </div>
-
-        <div class="form-section">
-          <h3>Date et heure</h3>
-          <div class="form-group">
-            <input type="datetime-local" id="appointmentDateTime" name="appointment_date" required>
-          </div>
-        </div>
-
-        <div class="form-section">
-          <h3>Notes supplémentaires</h3>
-          <div class="form-group">
-            <textarea name="notes" placeholder="Notes supplémentaires..."></textarea>
-          </div>
-        </div>
-
-        <button type="submit" class="appointment-btn full-width">
-          <i class="fas fa-calendar-check"></i> Confirmer le rendez-vous
-        </button>
-        </form>
-      </div>
+      </form>
     </div>
-  </div>
+  </div> {
+  {
+  -- Add these styles at the bottom of your
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script>
-    // Modal Handling
-    document.querySelectorAll('.open-modal-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const doctorData = btn.dataset;
-        document.getElementById('modalDoctorId').value = doctorData.doctorId;
-        document.getElementById('modalDoctorName').textContent = doctorData.doctorName;
-        document.getElementById('modalDoctorSpecialty').textContent = doctorData.doctorSpecialty;
-        document.getElementById('modalDoctorPrice').textContent = doctorData.doctorPrice;
-        document.getElementById('modalDoctorImage').src = doctorData.doctorImage;
-        document.getElementById('appointmentModal').classList.add('active');
-      });
-    });
+  <head>or in your CSS --
+    }
+    }
 
-    document.querySelector('.modal-close').addEventListener('click', () => {
-      document.getElementById('appointmentModal').classList.remove('active');
-    });
-
-    // Date/Time Picker
-    flatpickr("#appointmentDateTime", {
-      enableTime: true,
-      dateFormat: "Y-m-d H:i",
-      time_24hr: true,
-      minDate: "today",
-      locale: "fr"
-    });
-
-    // Filter Functionality
-    const filterDoctors = () => {
-      const specialty = document.getElementById('specialtySelect').value.toLowerCase();
-      const location = document.getElementById('locationInput').value.toLowerCase();
-      const type = document.querySelector('.tabs button.active').dataset.tab;
-
-      document.querySelectorAll('.doctor-item').forEach(item => {
-        const matchesSpecialty = item.dataset.specialty.includes(specialty);
-        const matchesLocation = item.dataset.location.includes(location);
-        const matchesType = type === 'all' || item.dataset.type === type;
-
-        item.style.display = matchesSpecialty && matchesLocation && matchesType
-          ? 'flex'
-          : 'none';
-      });
-    };
-
-    document.getElementById('searchBtn').addEventListener('click', filterDoctors);
-    document.querySelectorAll('.tabs button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelector('.tabs button.active').classList.remove('active');
-        btn.classList.add('active');
-        filterDoctors();
-      });
-    });
-
-    // Geolocation
-    document.getElementById('getLocationBtn').addEventListener('click', () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(pos => {
-          const lat = pos.coords.latitude.toFixed(4);
-          const lon = pos.coords.longitude.toFixed(4);
-          document.getElementById('locationInput').value = `Lat: ${lat}, Lon: ${lon}`;
-        }, () => alert("Impossible de récupérer votre position"));
-      } else {
-        alert("Géolocalisation non supportée");
+    <style>
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.4);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
       }
-    });
-  </script>
-</body>
+
+      .modal-overlay.active {
+        display: flex;
+      }
+
+      .booking-popup {
+        height: 500px;
+
+        background: #fff;
+        border-radius: 12px;
+        width: 800px;
+        max-width: 95%;
+        padding: 1.5rem;
+        position: relative;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      .popup-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        padding-top: 20px;
+        gap: 1.5rem;
+      }
+
+      .popup-info {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .popup-info .avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .info-text h3 {
+        margin-bottom: .25rem;
+      }
+
+      .popup-schedule {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .day-switcher {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .day-switcher button {
+        background: none;
+        border: none;
+        font-size: 1.25rem;
+        cursor: pointer;
+      }
+
+      #displayDate {
+        font-weight: 600;
+      }
+
+      .slots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: .5rem;
+        margin-bottom: .75rem;
+      }
+
+      .slots-grid .slot {
+        padding: .5rem 0;
+        text-align: center;
+        border-radius: 20px;
+        background: #e0f7ef;
+        cursor: pointer;
+        user-select: none;
+        transition: background .2s;
+      }
+
+      .slots-grid .slot.selected {
+        background: #80d0c7;
+        color: #fff;
+      }
+
+      .more-link {
+        font-size: .85rem;
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      .popup-footer {
+        margin-top: 1.5rem;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .popup-footer .form-section {
+        flex: 1;
+      }
+
+      .popup-footer select,
+      .popup-footer textarea {
+        width: 100%;
+        padding: .75rem;
+        border-radius: 8px;
+        border: 2px solid #e2e8f0;
+      }
+
+      .appointment-btn {
+        background: var(--gradient);
+        color: #fff;
+        padding: .75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        cursor: pointer;
+      }
+    </style>
+
+    {{-- And this script at the bottom of your
+
+  <body>, after flatpickr --}}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+      // 1) takenSlots comes from your controller: { doctorId: ['2025-05-08 14:00:00', ...], ... }
+      const takenSlots = @json($takenSlots);
+
+      const overlay = document.getElementById('appointmentModal');
+      const slotsCont = document.getElementById('slotsContainer');
+      const prevDay = document.getElementById('prevDay');
+      const nextDay = document.getElementById('nextDay');
+      const displayDt = document.getElementById('displayDate');
+      let currentDate = new Date();
+
+      // Utility to format date in French short (jeu. 08 mai)
+      function fmt(d) {
+        return d.toLocaleDateString('fr-FR', {
+          weekday: 'short', day: '2-digit', month: 'short'
+        });
+      }
+
+      // 2) renderSlots: clears container, then for each 30-min slot:
+      //    - if taken, mark disabled
+      //    - else allow toggle select/deselect (multiple)
+      function renderSlots(date) {
+        slotsCont.innerHTML = '';
+
+        // Build date prefix, e.g. "2025-05-08 "
+        const dayPrefix = date.toISOString().slice(0, 10) + ' ';
+        const doctorId = document.getElementById('formDoctorId').value;
+        const allTaken = takenSlots[doctorId] || [];
+
+        // Keep only those taken on our current day, then strip the date part
+        const takenTimes = allTaken
+          .filter(ts => ts.startsWith(dayPrefix))
+          .map(ts => ts.slice(dayPrefix.length)); // ["14:00:00", "15:30:00", ...]
+
+        for (let h = 9; h < 17; h++) {
+          [0, 30].forEach(m => {
+            const hh = String(h).padStart(2, '0'),
+              mm = String(m).padStart(2, '0'),
+              timeStr = `${hh}:${mm}:00`,
+              slotTs = dayPrefix + timeStr;
+
+            const btn = document.createElement('div');
+            btn.className = 'slot';
+            btn.textContent = `${hh}:${mm}`;
+
+            if (takenTimes.includes(timeStr)) {
+              // disabled only if that exact time on this day is taken
+              btn.classList.add('disabled');
+              btn.style.cursor = 'not-allowed';
+            } else {
+              btn.addEventListener('click', () => {
+                // toggle selection
+                const selected = btn.classList.toggle('selected');
+
+                // read current array from hidden input
+                let arr = document.getElementById('formDateTime').value
+                  .split(',')
+                  .map(s => s.trim())
+                  .filter(s => s);
+
+                if (selected) {
+                  arr.push(slotTs);
+                } else {
+                  arr = arr.filter(s => s !== slotTs);
+                }
+
+                document.getElementById('formDateTime').value = arr.join(',');
+              });
+            }
+
+            slotsCont.appendChild(btn);
+          });
+        }
+      }
+
+      // 3) updateDay: change currentDate and rerender
+      function updateDay(delta) {
+        currentDate.setDate(currentDate.getDate() + delta);
+        displayDt.textContent = fmt(currentDate);
+        renderSlots(currentDate);
+      }
+
+      // 4) Wire prev/next
+      prevDay.addEventListener('click', () => updateDay(-1));
+      nextDay.addEventListener('click', () => updateDay(1));
+
+      // 5) Flatpickr optional: click date label to pick another day
+      flatpickr(displayDt, {
+        defaultDate: currentDate,
+        clickOpens: true,
+        onChange: ([d]) => { currentDate = d; updateDay(0); },
+        dateFormat: "D, d M"
+      });
+
+      // 6) Open modal & inject doctor data
+      document.querySelectorAll('.open-modal-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const { doctorId, doctorName, doctorSpecialty, doctorPrice, doctorImage } = btn.dataset;
+          document.getElementById('modalDoctorName').textContent = doctorName;
+          document.getElementById('modalDoctorSpecialty').textContent = doctorSpecialty;
+          document.getElementById('modalDoctorPrice').textContent = doctorPrice;
+          document.getElementById('modalDoctorImage').src = doctorImage;
+          document.getElementById('formDoctorId').value = doctorId;
+          // clear any previous selections
+          document.getElementById('formDateTime').value = '';
+          updateDay(0);
+          overlay.classList.add('active');
+        });
+      });
+
+      // 7) Close modal
+      document.querySelectorAll('.modal-close').forEach(x =>
+        x.addEventListener('click', () => overlay.classList.remove('active'))
+      );
+
+
+      displayDt.textContent = fmt(currentDate);
+      renderSlots(currentDate);
+    </script>
+
+
+  </body>
+
 
 </html>

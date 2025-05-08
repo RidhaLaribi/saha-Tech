@@ -167,9 +167,20 @@ class doctorController extends Controller
             'praticien' => Doctor::where('type', 'doctor')->where('available', '=', '1')->count(),
             'clinique' => Doctor::where('type', 'laboratoire')->where('available', '=', '1')->count(),
         ];
+        $taken = Rendezvous::where('status', 'Confirmé')
+            ->get()
+            ->groupBy('doctor_id')
+            ->map(function ($group) {
+                // map each to an array of 'Y-m-d H:i:00' strings
+                return $group->pluck('rendezvous')
+                    ->map(fn($dt) => $dt->format('Y-m-d H:i:00'))
+                    ->all();
+            });
 
         return view('medecin', [
             'doctors' => $doctors
+            ,
+            'takenSlots' => $taken
             ,
             'counts' => $counts
         ]);
