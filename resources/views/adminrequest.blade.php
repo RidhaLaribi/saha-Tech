@@ -62,7 +62,7 @@
         <form class="row g-3 mb-4" method="GET" action="">
           <div class="col-md-4">
             <input type="text" name="search" value="{{ $search ?? '' }}" class="form-control"
-              placeholder="Search by type or specialty…">
+              placeholder="Search by Name">
           </div>
 
           <div class="col-md-3">
@@ -74,7 +74,7 @@
           </div>
 
           <div class="col-md-3">
-            <input type="text" name="specialty" value="{{ $specialty ?? '' }}" class="form-control"
+            <input type="text" name="specialty" value="{{ $specialty ?? ''  }}" class="form-control"
               placeholder="Search by specialty…">
           </div>
 

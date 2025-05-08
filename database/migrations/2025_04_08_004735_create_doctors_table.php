@@ -16,7 +16,12 @@ return new class extends Migration {
             $table->text('work_days')->nullable();
             $table->float('rating')->nullable();
             $table->integer('price')->nullable();
-            $table->enum('type', ['doctor', 'clinique', 'laboratoire']);
+            $table->enum('type', [
+                'doctor',
+                'clinique',
+                'laboratoire
+'
+            ]);
             $table->boolean('available')->default(false);
             $table->enum('gender', ['Homme', 'Femme']);
             $table->string('doctor_ref', 50)->unique();
@@ -27,9 +32,9 @@ return new class extends Migration {
             $table->timestamps();
 
             $table->foreign('user_id')
-          ->references('id')
-          ->on('users')
-          ->onDelete('cascade'); 
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

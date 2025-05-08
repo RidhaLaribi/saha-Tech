@@ -43,9 +43,10 @@ Route::get('/loginp', function () {
     return view('loginp');
 })->name('loginp');
 
-Route::get('/medecin', function () {
-    return view('medecin');
-})->name('medecin');
+Route::get(
+    '/medecin',
+    [doctorController::class, 'showSearch']
+)->name('medecin');
 
 Route::post("logout", [authController::class, 'logout'])->name("logout");
 
@@ -172,21 +173,24 @@ Route::get('/users', [UserManagementController::class, 'index'])
 
 
 Route::post('/users/sign', [UserManagementController::class, 'sign'])
-     ->name('users.sign');
+    ->name('users.sign');
 
 
 Route::post('/users/register', [UserManagementController::class, 'registrp'])
-     ->name('registerpad');
+    ->name('registerpad');
 
 Route::post('/users', [UserManagementController::class, 'store'])
-     ->name('store');
+    ->name('store');
 
- 
+
 
 Route::get('/users/search', [UserManagementController::class, 'search'])
-     ->name('users.search');
+    ->name('users.search');
 
-    
-Route::delete('doctors/{doctor}',  [UserManagementController::class,  'destroydoc'])->name('doctors.destroy');
-Route::delete('patients/{patient}',[UserManagementController::class, 'destroy'])->name('patients.destroy');
-Route::delete('admins/{admin}',    [UserManagementController::class,   'destroyad'])->name('admins.destroy');
+
+Route::delete('doctors/{doctor}', [UserManagementController::class, 'destroydoc'])->name('doctors.destroy');
+Route::delete('patients/{patient}', [UserManagementController::class, 'destroy'])->name('patients.destroy');
+Route::delete('admins/{admin}', [UserManagementController::class, 'destroyad'])->name('admins.destroy');
+
+
+Route::post('/medecin{doctor}', [PatientController::class, 'book'])->name('appointment.book');

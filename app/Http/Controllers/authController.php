@@ -38,7 +38,7 @@ class authController extends Controller
 
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make(value: $request->password), 
+            'password' => Hash::make(value: $request->password),
             'tel' => $request->telephone
         ]);
 
@@ -92,18 +92,23 @@ class authController extends Controller
             'name' => 'required|string|max:100',
             'age' => 'nullable|integer|min:18',
             'sexe' => 'required|in:Homme,Femme',
-            'type' => 'required|in:doctor,clinique,laboratoire',
+            'type' => 'required|in:doctor,clinique,laboratoire
+',
             'telephone' => 'required',
             'email' => 'required|email',
             'specialite' => 'required|string',
             'password' => 'required',
         ]);
 
+        if ($request->type == "laboratoire" || $request->type == "doctor") {
+            $role = "doctor";
+
+        }
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'tel' => $request->telephone,
-            'role' => $request->type,
+            'role' => $role,
             'password' => Hash::make($request->password),
         ]);
 

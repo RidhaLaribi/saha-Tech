@@ -156,4 +156,22 @@ class doctorController extends Controller
         return redirect()->back()->with('success', 'note successfully added!');
 
     }
+    function showSearch(Request $r)
+    {
+        $doctors = Doctor::with('user')
+            ->where('available', 1)
+            ->get();
+
+        $counts = [
+            'all' => Doctor::where('available', '=', '1')->count(),
+            'praticien' => Doctor::where('type', 'doctor')->where('available', '=', '1')->count(),
+            'clinique' => Doctor::where('type', 'laboratoire')->where('available', '=', '1')->count(),
+        ];
+
+        return view('medecin', [
+            'doctors' => $doctors
+            ,
+            'counts' => $counts
+        ]);
+    }
 }

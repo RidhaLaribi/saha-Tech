@@ -13,13 +13,13 @@ use App\Models\Rendezvous;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 class AdminDashboardController extends Controller
-{    
+{
     public function __construct()
     {
         // Runs before every method in this controller:
-        $this->middleware(function($request, $next) {
+        $this->middleware(function ($request, $next) {
             $user = Auth::user();
-            if (! $user || $user->role !== 'admin') {
+            if (!$user || $user->role !== 'admin') {
                 abort(403, 'Forbidden — you must be an administrator.');
             }
             return $next($request);
@@ -95,12 +95,14 @@ class AdminDashboardController extends Controller
             ->where('available', 0);  // only show non-validated doctors
 
         // Search filter: match type or specialty
-        if ($search = $request->query('search')) {
-            $query->where(function ($q) use ($search) {
-                $q->whereRaw('LOWER(specialty) LIKE ?', ['%' . strtolower($search) . '%'])
-                    ->orWhere('type', 'like', '%' . $search . '%');
-            });
-        }
+        if ($request->has('search')) {
+            $search = $request->query('search');
+            $query->join('users', 'users.id', '=', 'doctors.user_id')
+                ->where('users.name', 'like', '%' . $search . '%')
+                ->select('doctors.*'); // Adjust fields as needed
+        } else
+            $search = null;
+
 
         // Optional filter: exact type
         if ($type = $request->query('type')) {
@@ -109,7 +111,7 @@ class AdminDashboardController extends Controller
 
         // Optional filter: exact specialty
         if ($specialty = $request->query('specialty')) {
-            $query->where('specialty', $specialty);
+            $query->where('specialty', 'like', '%' . $specialty . '%');
         }
 
         $doctors = $query->orderBy('created_at', 'desc')
