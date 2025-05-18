@@ -31,7 +31,7 @@
           <td>{{ $doctor->tel }}</td>
 
           {{-- Specialty --}}
-          <td>{{ $doctor->doctor->specialty }}</td>
+          <td>{{ $doctor?->doctor?->specialty }}</td>
 
           <td>
             <button class="btn btn-sm btn-outline-primary me-1"
@@ -40,7 +40,7 @@
               <i class="fas fa-user"></i>
             </button>
 
-            <form action="{{ route('doctors.destroy', $doctor->doctor->id) }}"
+            <form action="{{ route('doctors.destroy', $doctor && $doctor->doctor && $doctor?->doctor?->id) }}"
                   method="POST" class="d-inline"
                   onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce praticien ?');">
               @csrf
@@ -83,36 +83,36 @@
 
             {{-- Doctor profile --}}
             <li class="list-group-item">
-              <strong>Spécialité&nbsp;:</strong> {{ $doctor->doctor->specialty }} ❤️
+              <strong>Spécialité&nbsp;:</strong> {{ $doctor?->doctor?->specialty }} ❤️
             </li>
             <li class="list-group-item">
               <strong>Type&nbsp;:</strong> {{ ucfirst($doctor->role) }}
             </li>
             <li class="list-group-item">
-              <strong>Genre&nbsp;:</strong> {{ ucfirst($doctor->doctor->gender) }}
+              <strong>Genre&nbsp;:</strong> {{ ucfirst($doctor?->doctor?->gender) }}
             </li>
             <li class="list-group-item">
-              <strong>Âge&nbsp;:</strong> {{ $doctor->doctor->age }} ans
+              <strong>Âge&nbsp;:</strong> {{ $doctor?->doctor?->age }} ans
             </li>
             <li class="list-group-item">
-              <strong>Prix&nbsp;:</strong> {{ $doctor->doctor->price }} DA
+              <strong>Prix&nbsp;:</strong> {{ $doctor?->doctor?->price }} DA
             </li>
             <li class="list-group-item">
               <strong>Disponible&nbsp;:</strong>
-              {{ $doctor->doctor->available ? 'Oui' : 'Non' }}
+              {{ $doctor?->doctor?->available ? 'Oui' : 'Non' }}
             </li>
             <li class="list-group-item">
               <strong>Consultation à domicile&nbsp;:</strong>
-              {{ $doctor->doctor->home_visit ? 'Oui' : 'Non' }}
+              {{ $doctor?->doctor?->home_visit ? 'Oui' : 'Non' }}
             </li>
             <li class="list-group-item">
               <strong>Localisation&nbsp;:</strong>
-              {{ $doctor->doctor->location ?? 'Non spécifiée' }}
+              {{ $doctor?->doctor?->location ?? 'Non spécifiée' }}
             </li>
-            <li class="list-group-item"><strong>Référence&nbsp;:</strong> {{ $doctor->doctor->doctor_ref }}</li>
-            <li class="list-group-item"><strong>Jours de travail&nbsp;:</strong> {{ $doctor->doctor->work_days }}</li>
-            <li class="list-group-item"><strong>Description&nbsp;:</strong> {{ $doctor->doctor->description }}</li>
-            <li class="list-group-item"><strong>Note&nbsp;:</strong> {{ $doctor->doctor->rating }}/5</li>
+            <li class="list-group-item"><strong>Référence&nbsp;:</strong> {{ $doctor?->doctor?->doctor_ref }}</li>
+            <li class="list-group-item"><strong>Jours de travail&nbsp;:</strong> {{ $doctor?->doctor?->work_days }}</li>
+            <li class="list-group-item"><strong>Description&nbsp;:</strong> {{ $doctor?->doctor?->description }}</li>
+            <li class="list-group-item"><strong>Note&nbsp;:</strong> {{ $doctor?->doctor?->rating }}/5</li>
           </ul>
         </div>
       </div>

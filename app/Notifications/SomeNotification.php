@@ -5,7 +5,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class SomeNotification extends Notification 
+class SomeNotification extends Notification
 {
      use Queueable;
 

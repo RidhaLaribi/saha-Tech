@@ -121,7 +121,7 @@
     <div class="notification-card" id="welcomeNotification">
     <i class="fas fa-heart"></i>
     <div class="notification-text">
-      <h5>Welcome to Sahateck Family! 🎉</h5>
+      <h5>Welcome to HeyDoc Family! 🎉</h5>
       <p>{{ session('success') }}</p>
     </div>
     </div>

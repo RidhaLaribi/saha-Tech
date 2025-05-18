@@ -20,7 +20,7 @@ class resController extends Controller
     function updateInfo(Request $request)
     {
         $request->validate([
-            'pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // pic is optional
+            'pic' => 'nullable|image|mimes:jpeg,png,jpg,gif', // pic is optional
             'email' => 'required|email|unique:users,email,' . auth()->user()->id, // validate email
             'phone' => 'required|regex:/^[0-9]{10,15}$/', // validate phone (you can adjust the regex pattern if needed)
         ]);

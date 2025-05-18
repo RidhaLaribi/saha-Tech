@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\patient;
 use App\Models\doctor;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UsersRequest;
 
 class authController extends Controller
 {
@@ -51,7 +52,7 @@ class authController extends Controller
 
         ]);
         return redirect()->route('login')
-            ->with('success', "Welcome to Sahateck Family! Your health journey starts here. We're honored to be part of your care.");
+            ->with('success', "Welcome to HeyDoc Family! Your health journey starts here. We're honored to be part of your care.");
 
     }
 
@@ -85,25 +86,12 @@ class authController extends Controller
     }
 
 
-    public function registrp(Request $request)
+    public function registrp(UsersRequest $request)
     {
-        $request->validate([
-            'doctor_ref' => 'integer',
-            'name' => 'required|string|max:100',
-            'age' => 'nullable|integer|min:18',
-            'sexe' => 'required|in:Homme,Femme',
-            'type' => 'required|in:doctor,clinique,laboratoire
-',
-            'telephone' => 'required',
-            'email' => 'required|email',
-            'specialite' => 'required|string',
-            'password' => 'required',
-        ]);
-
         if ($request->type == "laboratoire" || $request->type == "doctor") {
             $role = "doctor";
-
         }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -112,15 +100,21 @@ class authController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $doctor = doctor::create([
-            'user_id' => $user->id,
-            'doctor_ref' => $request->enum,
-            'age' => $request->age,
-            'gender' => $request->sexe,
-            'type' => $request->type,
-            'specialty' => $request->specialite,
+        if ($user->wasRecentlyCreated) {
+            $doctor = doctor::create([
+                        'user_id' => $user->id,
+                        'doctor_ref' => $request->enum,
+                        'age' => $request->age,
+                        'gender' => $request->sexe,
+                        'type' => $request->type,
+                        'specialty' => $request->specialite,
 
-        ]);
+                    ]);
+
+            if (!$doctor->wasRecentlyCreated) {
+                $user->delete();
+            }
+        };
 
         return redirect()->route('loginp')
             ->with('success', "Nous examinerons votre demande sous 48 heures ⏰.

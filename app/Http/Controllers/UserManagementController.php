@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Models\User;            
-use App\Models\patient;  
-use App\Models\doctor;  
+use App\Models\User;
+use App\Models\patient;
+use App\Models\doctor;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UsersRequest;
 
 class UserManagementController extends Controller
-{        
-
-        
+{
     public function __construct()
     {
         // This middleware runs before every action in this controller
@@ -40,7 +39,7 @@ class UserManagementController extends Controller
                    ->get();
 
         return view('adminusers', compact('admins', 'patients', 'doctors'));
-    } 
+    }
     public function store(Request $request)
     {
         // 1) Validate —
@@ -51,41 +50,29 @@ class UserManagementController extends Controller
             'tel'      => 'required|string|max:20',   // <— matches input name
             'password' => 'required|string',
         ]);
-    
+
         // 2) Upload avatar if given
         if ($request->hasFile('pic')) {
             $data['pic'] = $request->file('pic')
                                   ->store('avatars','public');
         }
-    
+
         // 3) Force role
         $data['role']     = 'admin';
-    
+
         // 4) Hash password
         $data['password'] = Hash::make($data['password']);
-    
-       
-    
+
+
+
         // 6) Create the user
         User::create($data);
-    
+
         return back()->with('success','Admin user added successfully.');
     }
-    
-    public function registrp(Request $request)
-    {
-        $request->validate([
-            'doctor_ref' => 'integer',
-            'name' => 'required|string|max:100',
-            'age' => 'nullable|integer|min:18',
-            'sexe' => 'required|in:Homme,Femme',
-            'type' => 'required|in:doctor,laboratoire',
-            'telephone' => 'required',
-            'email' => 'required|email',
-            'specialite' => 'required|string',
-            'password' => 'required',
-        ]);
 
+    public function registrp(UsersRequest $request)
+    {
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -108,7 +95,7 @@ class UserManagementController extends Controller
         return redirect()->route('users')
             ->with('success', "doctor added");
     }
-    
+
     function sign(Request $request)
     {
         $request->validate([
@@ -190,7 +177,7 @@ public function destroy(Patient $patient): RedirectResponse
     $user->delete();
 
     return redirect()->back()
-                     ->with('success', 
+                     ->with('success',
                            'Le patient et son compte utilisateur ont été supprimés.');
 }
 

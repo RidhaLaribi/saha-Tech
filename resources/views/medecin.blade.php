@@ -718,13 +718,7 @@
         </div>
       </form>
     </div>
-  </div> {
-  {
-  -- Add these styles at the bottom of your
-
-  <head>or in your CSS --
-    }
-    }
+  </div> 
 
     <style>
       .modal-overlay {
