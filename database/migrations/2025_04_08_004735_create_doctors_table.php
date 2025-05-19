@@ -19,8 +19,7 @@ return new class extends Migration {
             $table->enum('type', [
                 'doctor',
                 'clinique',
-                'laboratoire
-'
+                'laboratoire'
             ]);
             $table->boolean('available')->default(false);
             $table->enum('gender', ['Homme', 'Femme']);
