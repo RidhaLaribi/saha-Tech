@@ -183,7 +183,7 @@
     /* Dark Mode Styles */
     .dark-mode {
       background: #1a1d21;
-      color: #e0e0e0;
+      color: #fffbfb;
     }
 
     .dark-mode .container {
@@ -195,10 +195,11 @@
     }
 
     .dark-mode input,
-    .dark-mode select {
-      background: #2d3035;
+    .dark-mode select,
+    .dark-mode select option {
+      background: #585e67;
       border-color: #3d4046;
-      color: #e0e0e0;
+      color: #fbfbfb;
     }
 
     .dark-mode-toggle {
@@ -213,6 +214,60 @@
 
     .dark-mode .dark-mode-toggle {
       color: #00a896;
+    }
+
+
+    .dark-mode .form-control {
+      background: #2d3035;
+      color: #ffffff;
+      border-color: #3d4046;
+    }
+
+    .dark-mode .form-control::placeholder {
+      color: white !important;
+      opacity: 1;
+    }
+
+    .dark-mode .select2-container--default .select2-selection--single {
+      background: #2d3035;
+      border-color: #3d4046;
+      color: #ffffff;
+    }
+
+    .dark-mode .select2-container--default .select2-selection--single .select2-selection__placeholder {
+      color: #fdfdfd;
+    }
+
+    .dark-mode .select2-container--default .select2-selection--single .select2-selection__placeholder {
+      color: #fff;
+    }
+
+
+    .dark-mode .select2-container--default .select2-selection--single .select2-selection__rendered {
+      color: #fff;
+    }
+
+
+    .dark-mode .select2-container--default .select2-dropdown {
+      background-color: #2d3035;
+    }
+
+    .dark-mode .select2-container--default .select2-results__option {
+      background-color: #2d3035;
+      color: #e0e0e0;
+    }
+
+
+    .dark-mode .select2-container--default .select2-results__option--highlighted[aria-selected] {
+      background-color: #3d4046;
+      color: #fff;
+    }
+
+
+
+
+    .select2-results__option[aria-disabled=true] {
+      display: none;
     }
 
     @media (max-width: 768px) {
@@ -242,6 +297,7 @@
       border: 4px solid #00796b;
       animation: fadeIn 0.5s ease-out;
     }
+
 
     @keyframes fadeIn {
       from {
@@ -297,10 +353,6 @@
       /* Choose a color */
       font-family: Arial, sans-serif;
     }
-
-    .select2-container {
-      width: 100% !important;
-    }
   </style>
 </head>
 
@@ -322,7 +374,7 @@
       <form id="signUpForm" action="{{route('registerp')}}" method="POST">
       @csrf
       <div class="form-grid">
-        <div class="">
+        <div class="input-group">
         <input type="text" class="form-control @error('enum') is-invalid @enderror" name="enum"
           placeholder="doctor_ref" required>
         @error('enum')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -415,7 +467,7 @@
         @error('specialite')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
 
-        <!-- Password field moved higher (before specialty) -->
+
         <div class="input-group" style="grid-column: span 2;">
         <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
           placeholder="Mot de passe" required>
@@ -449,7 +501,7 @@
   @endif
 
   <script>
-    // Toggle password visibility
+
     document.querySelectorAll('.toggle-password').forEach(icon => {
       icon.addEventListener('click', (e) => {
         const input = e.target.previousElementSibling;
@@ -474,45 +526,39 @@
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script>
 
-    $(document).ready(function () {
-      // Initialize Select2 on both selects
+    $(function () {
       $('#type, #specialite').select2({
-        placeholder: '— Sélectionnez —',
-        allowClear: true
+
+        width: '100%'
       });
 
-      // Reusable filter function
-      function filterSpecialite() {
-        const selectedType = $('#type').val();
+      // disable all specialties & their Select2 entries on load
+      $('#specialite option[data-type]').prop('disabled', true);
+      $('#specialite').prop('disabled', true)
+        .trigger('change.select2');
 
-        if (selectedType) {
-          // Enable the speciality select
-          $('#specialite').prop('disabled', false);
+      $('#type').on('change', function () {
+        var chosen = this.value;
 
-          // Show only the options matching the selected type
-          $('#specialite option[data-type]').each(function () {
-            $(this).toggle($(this).data('type') === selectedType);
-          });
+        // enable the specialite select
+        $('#specialite').prop('disabled', false);
 
-          // Reset any previously chosen speciality
-          $('#specialite').val(null);
-        } else {
-          // No type chosen → disable and hide all specialities
-          $('#specialite')
-            .prop('disabled', true)
-            .val(null);
-          $('#specialite option[data-type]').hide();
-        }
+        // disable/enable options based on data-type
+        $('#specialite option[data-type]').each(function () {
+          var $o = $(this);
+          $o.prop('disabled', $o.data('type') !== chosen);
+        });
 
-        // Tell Select2 to re-render its list
-        $('#specialite').trigger('change.select2');
+        // clear any previous choice & refresh Select2
+        $('#specialite')
+          .val(null)
+          .trigger('change.select2');
+      });
+
+      // if returning with an old('type'), trigger the filtering
+      if ($('#type').val()) {
+        $('#type').trigger('change');
       }
-
-      // Run once on page load (covers old('type') on validation failure)
-      filterSpecialite();
-
-      // Re-run every time "type" changes
-      $('#type').on('change', filterSpecialite);
     });
   </script>
 </body>
