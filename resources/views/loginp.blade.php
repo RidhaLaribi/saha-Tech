@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inscription Praticien</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
   <style>
@@ -286,17 +286,21 @@
     .notification-message a:hover {
       background: #e0e0e0;
     }
-    .logo {
-  position: absolute;
-  top: 10px;
-  left: 20px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #3498db; /* Choose a color */
-  font-family: Arial, sans-serif;
-}
-.select2-container { width: 100% !important; }
 
+    .logo {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #3498db;
+      /* Choose a color */
+      font-family: Arial, sans-serif;
+    }
+
+    .select2-container {
+      width: 100% !important;
+    }
   </style>
 </head>
 
@@ -304,119 +308,145 @@
   <div class="dark-mode-toggle">
     <i class="fas fa-moon"></i>
   </div>
-@if(!session('success'))
-  <div class="container" id="registrationContainer">
+  @if(!session('success'))
+    <div class="container" id="registrationContainer">
     <div class="hero-section">
       <i class="fas fa-user-md medical-icon"></i>
       <h2 class="hero-title">Practitioners Platform</h2>
       <p class="hero-text">
-        Join our network of healthcare professionals to connect, collaborate, and innovate.<br>
-        Together, let's improve the care of tomorrow!
+      Join our network of healthcare professionals to connect, collaborate, and innovate.<br>
+      Together, let's improve the care of tomorrow!
       </p>
     </div>
     <div class="form-section">
-      <form id="signUpForm" action="{{route('registerp')}}"  method="POST">
-        @csrf
-        <div class="form-grid">
-          <div class="">
-            <input type="text" class="form-control @error('enum') is-invalid @enderror" name="enum" placeholder="doctor_ref" required>
-            @error('enum')<div class="invalid-feedback">{{ $message }}</div>@enderror
-          </div>
+      <form id="signUpForm" action="{{route('registerp')}}" method="POST">
+      @csrf
+      <div class="form-grid">
+        <div class="">
+        <input type="text" class="form-control @error('enum') is-invalid @enderror" name="enum"
+          placeholder="doctor_ref" required>
+        @error('enum')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        </div>
 
-          <div class="input-group">
-            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="full name" required>
-                        @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        <div class="input-group">
+        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+          placeholder="full name" required>
+        @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
 
-          </div>
-          <div class="input-group">
-            <input type="number" class="form-control @error('age') is-invalid @enderror" name="age" placeholder="Âge" min="18" max="100" required>
-            @error('age')<div class="invalid-feedback">{{ $message }}</div>@enderror
-          </div>
-          <div class="input-group">
-            <select class="form-control @error('sexe') is-invalid @enderror" name="sexe" required>
-              <option value="" disabled selected>Sexe</option>
-              <option value="Homme">Homme ♂️</option>
-              <option value="Femme">Femme ♀️</option>
-            </select>
-            @error('sexe')<div class="invalid-feedback">{{ $message }}</div>@enderror
-          </div>
-          <div class="input-group">
-            <input type="tel" class="form-control @error('telephone') is-invalid @enderror" name="telephone" placeholder="Numéro de Téléphone" pattern="[0-9]{10}" required>
-            @error('telephone')<div class="invalid-feedback">{{ $message }}</div>@enderror
-          </div>
-          <div class="input-group">
-            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email professionnel" required>
-            @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
-          </div>
-    <div class="input-group" style="grid-column: span 2;">
+        </div>
+        <div class="input-group">
+        <input type="number" class="form-control @error('age') is-invalid @enderror" name="age" placeholder="Âge"
+          min="18" max="100" required>
+        @error('age')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        </div>
+        <div class="input-group">
+        <select class="form-control @error('sexe') is-invalid @enderror" name="sexe" required>
+          <option value="" disabled selected>Sexe</option>
+          <option value="Homme">Homme ♂️</option>
+          <option value="Femme">Femme ♀️</option>
+        </select>
+        @error('sexe')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        </div>
+        <div class="input-group">
+        <input type="tel" class="form-control @error('telephone') is-invalid @enderror" name="telephone"
+          placeholder="Numéro de Téléphone" pattern="[0-9]{10}" required>
+        @error('telephone')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        </div>
+        <div class="input-group">
+        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+          placeholder="Email professionnel" required>
+        @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        </div>
+        <div class="input-group" style="grid-column: span 2;">
 
-        <select id="type" name="type" placeholder="Type de prestataire" class="form-control @error('type') is-invalid @enderror" required>
-            <option value="" disabled {{ old('type') ? '' : 'selected' }}> select your type</option>
-            <option value="doctor" {{ old('type')=='doctor' ? 'selected' : '' }}>Doctor</option>
-            <option value="laboratoire" {{ old('type')=='laboratoire' ? 'selected' : '' }}>Laboratoire</option>
+        <select id="type" name="type" placeholder="Type de prestataire"
+          class="form-control @error('type') is-invalid @enderror" required>
+          <option value="" disabled {{ old('type') ? '' : 'selected' }}> select your type</option>
+          <option value="doctor" {{ old('type') == 'doctor' ? 'selected' : '' }}>Doctor</option>
+          <option value="laboratoire" {{ old('type') == 'laboratoire' ? 'selected' : '' }}>Laboratoire</option>
         </select>
         @error('type')<div class="invalid-feedback">{{ $message }}</div>@enderror
-    </div>
-
-    <div class="input-group" style="grid-column: span 2;">
-
-      <select id="specialite"  name="specialite" placeholder="Spécialité médicale" class="form-control @error('specialite') is-invalid @enderror" required>
-        <!-- Toutes les options, marquées par data-type -->
-        <option value="" disabled {{ old('specialite') ? '' : 'selected' }}>select your speciality</option>
-        <option value="generaliste" data-type="doctor" {{ old('specialite')=='generaliste' ? 'selected' : '' }}>Médecin généraliste 🩺</option>
-        <option value="cardiologue" data-type="doctor" {{ old('specialite')=='cardiologue' ? 'selected' : '' }}>Cardiologue ❤️</option>
-        <option value="dermatologue" data-type="doctor" {{ old('specialite')=='dermatologue' ? 'selected' : '' }}>Dermatologue 🧴</option>
-        <option value="gynecologue" data-type="doctor" {{ old('specialite')=='gynecologue' ? 'selected' : '' }}>Gynécologue 🤰</option>
-        <option value="neurologue" data-type="doctor" {{ old('specialite')=='neurologue' ? 'selected' : '' }}>Neurologue 🧠</option>
-        <option value="radiologue" data-type="doctor" {{ old('specialite')=='radiologue' ? 'selected' : '' }}>Radiologue 📸</option>
-        <option value="orl" data-type="doctor" {{ old('specialite')=='orl' ? 'selected' : '' }}>ORL 👂👃</option>
-        <option value="pediatre" data-type="doctor" {{ old('specialite')=='pediatre' ? 'selected' : '' }}>Pédiatre 👶</option>
-        <option value="psychiatre" data-type="doctor" {{ old('specialite')=='psychiatre' ? 'selected' : '' }}>Psychiatre 😊</option>
-        <option value="pneumologue" data-type="doctor" {{ old('specialite')=='pneumologue' ? 'selected' : '' }}>Pneumologue 🫁</option>
-        <option value="gastro" data-type="doctor" {{ old('specialite')=='gastro' ? 'selected' : '' }}>Gastro-entérologue 🍽️</option>
-        <option value="endocrino" data-type="doctor" {{ old('specialite')=='endocrino' ? 'selected' : '' }}>Endocrinologue ⚖️</option>
-        <option value="dentiste" data-type="doctor" {{ old('specialite')=='dentiste' ? 'selected' : '' }}>Chirurgien-dentiste 🦷</option>
-        <option value="osteopathe" data-type="doctor" {{ old('specialite')=='osteopathe' ? 'selected' : '' }}>Ostéopathe 🤲</option>
-        <option value="kine" data-type="doctor" {{ old('specialite')=='kine' ? 'selected' : '' }}>Masseur-kinésithérapeute 💆‍♂️</option>
-        <option value="ortho" data-type="doctor" {{ old('specialite')=='ortho' ? 'selected' : '' }}>Orthophoniste 🗣️</option>
-        <option value="psychologue" data-type="doctor" {{ old('specialite')=='psychologue' ? 'selected' : '' }}>Psychologue 🧠</option>
-        <option value="analyse" data-type="laboratoire" {{ old('specialite')=='analyse' ? 'selected' : '' }}>Laboratoire d’analyse 🔬</option>
-        <option value="imagerie" data-type="laboratoire" {{ old('specialite')=='imagerie' ? 'selected' : '' }}>Centre d’imagerie médicale 🩻</option>
-      </select>
-      @error('specialite')<div class="invalid-feedback">{{ $message }}</div>@enderror
-    </div>
-
-           <!-- Password field moved higher (before specialty) -->
-           <div class="input-group" style="grid-column: span 2;">
-            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Mot de passe" required>
-            <i class="fas fa-eye toggle-password"></i>
-            @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
-          </div>
         </div>
-        <button type="submit">validate inscription <i class="fas fa-check-circle"></i></button>
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-              @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-              @endforeach
-            </ul>
+
+        <div class="input-group" style="grid-column: span 2;">
+
+        <select id="specialite" name="specialite" placeholder="Spécialité médicale"
+          class="form-control @error('specialite') is-invalid @enderror" required>
+          <!-- Toutes les options, marquées par data-type -->
+          <option value="" disabled {{ old('specialite') ? '' : 'selected' }}>select your speciality</option>
+          <option value="generaliste" data-type="doctor" {{ old('specialite') == 'generaliste' ? 'selected' : '' }}>
+          Médecin généraliste 🩺</option>
+          <option value="cardiologue" data-type="doctor" {{ old('specialite') == 'cardiologue' ? 'selected' : '' }}>
+          Cardiologue ❤️</option>
+          <option value="dermatologue" data-type="doctor" {{ old('specialite') == 'dermatologue' ? 'selected' : '' }}>
+          Dermatologue 🧴</option>
+          <option value="gynecologue" data-type="doctor" {{ old('specialite') == 'gynecologue' ? 'selected' : '' }}>
+          Gynécologue 🤰</option>
+          <option value="neurologue" data-type="doctor" {{ old('specialite') == 'neurologue' ? 'selected' : '' }}>
+          Neurologue 🧠</option>
+          <option value="radiologue" data-type="doctor" {{ old('specialite') == 'radiologue' ? 'selected' : '' }}>
+          Radiologue 📸</option>
+          <option value="orl" data-type="doctor" {{ old('specialite') == 'orl' ? 'selected' : '' }}>ORL 👂👃</option>
+          <option value="pediatre" data-type="doctor" {{ old('specialite') == 'pediatre' ? 'selected' : '' }}>Pédiatre
+          👶</option>
+          <option value="psychiatre" data-type="doctor" {{ old('specialite') == 'psychiatre' ? 'selected' : '' }}>
+          Psychiatre 😊</option>
+          <option value="pneumologue" data-type="doctor" {{ old('specialite') == 'pneumologue' ? 'selected' : '' }}>
+          Pneumologue 🫁</option>
+          <option value="gastro" data-type="doctor" {{ old('specialite') == 'gastro' ? 'selected' : '' }}>
+          Gastro-entérologue 🍽️</option>
+          <option value="endocrino" data-type="doctor" {{ old('specialite') == 'endocrino' ? 'selected' : '' }}>
+          Endocrinologue ⚖️</option>
+          <option value="dentiste" data-type="doctor" {{ old('specialite') == 'dentiste' ? 'selected' : '' }}>
+          Chirurgien-dentiste 🦷</option>
+          <option value="osteopathe" data-type="doctor" {{ old('specialite') == 'osteopathe' ? 'selected' : '' }}>
+          Ostéopathe 🤲</option>
+          <option value="kine" data-type="doctor" {{ old('specialite') == 'kine' ? 'selected' : '' }}>
+          Masseur-kinésithérapeute 💆‍♂️</option>
+          <option value="ortho" data-type="doctor" {{ old('specialite') == 'ortho' ? 'selected' : '' }}>Orthophoniste
+          🗣️</option>
+          <option value="psychologue" data-type="doctor" {{ old('specialite') == 'psychologue' ? 'selected' : '' }}>
+          Psychologue 🧠</option>
+          <option value="analyse" data-type="laboratoire" {{ old('specialite') == 'analyse' ? 'selected' : '' }}>
+          Laboratoire d’analyse 🔬</option>
+          <option value="imagerie" data-type="laboratoire" {{ old('specialite') == 'imagerie' ? 'selected' : '' }}>
+          Centre d’imagerie médicale 🩻</option>
+        </select>
+        @error('specialite')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
+
+        <!-- Password field moved higher (before specialty) -->
+        <div class="input-group" style="grid-column: span 2;">
+        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
+          placeholder="Mot de passe" required>
+        <i class="fas fa-eye toggle-password"></i>
+        @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        </div>
+      </div>
+      <button type="submit">validate inscription <i class="fas fa-check-circle"></i></button>
+      @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+        @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+      @endforeach
+        </ul>
+      </div>
     @endif
       </form>
     </div>
-  </div>
+    </div>
   @endif
 
   <!-- Notification Message -->
   @if(session('success'))
-  <div class="notification-message" id="notificationMessage">
+    <div class="notification-message" id="notificationMessage">
     <h1>Merci pour votre candidature ! 🎉</h1>
     <p>{{session('success')}}<br>Merci de votre confiance !</p>
     <p>check ur email for the response</p>
-    <a href='{{route('home')}}' >Retour à l'accueil</a>
-  </div>
-@endif
+    <a href='{{route('home')}}'>Retour à l'accueil</a>
+    </div>
+  @endif
 
   <script>
     // Toggle password visibility
@@ -444,46 +474,46 @@
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script>
 
-    $(document).ready(function() {
-    // Initialize Select2 on both selects
-    $('#type, #specialite').select2({
-      placeholder: '— Sélectionnez —',
-      allowClear: true
-    });
+    $(document).ready(function () {
+      // Initialize Select2 on both selects
+      $('#type, #specialite').select2({
+        placeholder: '— Sélectionnez —',
+        allowClear: true
+      });
 
-    // Reusable filter function
-    function filterSpecialite() {
-      const selectedType = $('#type').val();
+      // Reusable filter function
+      function filterSpecialite() {
+        const selectedType = $('#type').val();
 
-      if (selectedType) {
-        // Enable the speciality select
-        $('#specialite').prop('disabled', false);
+        if (selectedType) {
+          // Enable the speciality select
+          $('#specialite').prop('disabled', false);
 
-        // Show only the options matching the selected type
-        $('#specialite option[data-type]').each(function() {
-          $(this).toggle($(this).data('type') === selectedType);
-        });
+          // Show only the options matching the selected type
+          $('#specialite option[data-type]').each(function () {
+            $(this).toggle($(this).data('type') === selectedType);
+          });
 
-        // Reset any previously chosen speciality
-        $('#specialite').val(null);
-      } else {
-        // No type chosen → disable and hide all specialities
-        $('#specialite')
-          .prop('disabled', true)
-          .val(null);
-        $('#specialite option[data-type]').hide();
+          // Reset any previously chosen speciality
+          $('#specialite').val(null);
+        } else {
+          // No type chosen → disable and hide all specialities
+          $('#specialite')
+            .prop('disabled', true)
+            .val(null);
+          $('#specialite option[data-type]').hide();
+        }
+
+        // Tell Select2 to re-render its list
+        $('#specialite').trigger('change.select2');
       }
 
-      // Tell Select2 to re-render its list
-      $('#specialite').trigger('change.select2');
-    }
+      // Run once on page load (covers old('type') on validation failure)
+      filterSpecialite();
 
-    // Run once on page load (covers old('type') on validation failure)
-    filterSpecialite();
-
-    // Re-run every time "type" changes
-    $('#type').on('change', filterSpecialite);
-  });
+      // Re-run every time "type" changes
+      $('#type').on('change', filterSpecialite);
+    });
   </script>
 </body>
 

@@ -30,37 +30,37 @@ class DashboardController extends Controller
         $doctorId = $doctor->id;
 
         // Pie chart summary
-        $pieData = Rendezvous::getStatusSummary($doctorId) ?? (object)[
+        $pieData = Rendezvous::getStatusSummary($doctorId) ?? (object) [
             'confirmed' => 0,
-            'pending'   => 0,
+            'pending' => 0,
             'cancelled' => 0,
         ];
 
         $processedRequests = $pieData->confirmed;
-        $pendingRequests   = $pieData->pending;
-        $rejectedRequests  = $pieData->cancelled;
-        $totalRequests     = $processedRequests + $pendingRequests + $rejectedRequests;
+        $pendingRequests = $pieData->pending;
+        $rejectedRequests = $pieData->cancelled;
+        $totalRequests = $processedRequests + $pendingRequests + $rejectedRequests;
 
         // Six-month line chart data
         $chartData = Rendezvous::getMonthlyChartData($doctorId)->keyBy('month');
-        $months    = [];
-        $totals    = [];
+        $months = [];
+        $totals = [];
         $confirmed = [];
-        
 
 
 
-        
+
+
         $base = CarbonImmutable::now();
         for ($i = 5; $i >= 0; $i--) {
             // use no-overflow so that Feb 30 becomes Feb 28 (or 29)
             $label = $base->subMonthsNoOverflow($i)->format('M');
             $months[] = $label;
             if (isset($chartData[$label])) {
-                $totals[]    = (int) $chartData[$label]->total;
+                $totals[] = (int) $chartData[$label]->total;
                 $confirmed[] = (int) $chartData[$label]->confirmed;
             } else {
-                $totals[]    = 0;
+                $totals[] = 0;
                 $confirmed[] = 0;
             }
         }
@@ -87,10 +87,12 @@ class DashboardController extends Controller
         $doctorId = $doctor->id;
 
         $query = Rendezvous::with('patient')
-                          ->where('doctor_id', $doctorId);
+            ->where('doctor_id', $doctorId);
 
         if ($search = $request->query('search')) {
-            $query->whereHas('patient', fn($q) =>
+            $query->whereHas(
+                'patient',
+                fn($q) =>
                 $q->where('name', 'like', "%{$search}%")
             );
         }
@@ -108,9 +110,9 @@ class DashboardController extends Controller
 
         return view('requestrendi', [
             'appointments' => $appointments,
-            'search'       => $search,
-            'type'         => $type,
-            'status'       => $status,
+            'search' => $search,
+            'type' => $type,
+            'status' => $status,
         ]);
     }
 
@@ -139,31 +141,31 @@ class DashboardController extends Controller
         $request->validate([
             'pic' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
-    
+
         $user = Auth::user();
-    
-        if (! $request->hasFile('pic')) {
+
+        if (!$request->hasFile('pic')) {
             return back()->withErrors(['pic' => 'No file uploaded.']);
         }
-    
+
         // store the file
-        $file     = $request->file('pic');
+        $file = $request->file('pic');
         $filename = time() . '_' . $file->getClientOriginalName();
-        $path     = $file->storeAs('profile_pics', $filename, 'public');
-    
+        $path = $file->storeAs('profile_pics', $filename, 'public');
+
         // decide where to save it
         if ($user->role === 'doctor' && $user->doctor) {
             // doctor: pic is on the doctor profile
             $profile = $user->doctor;
         } else {
-            
+
             $profile = $user;
         }
-    
-       
+
+
         $profile->pic = $path;
         $profile->save();
-    
+
         return back()->with('success', 'Profile picture updated!');
     }
 

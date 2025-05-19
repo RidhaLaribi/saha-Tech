@@ -126,30 +126,123 @@ calendar links-->
                                         </div>
                                     @endif
 
+                                    {{-- ★★★ Rate Past Appointments ★★★ --}}
+                                    @php
+                                        // Filter the full rendezvous list to only those before now:
+                                        $past = $r->filter(fn($appt) => \Carbon\Carbon::parse($appt->rendezvous)->isPast());
+                                    @endphp
+
+                                    @if($past->isNotEmpty())
+                                        <h6 class="card-title mt-4 mb-2 fw-semibold text-secondary">
+                                            <i class="bi bi-star-fill me-1"></i> Rate Your Past Visits
+                                        </h6>
+
+                                        <ul class="list-group list-group-flush">
+                                            @foreach($past as $appt)
+                                            @php
+$alreadyRated = \App\Models\AvisMedecin::where('avis', $appt->id)->exists();
+@endphp
+@if (!$alreadyRated)
+                                                <li class="list-group-item border-0 ps-0">
+                                                    <div class="fw-semibold small mb-1">
+                                                        {{ \Carbon\Carbon::parse($appt->rendezvous)->format('Y-m-d H:i') }}
+                                                        &mdash; Dr. {{ $appt->doctor->user->name }}
+                                                    </div>
+    
+<form action="{{ route('doctors.rate.submit', $appt->doctor) }}"
+    method="POST"
+    class="p-3 mb-3 border rounded bg-light rating-form"
+    data-form-id="rating-{{ $appt->id }}">
+    @csrf
+    <input type="hidden" name="appointment_id" value="{{ $appt->id }}">
+
+    <div class="small mb-1">
+        Rate Dr. {{ $appt->doctor->user->name ?? $appt->doctor->doctor_ref }}:
+    </div>
+    
+    <div class="d-flex gap-1 mb-2 star-group" data-rating-group="rating-{{ $appt->id }}">
+        @for ($i = 1; $i <= 5; $i++)
+        <label style="cursor: pointer;">
+            <input type="radio"
+            name="rating"
+            value="{{ $i }}"
+                       style="display: none;"
+                       {{ old('rating') == $i ? 'checked' : '' }}
+                       onchange="updateStars('{{ $appt->id }}', {{ $i }})"
+                       required>
+                       <svg xmlns="http://www.w3.org/2000/svg"
+                       width="24" height="24"
+                     class="star-{{ $appt->id }}"
+                     data-index="{{ $i }}"
+                     fill="{{ old('rating', 0) >= $i ? '#facc15' : 'none' }}"
+                     stroke="#facc15"
+                     stroke-width="1.5"
+                     viewBox="0 0 24 24">
+                    <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" />
+                </svg>
+            </label>
+        @endfor
+    </div>
+    
+    @error('rating')
+    <div class="text-danger small mb-2">{{ $message }}</div>
+    @enderror
+    
+    <button type="submit" class="btn btn-sm btn-primary">
+        Submit Rating
+    </button>
+</form>
+
+<script>
+    function updateStars(formId, selectedValue) {
+        const stars = document.querySelectorAll(`.star-${formId}`);
+        stars.forEach(star => {
+            const index = parseInt(star.getAttribute('data-index'));
+            star.setAttribute('fill', index <= selectedValue ? '#facc15' : 'none');
+        });
+    }
+</script>
+
+@endif
+
+
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+
+                                    {{-- ★★★ End Rate Past Appointments ★★★ --}}
+
                                     <h6 class="card-title mb-3 fw-semibold text-primary">
                                         <i class="bi bi-calendar-check me-1"></i> Upcoming Appointments
                                     </h6>
 
                                     <ul class="list-group list-group-flush">
                                         @forelse ($notifications as $notif)
-                                            <li class="list-group-item d-flex align-items-start gap-2 border-0 ps-0">
-                                                <i class="bi bi-clock text-info mt-1"></i>
-                                                <div>
-                                                    <div class="fw-semibold text-dark">
-                                                        {{ \Carbon\Carbon::parse($notif->rendezvous)->format('Y-m-d H:i') }}
-                                                    </div>
-                                                    <div class="small text-muted">
-                                                        with Dr. {{ $notif->doctor->user->name }}
+                                            <li class="list-group-item d-flex flex-column gap-2 border-0 ps-0">
+                                                <div class="d-flex align-items-start gap-2">
+                                                    <i class="bi bi-clock text-info mt-1"></i>
+                                                    <div>
+                                                        <div class="fw-semibold text-dark">
+                                                            {{ \Carbon\Carbon::parse($notif->rendezvous)->format('Y-m-d H:i') }}
+                                                        </div>
+                                                        <div class="small text-muted">
+                                                            with Dr. {{ $notif->doctor->user->name }}
+                                                        </div>
                                                     </div>
                                                 </div>
+
+
                                             </li>
                                         @empty
-                                            <li class="list-group-item text-muted small border-0 ps-0">No upcoming appointments.
+                                            <li class="list-group-item text-muted small border-0 ps-0">
+                                                No upcoming appointments.
                                             </li>
                                         @endforelse
                                     </ul>
                                 </div>
                             </div>
+
 
 
                         </div>
@@ -620,7 +713,7 @@ calendar links-->
                                                  },*/
 
                                                 @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {
                                                         title: 'Rendez-vous',
                                                         start: '{{$re->rendezvous}}',
                                                         url: 'https://youtube.com/',
@@ -1194,7 +1287,7 @@ calendar links-->
                 <div class="col-lg-3 col-12 mb-4 pb-2">
                     <a class="navbar-brand mb-2" href="{{ route('home') }}">
                         <i class="bi-back"></i>
-                        <span>SehaTech</span>
+                        <span>HeyDoc</span>
                     </a>
                 </div>
 

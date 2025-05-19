@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AvisMedecin;
 use App\Models\Consultation;
 use App\Models\doctor;
 use App\Models\MedecalFile;
@@ -185,4 +186,41 @@ class doctorController extends Controller
             'counts' => $counts
         ]);
     }
+
+    public function createrate(Doctor $doctor)
+    {
+        return view('doctors.rate', [
+            'doctor' => $doctor,
+        ]);
+    }
+
+
+    public function storerate(Request $request, Doctor $doctor)
+    {
+        $data = $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'appointment_id' => 'required',
+        ]);
+
+        $appointment = Rendezvous::find($data['appointment_id']);
+
+        // Insert new rating
+        AvisMedecin::create([
+            'id_medecin' => $doctor->id,
+            'user_id' => auth()->id(),
+            'avis' => $data['appointment_id'],
+            'star' => $data['rating'],
+        ]);
+
+        // Recalculate average rating
+        $averageRating = AvisMedecin::where('id_medecin', $doctor->id)->avg('star');
+
+        $doctor->rating = round($averageRating, 1); // Optionally round to 1 decimal
+        $doctor->save();
+
+        return redirect()
+            ->back()
+            ->with('success', 'Thank you! Your rating has been saved.');
+    }
+
 }
