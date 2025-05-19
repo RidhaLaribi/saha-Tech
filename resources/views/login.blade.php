@@ -38,7 +38,11 @@
             <input type="checkbox" />
             <span>Se souvenir de moi</span>
           </label>
-          <a href="#">Mot de passe oublié ?</a>
+          <a href="{{ route('password.request') }}">
+            Forgot your password?
+          </a>
+
+
         </div>
         <button type="submit">Se Connecter</button>
         <div class="switch-form">
@@ -46,15 +50,18 @@
           <a id="showSignUp">Créer un compte</a>
         </div>
         @if ($errors->any())
-      <div class="alert alert-danger">
-        <ul>
-        @foreach ($errors->all() as $error)
-      <li>{{ $error }}</li>
-    @endforeach
-        </ul>
-      </div>
+        <div class="alert alert-danger">
+          <ul>
+          @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+          </ul>
+        </div>
     @endif
       </form>
+
+      @yield('content')
+      @yield('content1')
 
       <!-- SIGN UP FORM (HIDDEN BY DEFAULT) -->
       <form id="signUpForm" action="{{ route('auth.sign') }}" method="POST">

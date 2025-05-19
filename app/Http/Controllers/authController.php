@@ -102,23 +102,31 @@ class authController extends Controller
 
         if ($user->wasRecentlyCreated) {
             $doctor = doctor::create([
-                        'user_id' => $user->id,
-                        'doctor_ref' => $request->enum,
-                        'age' => $request->age,
-                        'gender' => $request->sexe,
-                        'type' => $request->type,
-                        'specialty' => $request->specialite,
+                'user_id' => $user->id,
+                'doctor_ref' => $request->enum,
+                'age' => $request->age,
+                'gender' => $request->sexe,
+                'type' => $request->type,
+                'specialty' => $request->specialite,
 
-                    ]);
+            ]);
 
             if (!$doctor->wasRecentlyCreated) {
                 $user->delete();
             }
-        };
+        }
+        ;
 
         return redirect()->route('loginp')
             ->with('success', "Nous examinerons votre demande sous 48 heures ⏰.
             check ur email soon");
+    }
+
+    public function forgot(Request $r)
+    {
+        $r->validate(['email' => 'required']);
+
+
     }
 
 }

@@ -14,6 +14,10 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\UserManagementController;
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+
+
 
 Route::get('/', function () {
     // return Auth::user();
@@ -194,3 +198,21 @@ Route::delete('admins/{admin}', [UserManagementController::class, 'destroyad'])-
 
 
 Route::post('/medecin', [PatientController::class, 'book'])->name('appointments.store');
+
+
+
+// Show “Forgot Password” form
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])
+    ->name('password.request');
+
+// Handle form submit and send reset link
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])
+    ->name('password.email');
+
+// Show the actual “Reset Password” form (with token)
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])
+    ->name('password.reset');
+
+// Handle the password reset submission
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])
+    ->name('password.update');

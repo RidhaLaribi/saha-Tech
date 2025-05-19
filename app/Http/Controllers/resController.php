@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AppointmentReminderMail;
 use App\Models\consultation;
 use App\Models\MedecalFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Contracts\Service\Attribute\Required;
 use Illuminate\Support\Facades\Auth;
@@ -167,26 +169,33 @@ class resController extends Controller
             ->orderBy('rendezvous', 'asc')
             ->first();
 
-
         $notifications = Rendezvous::where('patient_id', $patient->id)
-            ->whereDate('rendezvous', now()->addDay()->toDateString())
+            ->whereBetween('rendezvous', [
+                now(),
+                now()->addDay()->endOfDay()
+            ])
             ->orderBy('rendezvous', 'asc')
             ->get();
 
+        //remainder
+        $alreadyNotified = session('notified_' . $patient->id, false);
+        if ($notifications->isNotEmpty() && !$alreadyNotified) {
+            \Mail::to($patient->user->email)
+                ->send(new AppointmentReminderMail($notifications));
+            session(['notified_' . $patient->id => true]);
+        }
 
-        return view(
-            'profile',
-            [
-                'patient' => $patient,
-                'patients' => $patients,
-                'files' => $files,
-                'r' => $patient->rendezvous,
-                'user' => $user,
-                'notes' => $notes,
-                'next' => $next,
-                'notifications' => $notifications,
-            ]
-        );
+        return view('profile', [
+            'patient' => $patient,
+            'patients' => $patients,
+            'files' => $files,
+            'r' => $patient->rendezvous,
+            'user' => $user,
+            'notes' => $notes,
+            'next' => $next,
+            'notifications' => $notifications,
+        ]);
+
     }
     public function changep(Request $request)
     {
