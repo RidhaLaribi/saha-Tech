@@ -53,16 +53,21 @@
                 onclick="document.getElementById('accountSidebar').classList.toggle('active')"
               />
 
+                <img src="{{ asset('storage/' . (Auth::user()->doctor->pic ?? 'image.png')) }}" alt="Profile"
+                    class="profile-circle rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                    style="width:60px; height:60px; object-fit: cover; cursor: pointer;border: 2px solid black;"
+                    onclick="document.getElementById('accountSidebar').classList.toggle('active')" />
 
-      {{-- <div>
-      <a href="{{ route('notifications.test') }}" class="btn btn-sm btn-outline-primary">
-          Send me a test notification
-        </a>
-  </div> --}}
+
+                {{-- <div>
+                    <a href="{{ route('notifications.test') }}" class="btn btn-sm btn-outline-primary">
+                        Send me a test notification
+                    </a>
+                </div> --}}
             </div>
         </div>
 
-        <x-account-sidebar :user="Auth::user()"/>
+        <x-account-sidebar :user="Auth::user()" />
 
 
 
@@ -113,11 +118,14 @@
                                     @if ($r != null)
 
                                         @foreach ($r as $re)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {
-                                                title: 'Rendez-vous',
-                                                start: '{{$re->rendezvous}}',
-                                                url: 'https://youtube.com/',
-                                            },
+                                            @if ($re->status == 'Confirmé')
+
+                                                                        {
+                                                    title: 'Rendez-vous',
+                                                    start: '{{$re->rendezvous}}',
+                                                    url: '',
+                                                },
+                                            @endif
                                         @endforeach
 
 

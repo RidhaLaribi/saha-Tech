@@ -86,7 +86,7 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         // 1) Identify the logged-in doctor
-        $doctor   = Doctor::where('user_id', Auth::id())->firstOrFail();
+        $doctor = Doctor::where('user_id', Auth::id())->firstOrFail();
         $doctorId = $doctor->id;
 
         // 2) Shared patient-name filter
@@ -98,8 +98,12 @@ class DashboardController extends Controller
             ->where('status', 'En Attente')
             ->where('type', '!=', 'emergency')
             ->where('rendezvous', '>=', Carbon::now())
-            ->when($search, fn($q) =>
-                $q->whereHas('patient', fn($q2) =>
+            ->when(
+                $search,
+                fn($q) =>
+                $q->whereHas(
+                    'patient',
+                    fn($q2) =>
                     $q2->where('name', 'like', "%{$search}%")
                 )
             );
@@ -123,9 +127,9 @@ class DashboardController extends Controller
 
         // 7) Render view
         return view('requestrendi', [
-            'emergencies'  => $emergencies,
+            'emergencies' => $emergencies,
             'appointments' => $appointments,
-            'search'       => $search,
+            'search' => $search,
             'laboratoires' => $laboratoires,
         ]);
     }
@@ -147,15 +151,19 @@ class DashboardController extends Controller
         $appointments = Rendezvous::with('patient')
             ->where('doctor_id', $doctor->id)
             ->where('status', 'Confirmé')
-            ->when($patientSearch, fn($q) =>
-                $q->whereHas('patient', fn($q2) =>
+            ->when(
+                $patientSearch,
+                fn($q) =>
+                $q->whereHas(
+                    'patient',
+                    fn($q2) =>
                     $q2->where('name', 'like', "%{$patientSearch}%")
                 )
             )
             // 4) Order: today's date first, then by time ascending
             ->orderByRaw(
                 "DATE(rendezvous) = ? DESC",
-                [ Carbon::today()->toDateString() ]
+                [Carbon::today()->toDateString()]
             )
             ->orderBy('rendezvous', 'asc')
             ->paginate(15)
@@ -166,13 +174,17 @@ class DashboardController extends Controller
 
         $laboratoires = Doctor::where('type', 'laboratoire')
             ->with('User')
-            ->when($laboSearch, fn($q) =>
-                $q->where(function($q2) use ($laboSearch) {
-                    $q2->whereHas('User', fn($u) =>
+            ->when(
+                $laboSearch,
+                fn($q) =>
+                $q->where(function ($q2) use ($laboSearch) {
+                    $q2->whereHas(
+                        'User',
+                        fn($u) =>
                         $u->where('name', 'like', "%{$laboSearch}%")
-                          ->orWhere('tel', 'like', "%{$laboSearch}%")
+                            ->orWhere('tel', 'like', "%{$laboSearch}%")
                     )
-                    ->orWhere('specialty', 'like', "%{$laboSearch}%");
+                        ->orWhere('specialty', 'like', "%{$laboSearch}%");
                 })
             )
             ->get();
@@ -192,7 +204,7 @@ class DashboardController extends Controller
         // 6) Render view with both lists
         return view('confirmérendesvous', [
             'appointments' => $appointments,
-            'search'       => $patientSearch,
+            'search' => $patientSearch,
             'laboratoires' => $laboratoires,
             'labo_search'  => $laboSearch,
             'takenSlots' => $taken,
@@ -210,20 +222,44 @@ class DashboardController extends Controller
      */
     public function updateStatus(Request $request, Rendezvous $appointment)
     {
-        // Verify this user owns the appointment
+        // 1) Ensure the authenticated doctor owns this appointment
         $doctor = Doctor::where('user_id', Auth::id())->firstOrFail();
         if ($appointment->doctor_id !== $doctor->id) {
             abort(403, 'Unauthorized');
         }
 
+        // 2) Validate only Confirmé or Annulé statuses
         $request->validate([
             'status' => 'required|in:Confirmé,Annulé',
         ]);
 
+        // 3) Update the appointment’s status
         $appointment->update(['status' => $request->status]);
+
+        // 4) If this is an emergency appointment, shift only *confirmed* later slots on the same day +30m
+        if ($appointment->type === 'emergency' && $request->status == 'Confirmé') {
+            $urgentTime = $appointment->rendezvous;
+            $date = $urgentTime->toDateString();
+
+            $laterAppointments = Rendezvous::where('doctor_id', $doctor->id)
+                ->whereDate('rendezvous', $date)          // same calendar day
+                ->where('rendezvous', '>', $urgentTime)  // strictly after the urgence
+                ->where('status', 'Confirmé')            // only confirmed appointments
+                ->orderBy('rendezvous')
+                ->get();
+
+            foreach ($laterAppointments as $slot) {
+                // Add 30 minutes and re‑assign to the attribute
+                $slot->rendezvous = $slot->rendezvous->addMinutes(30);
+                $slot->save();
+            }
+
+        }
 
         return back()->with('success', 'Statut mis à jour.');
     }
+
+
 
     public function uploadPic(Request $request)
     {
@@ -234,7 +270,7 @@ class DashboardController extends Controller
 
         $user = Auth::user();
 
-        if (! $request->hasFile('pic')) {
+        if (!$request->hasFile('pic')) {
             return back()->withErrors(['pic' => 'No file uploaded.']);
         }
 
@@ -242,7 +278,7 @@ class DashboardController extends Controller
         // store the file
         $file = $request->file('pic');
         $filename = time() . '_' . $file->getClientOriginalName();
-        $path     = $file->storeAs('profile_pics', $filename, 'public');
+        $path = $file->storeAs('profile_pics', $filename, 'public');
 
         // decide where to save it
         if ($user->role === 'doctor' && $user->doctor) {
