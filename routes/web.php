@@ -222,3 +222,17 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 // Handle the password reset submission
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])
     ->name('password.update');
+
+
+
+use App\Http\Controllers\DoctorRatingController;
+
+Route::middleware('auth')->group(function () {
+    // Show form
+    Route::get('/doctors/{doctor}/rate', [doctorController::class, 'createrate'])
+        ->name('doctors.rate.form');
+
+    // Handle submission
+    Route::post('/doctors/{doctor}/rate', [doctorController::class, 'storerate'])
+        ->name('doctors.rate.submit');
+});

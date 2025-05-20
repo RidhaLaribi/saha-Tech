@@ -31,22 +31,24 @@ class DashboardController extends Controller
         $doctorId = $doctor->id;
 
         // Pie chart summary
-        $pieData = Rendezvous::getStatusSummary($doctorId) ?? (object)[
+        $pieData = Rendezvous::getStatusSummary($doctorId) ?? (object) [
             'confirmed' => 0,
-            'pending'   => 0,
+            'pending' => 0,
             'cancelled' => 0,
         ];
 
         $processedRequests = $pieData->confirmed;
-        $pendingRequests   = $pieData->pending;
-        $rejectedRequests  = $pieData->cancelled;
-        $totalRequests     = $processedRequests + $pendingRequests + $rejectedRequests;
+        $pendingRequests = $pieData->pending;
+        $rejectedRequests = $pieData->cancelled;
+        $totalRequests = $processedRequests + $pendingRequests + $rejectedRequests;
 
         // Six-month line chart data
         $chartData = Rendezvous::getMonthlyChartData($doctorId)->keyBy('month');
-        $months    = [];
-        $totals    = [];
+        $months = [];
+        $totals = [];
         $confirmed = [];
+
+
 
 
 
@@ -58,10 +60,10 @@ class DashboardController extends Controller
             $label = $base->subMonthsNoOverflow($i)->format('M');
             $months[] = $label;
             if (isset($chartData[$label])) {
-                $totals[]    = (int) $chartData[$label]->total;
+                $totals[] = (int) $chartData[$label]->total;
                 $confirmed[] = (int) $chartData[$label]->confirmed;
             } else {
-                $totals[]    = 0;
+                $totals[] = 0;
                 $confirmed[] = 0;
             }
         }
@@ -83,38 +85,48 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        // Retrieve doctor record from logged-in user
-        $doctor = Doctor::where('user_id', Auth::id())->firstOrFail();
+        // 1) Identify the logged-in doctor
+        $doctor   = Doctor::where('user_id', Auth::id())->firstOrFail();
         $doctorId = $doctor->id;
 
-        $query = Rendezvous::with('patient')
-                          ->where('doctor_id', $doctorId);
+        // 2) Shared patient-name filter
+        $search = $request->query('search');
 
-        if ($search = $request->query('search')) {
-            $query->whereHas('patient', fn($q) =>
-                $q->where('name', 'like', "%{$search}%")
+        // 3) Base for pending (must have patient, not emergency, and not past)
+        $pendingBaseQuery = Rendezvous::with('patient')
+            ->where('doctor_id', $doctorId)
+            ->where('status', 'En Attente')
+            ->where('type', '!=', 'emergency')
+            ->where('rendezvous', '>=', Carbon::now())
+            ->when($search, fn($q) =>
+                $q->whereHas('patient', fn($q2) =>
+                    $q2->where('name', 'like', "%{$search}%")
+                )
             );
-        }
-        if ($type = $request->query('type')) {
-            $query->where('type', $type);
-        }
-        if ($status = $request->query('status')) {
-            $query->where('status', $status);
-        }
 
-        $appointments = $query
+        // 4) Emergencies: keep all emergencies that are not in the past
+        $emergencies = Rendezvous::with('patient')
+            ->where('doctor_id', $doctorId)
+            ->where('type', 'emergency')
+            ->where('rendezvous', '>=', Carbon::now())
+            ->orderBy('rendezvous', 'desc')
+            ->get();
+
+        // 5) Pending table: clone, order, paginate
+        $appointments = (clone $pendingBaseQuery)
             ->orderBy('rendezvous', 'desc')
             ->paginate(15)
-            ->appends($request->query());
+            ->appends($request->only('search'));
 
+        // 6) Lab list (unchanged)
         $laboratoires = Doctor::where('type', 'laboratoire')->get();
 
+        // 7) Render view
         return view('requestrendi', [
+            'emergencies'  => $emergencies,
             'appointments' => $appointments,
             'search'       => $search,
-            'type'         => $type,
-            'status'       => $status,
-            'laboratoires' =>$laboratoires,
+            'laboratoires' => $laboratoires,
         ]);
     }
 
@@ -205,14 +217,16 @@ class DashboardController extends Controller
             'pic' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
 
+
         $user = Auth::user();
 
         if (! $request->hasFile('pic')) {
             return back()->withErrors(['pic' => 'No file uploaded.']);
         }
 
+
         // store the file
-        $file     = $request->file('pic');
+        $file = $request->file('pic');
         $filename = time() . '_' . $file->getClientOriginalName();
         $path     = $file->storeAs('profile_pics', $filename, 'public');
 
@@ -222,12 +236,16 @@ class DashboardController extends Controller
             $profile = $user->doctor;
         } else {
 
+
             $profile = $user;
         }
 
 
+
+
         $profile->pic = $path;
         $profile->save();
+
 
         return back()->with('success', 'Profile picture updated!');
     }
