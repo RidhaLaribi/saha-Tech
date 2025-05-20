@@ -545,6 +545,17 @@
       </div>
       <button class="search-bar__button" id="searchBtn"><i class="fas fa-search"></i> Rechercher</button>
     </div>
+    {{--
+    @if(session('success'))
+    <!-- Notification Card -->
+    <div class="notification-card" id="welcomeNotification">
+      <div class="notification-text">
+        <h5>Success! 🎉</h5>
+        <p>{{ session('success') }}</p>
+      </div>
+    </div>
+    {{session(['success' => null])}}
+    @endif --}}
 
     <!-- Tabs -->
     <div class="tabs">
@@ -604,8 +615,6 @@
     </div>
   </div>
 
-  <!-- Appointment Modal -->
-  <!-- Appointment Modal -->
   <!-- Appointment Modal -->
   <div class="modal-overlay" id="appointmentModal">
     <div class="booking-popup">
@@ -707,171 +716,189 @@
           </div>
         </div>
         <div class="popup-footer">
-          <div class="form-section"><select name="type" required>
-              <option value="">Type de RDV…</option>
-              <option value="consultation">Consultation générale</option>
-              <option value="followup">Suivi de traitement</option>
-              <option value="emergency">Urgence</option>
-            </select></div>
-          <div class="form-section"><textarea name="notes" placeholder="Notes supplémentaires…"></textarea></div>
+          @if (!Auth::user() || Auth::user()->role != 'patient')
+        <div class="form-section"><select name="type" required>
+
+          <option value="emergency">Urgence</option>
+        </select></div>
+        <div class="form-section"><textarea name="tel" placeholder="telephone"></textarea></div>
+
+      @else
+        <div class="form-section">
+        <select name="type" required>
+          <option value="">Type de RDV…</option>
+          <option value="consultation">Consultation générale</option>
+          <option value="followup">Suivi de traitement</option>
+          <option value="emergency">Urgence</option>
+        </select>
+        </div>
+        <div class="form-section">
+        <select name="pid" required>
+          @foreach (Auth::user()->patient as $p)
+
+        <option value="{{ $p->id }}">My {{  $p->rel . " " . $p->name }} </option>
+      @endforeach
+        </select>
+        </div>
+      @endif
           <button type="submit" class="appointment-btn"><i class="fas fa-calendar-check"></i>Confirmer </button>
         </div>
       </form>
     </div>
-  </div> 
+  </div>
 
-    <style>
-      .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.4);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-      }
+  <style>
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
 
-      .modal-overlay.active {
-        display: flex;
-      }
+    .modal-overlay.active {
+      display: flex;
+    }
 
-      .booking-popup {
-        height: 500px;
+    .booking-popup {
+      height: 500px;
 
-        background: #fff;
-        border-radius: 12px;
-        width: 800px;
-        max-width: 95%;
-        padding: 1.5rem;
-        position: relative;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        display: flex;
-        flex-direction: column;
-      }
+      background: #fff;
+      border-radius: 12px;
+      width: 800px;
+      max-width: 95%;
+      padding: 1.5rem;
+      position: relative;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+    }
 
-      .close-btn {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-      }
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
 
-      .popup-grid {
-        display: grid;
-        grid-template-columns: 1fr 1.5fr;
-        padding-top: 20px;
-        gap: 1.5rem;
-      }
+    .popup-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      padding-top: 20px;
+      gap: 1.5rem;
+    }
 
-      .popup-info {
-        display: flex;
-        gap: 1rem;
-      }
+    .popup-info {
+      display: flex;
+      gap: 1rem;
+    }
 
-      .popup-info .avatar {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
+    .popup-info .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
 
-      .info-text h3 {
-        margin-bottom: .25rem;
-      }
+    .info-text h3 {
+      margin-bottom: .25rem;
+    }
 
-      .popup-schedule {
-        display: flex;
-        flex-direction: column;
-      }
+    .popup-schedule {
+      display: flex;
+      flex-direction: column;
+    }
 
-      .day-switcher {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-      }
+    .day-switcher {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
 
-      .day-switcher button {
-        background: none;
-        border: none;
-        font-size: 1.25rem;
-        cursor: pointer;
-      }
+    .day-switcher button {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
 
-      #displayDate {
-        font-weight: 600;
-      }
+    #displayDate {
+      font-weight: 600;
+    }
 
-      .slots-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-        gap: .5rem;
-        margin-bottom: .75rem;
-      }
+    .slots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: .5rem;
+      margin-bottom: .75rem;
+    }
 
-      .slots-grid .slot {
-        padding: .5rem 0;
-        text-align: center;
-        border-radius: 20px;
-        background: #e0f7ef;
-        cursor: pointer;
-        user-select: none;
-        transition: background .2s;
-      }
+    .slots-grid .slot {
+      padding: .5rem 0;
+      text-align: center;
+      border-radius: 20px;
+      background: #e0f7ef;
+      cursor: pointer;
+      user-select: none;
+      transition: background .2s;
+    }
 
-      .slots-grid .slot.selected {
-        background: #80d0c7;
-        color: #fff;
-      }
+    .slots-grid .slot.selected {
+      background: #80d0c7;
+      color: #fff;
+    }
 
-      .more-link {
-        font-size: .85rem;
-        color: #007bff;
-        text-decoration: none;
-      }
+    .more-link {
+      font-size: .85rem;
+      color: #007bff;
+      text-decoration: none;
+    }
 
-      .popup-footer {
-        margin-top: 1.5rem;
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-between;
-      }
+    .popup-footer {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-      .popup-footer .form-section {
-        flex: 1;
-      }
+    .popup-footer .form-section {
+      flex: 1;
+    }
 
-      .popup-footer select,
-      .popup-footer textarea {
-        width: 100%;
-        padding: .75rem;
-        border-radius: 8px;
-        border: 2px solid #e2e8f0;
-      }
+    .popup-footer select,
+    .popup-footer textarea {
+      width: 100%;
+      padding: .75rem;
+      border-radius: 8px;
+      border: 2px solid #e2e8f0;
+    }
 
-      .appointment-btn {
-        background: var(--gradient);
-        color: #fff;
-        padding: .75rem 1.5rem;
-        border: none;
-        border-radius: 8px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        gap: .5rem;
-        cursor: pointer;
-      }
-    </style>
+    .appointment-btn {
+      background: var(--gradient);
+      color: #fff;
+      padding: .75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      cursor: pointer;
+    }
+  </style>
 
-    {{-- And this script at the bottom of your
+  {{-- And this script at the bottom of your
 
   <body>, after flatpickr --}}
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -893,8 +920,6 @@
         });
       }
 
-      // 2) renderSlots: clears container, then for each 30-min slot:
-      //    - if taken, mark disabled
       //    - else allow toggle select/deselect (multiple)
       function renderSlots(date) {
         slotsCont.innerHTML = '';
