@@ -27,6 +27,8 @@ class doctorController extends Controller
         $doctor = doctor::firstOrNew([
             'user_id' => Auth::id(),
         ]);
+        $appointments = Rendezvous::where('doctor_id', $doctor->id)
+            ->where('status', 'Confirmé');
         return view('availability', ['r' => $doctor->rendez, 'doctor' => $doctor]);
     }
     public function updateInfo(Request $request)

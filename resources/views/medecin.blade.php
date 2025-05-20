@@ -747,11 +747,16 @@
 
           <!-- RIGHT: Schedule Picker -->
           <div class="popup-schedule">
+
+
             <div class="day-switcher">
+
               <button type="button" id="prevDay">&lt;</button>
+
               <div id="displayDate">---</div>
               <button type="button" id="nextDay">&gt;</button>
             </div>
+
 
             <input type="hidden" name="doctor_id" id="formDoctorId">
             <input type="hidden" name="scheduled_at" id="formDateTime">
@@ -1091,8 +1096,11 @@
       }
 
       // 4) Wire prev/next
+      @if (Auth::user() && Auth::user()->role === 'patient')
+
       prevDay.addEventListener('click', () => updateDay(-1));
       nextDay.addEventListener('click', () => updateDay(1));
+    @endif
 
       // 5) Flatpickr optional: click date label to pick another day
       flatpickr(displayDt, {
