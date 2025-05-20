@@ -718,7 +718,7 @@
         </div>
       </form>
     </div>
-  </div> 
+  </div>
 
     <style>
       .modal-overlay {

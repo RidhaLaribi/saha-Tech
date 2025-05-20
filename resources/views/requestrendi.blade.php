@@ -8,6 +8,14 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/stylesRequests.css">
   <script src="Requests.js" defer></script>
+  <style>/* force any modal-dialog with .modal-fullscreen to span full width & height */
+/* custom wide modal (not fullscreen) */
+.modal-dialog.modal-wide {
+  max-width: 90vw;     /* or 80vw, or a fixed px like 1000px */
+  margin: 1.75rem auto; /* keep vertical centering */
+}
+
+</style>
 </head>
 
 <body>
@@ -111,7 +119,7 @@
             <tr>
             <td>{{ $apt->id }}</td>
             <td class="d-flex align-items-center">
-              <img src="{{ asset('storage/' . $apt->patient->pic) }}" class="rounded-circle me-2" width="50"
+              <img src="{{ asset('storage/' . ($apt->patient->pic?? 'image.png')) }}" class="rounded-circle me-2" width="50"
               height="50" alt="Avatar">
               {{ $apt->patient->name }}
             </td>
@@ -132,6 +140,7 @@
             </td>
             <td>
             <td>
+
               {{-- View Patient Profile --}}
               <a href="{{ route('doctor.patient.show', $apt->patient->id) }}"
               class="btn btn-sm btn-outline-primary me-1" title="Voir le profil">
@@ -188,6 +197,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 
   <script src="{{ asset('js/sidebar.js') }}"></script>
+
 </body>
 
 </html>

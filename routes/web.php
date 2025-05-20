@@ -103,6 +103,11 @@ Route::middleware(['auth'])
     ])->name('rend');
 
 
+Route::middleware(['auth'])
+    ->get('/rendconfirme', [
+        dashboardcontroller::class,
+        'indexconfirme'
+    ])->name('rendconfirme');
 
 Route::middleware(['auth'])
     ->patch(
@@ -112,6 +117,7 @@ Route::middleware(['auth'])
     ->name('doctor.appointments.update');
 
 
+Route::get('/rendconfirme/search', [dashboardController::class, 'search'])->name('laboratoires.search');
 
 
 
