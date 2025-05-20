@@ -236,3 +236,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/doctors/{doctor}/rate', [doctorController::class, 'storerate'])
         ->name('doctors.rate.submit');
 });
+
+Route::get('/search-doctors', [DoctorController::class, 'search'])->name('doctors.search');
