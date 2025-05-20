@@ -42,7 +42,7 @@
     <!-- Or for RTL support -->
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         /* NOTIFICATION CARD */
         .notification-card {
@@ -95,7 +95,7 @@
 
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="{{ route('home') }}">
                     <i class="bi-back"></i>
                     <span>HeyDoc</span>
                 </a>
@@ -151,15 +151,15 @@
                         <!-- Fixed: ID syntax and class attribute -->
                         <a href="{{ url('/loginp') }}" id="smoothLoginButton" class="praticien-link"
                             style="
-                                                                                                                                                margin-right: 20px;
-                                                                                                                                                color: white;
-                                                                                                                                                font-family: 'Montserrat', sans-serif;
-                                                                                                                                                font-size: 14px;
-                                                                                                                                                font-weight: 600;
-                                                                                                                                                text-decoration: none;
-                                                                                                                                                transition: color 0.3s ease;
-                                                                                                                                                " onmouseover="this.style.color='#ffffff';"
-                            onmouseout="this.style.color='#002b3a';">
+                                                                                                                                                                                                                                                                                    margin-right: 20px;
+                                                                                                                                                                                                                                                                                    color: white;
+                                                                                                                                                                                                                                                                                    font-family: 'Montserrat', sans-serif;
+                                                                                                                                                                                                                                                                                    font-size: 14px;
+                                                                                                                                                                                                                                                                                    font-weight: 600;
+                                                                                                                                                                                                                                                                                    text-decoration: none;
+                                                                                                                                                                                                                                                                                    transition: color 0.3s ease;
+                                                                                                                                                                                                                                                                                    "
+                            onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#002b3a';">
                             Vous êtes praticien !
                         </a>
 
@@ -296,7 +296,11 @@
         </nav>
 
 
+
+
         <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+
+
             <div class="container">
                 <style>
                     /* Container: White background, shadow */
@@ -397,71 +401,88 @@
                 </style>
 
                 <div class="row">
-
                     <div class="col-lg-8 col-12 mx-auto">
 
+                        <form action="{{ route('doctors.search') }}" method="GET"
+                            class="tm-search-bar d-flex flex-wrap align-items-center p-4 shadow-sm"
+                            style="background-color: #fff; border: 1px solid #e3e6f0; border-radius: 3rem;">
 
-
-
-                        {{--
-                        <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
-                            <div class="input-group input-group-lg">
-                                <span class="input-group-text bi-search" id="basic-addon1">
-
-                                </span>
-
-                                <input name="keyword" type="search" class="form-control" id="keyword" placeholder="..."
-                                    aria-label="Search">
-
-                                <button type="submit" class="form-control">Search</button>
-                            </div>
-                        </form> --}}
-                        <!-- Include Bootstrap Icons (optional for button icon) -->
-
-
-                        <div class="tm-search-bar d-flex flex-wrap align-items-center p-4  shadow-sm"
-                            style="background-color: #ffffff; border: 1px solid #e3e6f0; border-radius: 3rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
-
-                            <!-- Specialty autocomplete -->
-                            <div class="tm-search-group me-3 mb-3 position-relative flex-grow-1">
-                                <input list="specialtyList" id="specialtyInput" class="form-control tm-form-control"
-                                    placeholder="Spécialité…"
-                                    style="border-radius: 0.75rem; border: 1px solid #ced4da; transition: all 0.3s ease;">
-                                <datalist id="specialtyList">
-                                    <option value="Dentiste">
-                                    <option value="Cardiologue">
-                                    <option value="Dermatologue">
-                                    <option value="Ophtalmologue">
-                                    <option value="Pédiatre">
-                                </datalist>
+                            {{-- Doctor Name --}}
+                            <div class="tm-search-group me-3 mb-3 flex-grow-1">
+                                <input type="text" name="name" class="form-control tm-form-control"
+                                    placeholder="Nom du médecin…" value="{{ request('name') }}">
                             </div>
 
-                            <!-- Location field -->
-                            <div class="tm-search-group me-3 mb-3 position-relative flex-grow-1">
-                                <input type="text" id="locationInput" class="form-control tm-form-control"
-                                    placeholder="Localisation…"
-                                    style="border-radius: 0.75rem; border: 1px solid #ced4da; transition: all 0.3s ease;">
+
+                            {{-- Specialty --}}
+                            <div class="tm-search-group me-3 mb-3 flex-grow-1">
+                                <select id="specialite" name="specialty" placeholder="Spécialité médicale"
+                                    class="form-control @error('specialite') is-invalid @enderror">
+                                    <!-- Toutes les options, marquées par data-type -->
+                                    <option value="" disabled {{ old('specialty') ? '' : 'selected' }}>select your
+                                        speciality</option>
+                                    <option value="generali" data-type="doctor" {{ old('specialite') == 'generaliste' ? 'selected' : '' }}>
+                                        Médecin généraliste 🩺</option>
+                                    <option value="car" data-type="doctor">
+                                        Cardiologue ❤️</option>
+                                    <option value="dermatol" data-type="doctor" {{ old('specialite') == 'dermatologue' ? 'selected' : '' }}>
+                                        Dermatologue 🧴</option>
+                                    <option value="gynecol" data-type="doctor" {{ old('specialite') == 'gynecologue' ? 'selected' : '' }}>
+                                        Gynécologue 🤰</option>
+                                    <option value="neurol" data-type="doctor" {{ old('specialite') == 'neurologue' ? 'selected' : '' }}>
+                                        Neurologue 🧠</option>
+                                    <option value="radiolo" data-type="doctor" {{ old('specialite') == 'radiologue' ? 'selected' : '' }}>
+                                        Radiologue 📸</option>
+                                    <option value="orl" data-type="doctor" {{ old('specialite') == 'orl' ? 'selected' : '' }}>ORL 👂👃</option>
+                                    <option value="pediatre" data-type="doctor" {{ old('specialite') == 'pediatre' ? 'selected' : '' }}>Pédiatre
+                                        👶</option>
+                                    <option value="psychiatre" data-type="doctor" {{ old('specialite') == 'psychiatre' ? 'selected' : '' }}>
+                                        Psychiatre 😊</option>
+                                    <option value="pneumologue" data-type="doctor" {{ old('specialite') == 'pneumologue' ? 'selected' : '' }}>
+                                        Pneumologue 🫁</option>
+                                    <option value="gastro" data-type="doctor" {{ old('specialite') == 'gastro' ? 'selected' : '' }}>
+                                        Gastro-entérologue 🍽️</option>
+                                    <option value="endocrino" data-type="doctor" {{ old('specialite') == 'endocrino' ? 'selected' : '' }}>
+                                        Endocrinologue ⚖️</option>
+                                    <option value="dentiste" data-type="doctor" {{ old('specialite') == 'dentiste' ? 'selected' : '' }}>
+                                        Chirurgien-dentiste 🦷</option>
+                                    <option value="osteopa" data-type="doctor" {{ old('specialite') == 'osteopathe' ? 'selected' : '' }}>
+                                        Ostéopathe 🤲</option>
+                                    <option value="kine" data-type="doctor" {{ old('specialite') == 'kine' ? 'selected' : '' }}>
+                                        Masseur-kinésithérapeute 💆‍♂️</option>
+                                    <option value="ortho" data-type="doctor" {{ old('specialite') == 'ortho' ? 'selected' : '' }}>Orthophoniste
+                                        🗣️</option>
+                                    <option value="psycholo" data-type="doctor" {{ old('specialite') == 'psychologue' ? 'selected' : '' }}>
+                                        Psychologue 🧠</option>
+                                    <option value="anal" data-type="laboratoire" {{ old('specialite') == 'analyse' ? 'selected' : '' }}>
+                                        Laboratoire d’analyse 🔬</option>
+                                    <option value="image" data-type="laboratoire" {{ old('specialite') == 'imagerie' ? 'selected' : '' }}>
+                                        Centre d’imagerie médicale 🩻</option>
+                                </select>
                             </div>
 
-                            <!-- Date picker -->
-                            <div class="tm-search-group me-3 mb-3">
-                                <input type="date" id="dateInput" class="form-control tm-form-control"
-                                    style="border-radius: 0.75rem; border: 1px solid #ced4da; transition: all 0.3s ease;">
+                            {{-- Location --}}
+                            <div class="tm-search-group me-3 mb-3 flex-grow-1">
+                                <input type="text" name="location" class="form-control tm-form-control"
+                                    placeholder="Localisation…" value="{{ request('location') }}">
                             </div>
 
-                            <!-- Search button -->
+
+
+                            {{-- Search Button --}}
                             <div class="mb-3">
-                                <button id="searchBtn" class="tm-btn"
-                                    style="background-color: #0d6efd; color: #fff; border: none; padding: 0.6rem 1.2rem;
-                       border-radius: 0.75rem; font-weight: 500; transition: background-color 0.3s ease, transform 0.2s ease;">
+                                <button type="submit" class="tm-btn"
+                                    style="background-color:#80d0c7; color:#fff; border:none; padding:0.6rem 1.2rem; border-radius:0.75rem;">
                                     <i class="bi bi-search me-1"></i>
                                 </button>
                             </div>
-                        </div>
+                        </form>
 
 
                     </div>
                 </div>
+
+            </div>
         </section>
 
 

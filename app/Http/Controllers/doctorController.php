@@ -187,6 +187,64 @@ class doctorController extends Controller
         ]);
     }
 
+    public function search(Request $request)
+    {
+        // 1) Build your filtered doctors list
+        $query = Doctor::with('user')
+            ->where('available', 1);
+
+        if ($request->filled('name')) {
+            $query->whereHas(
+                'user',
+                fn($q) =>
+                $q->where('name', 'LIKE', '%' . $request->name . '%')
+            );
+        }
+
+        if ($request->filled('specialty')) {
+            $query->where('specialty', 'LIKE', '%' . $request->specialty . '%');
+        }
+
+        if ($request->filled('location')) {
+            $query->where('location', 'LIKE', '%' . $request->location . '%');
+        }
+
+        if ($request->boolean('home_visit')) {
+            $query->where('home_visit', 1);
+        }
+
+        $doctors = $query->get();
+
+        // 2) Recompute your counts
+        $counts = [
+            'all' => $doctors->count(),
+            'praticien' => $doctors->where('type', 'doctor')->count(),
+            'clinique' => $doctors->where('type', 'laboratoire')->count(),
+        ];
+
+        // 3) Grab taken slots as before
+        $takenSlots = Rendezvous::where('status', 'Confirmé')
+            ->get()
+            ->groupBy('doctor_id')
+            ->map(
+                fn($group) =>
+                $group->pluck('rendezvous')
+                    ->map(fn($dt) => $dt->format('Y-m-d H:i:00'))
+                    ->all()
+            );
+
+        // 4) Return your medecin view with everything it needs
+        return view('medecin', [
+            'doctors' => $doctors,
+            'counts' => $counts,
+            'takenSlots' => $takenSlots,
+            // pass the raw inputs so your form can re‑populate them if desired
+            'filters' => $request->only(['name', 'specialty', 'location', 'home_visit']),
+        ]);
+    }
+
+
+
     public function createrate(Doctor $doctor)
     {
         return view('doctors.rate', [
@@ -222,5 +280,6 @@ class doctorController extends Controller
             ->back()
             ->with('success', 'Thank you! Your rating has been saved.');
     }
+
 
 }

@@ -112,11 +112,10 @@
       padding: 1.5rem;
       margin-bottom: 1.5rem;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
       gap: 1rem;
-      align-items: center;
-      transition: transform var(--transition);
+      align-items: flex-end;
     }
 
     .search-bar:hover {
@@ -126,6 +125,8 @@
     .search-bar__group {
       display: flex;
       flex-direction: column;
+      min-width: 200px;
+      flex: 1;
     }
 
     .search-bar__group label {
@@ -153,10 +154,13 @@
 
     .location-wrapper {
       position: relative;
+      display: flex;
+      align-items: center;
     }
 
     .location-wrapper input {
-      padding-right: 2.5rem;
+      flex: 1;
+      padding-right: 1rem;
     }
 
     .location-wrapper button#getLocationBtn {
@@ -171,6 +175,15 @@
       color: var(--primary-color);
       transition: color var(--transition);
     }
+
+    .search-bar__group--row {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: flex-end !important;
+      gap: 0.5rem !important;
+      min-width: unset !important;
+    }
+
 
     .location-wrapper button#getLocationBtn:hover {
       color: var(--secondary-color);
@@ -506,32 +519,116 @@
         grid-template-columns: 1fr;
       }
     }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-switch .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+
+    .toggle-switch .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    .toggle-switch input:checked+.slider {
+      background-color: var(--primary-color);
+    }
+
+    .toggle-switch input:checked+.slider:before {
+      transform: translateX(20px);
+    }
   </style>
 </head>
+
 
 <body>
   <!-- Navbar -->
   <nav class="navbar">
-    <div class="navbar__brand"><i class="fas fa-hospital"></i> Hey-Doc</div>
+    <div class="navbar__brand">
+      <a href="{{ route("home") }}">
+
+        <i class="fas fa-hospital"></i> Hey-Doc
+    </div>
+    </a>
     <div class="navbar__actions">
-      <button id="darkModeBtn"><i class="fas fa-moon"></i> Dark Mode</button>
-      <button id="loginBtn"><i class="fas fa-user"></i> Se connecter</button>
     </div>
   </nav>
 
   <!-- Main Container -->
   <div class="container">
-    <!-- Search Bar -->
     <div class="search-bar">
       <div class="search-bar__group">
         <label for="specialtySelect">Spécialité</label>
         <select id="specialtySelect">
           <option value="" disabled selected>Choisissez une spécialité</option>
-          <option value="Dentiste">Dentiste</option>
-          <option value="Cardiologue">Cardiologue</option>
-          <option value="Dermatologue">Dermatologue</option>
+          <option value="">all</option>
+          <option value="generali" data-type="doctor" {{ old('specialite') == 'generaliste' ? 'selected' : '' }}>
+            Médecin généraliste 🩺</option>
+          <option value="car" data-type="doctor">
+            Cardiologue ❤️</option>
+          <option value="dermatol" data-type="doctor" {{ old('specialite') == 'dermatologue' ? 'selected' : '' }}>
+            Dermatologue 🧴</option>
+          <option value="gynecol" data-type="doctor" {{ old('specialite') == 'gynecologue' ? 'selected' : '' }}>
+            Gynécologue 🤰</option>
+          <option value="neurol" data-type="doctor" {{ old('specialite') == 'neurologue' ? 'selected' : '' }}>
+            Neurologue 🧠</option>
+          <option value="radiolo" data-type="doctor" {{ old('specialite') == 'radiologue' ? 'selected' : '' }}>
+            Radiologue 📸</option>
+          <option value="orl" data-type="doctor" {{ old('specialite') == 'orl' ? 'selected' : '' }}>ORL 👂👃</option>
+          <option value="pediatre" data-type="doctor" {{ old('specialite') == 'pediatre' ? 'selected' : '' }}>Pédiatre
+            👶</option>
+          <option value="psychiatre" data-type="doctor" {{ old('specialite') == 'psychiatre' ? 'selected' : '' }}>
+            Psychiatre 😊</option>
+          <option value="pneumologue" data-type="doctor" {{ old('specialite') == 'pneumologue' ? 'selected' : '' }}>
+            Pneumologue 🫁</option>
+          <option value="gastro" data-type="doctor" {{ old('specialite') == 'gastro' ? 'selected' : '' }}>
+            Gastro-entérologue 🍽️</option>
+          <option value="endocrino" data-type="doctor" {{ old('specialite') == 'endocrino' ? 'selected' : '' }}>
+            Endocrinologue ⚖️</option>
+          <option value="dentiste" data-type="doctor" {{ old('specialite') == 'dentiste' ? 'selected' : '' }}>
+            Chirurgien-dentiste 🦷</option>
+          <option value="osteopa" data-type="doctor" {{ old('specialite') == 'osteopathe' ? 'selected' : '' }}>
+            Ostéopathe 🤲</option>
+          <option value="kine" data-type="doctor" {{ old('specialite') == 'kine' ? 'selected' : '' }}>
+            Masseur-kinésithérapeute 💆‍♂️</option>
+          <option value="ortho" data-type="doctor" {{ old('specialite') == 'ortho' ? 'selected' : '' }}>Orthophoniste
+            🗣️</option>
+          <option value="psycholo" data-type="doctor" {{ old('specialite') == 'psychologue' ? 'selected' : '' }}>
+            Psychologue 🧠</option>
+          <option value="anal" data-type="laboratoire" {{ old('specialite') == 'analyse' ? 'selected' : '' }}>
+            Laboratoire d’analyse 🔬</option>
+          <option value="image" data-type="laboratoire" {{ old('specialite') == 'imagerie' ? 'selected' : '' }}>
+            Centre d’imagerie médicale 🩻</option>
         </select>
       </div>
+
       <div class="search-bar__group">
         <label for="locationInput">Localisation</label>
         <div class="location-wrapper">
@@ -539,23 +636,28 @@
           <button id="getLocationBtn" title="Obtenir ma position"><i class="fas fa-location-arrow"></i></button>
         </div>
       </div>
+
+      <div class="search-bar__group" style="flex-direction: row; align-items: flex-end; gap: 0.5rem; min-width: unset;">
+        <div style="display: flex; flex-direction: column;">
+          <label for="nameInput">Nom du médecin</label>
+          <input type="text" id="nameInput" placeholder="3 lettres minimum" minlength="3" />
+        </div>
+        <div style="display: flex; flex-direction: column;">
+          <label for="availabilityToggle">Mobile</label>
+          <label class="toggle-switch">
+            <input type="checkbox" id="availabilityToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
       <div class="search-bar__group">
-        <label for="dateInput">Date</label>
-        <input type="text" id="dateInput" placeholder="Sélectionnez une date" />
-      </div>
-      <button class="search-bar__button" id="searchBtn"><i class="fas fa-search"></i> Rechercher</button>
-    </div>
-    {{--
-    @if(session('success'))
-    <!-- Notification Card -->
-    <div class="notification-card" id="welcomeNotification">
-      <div class="notification-text">
-        <h5>Success! 🎉</h5>
-        <p>{{ session('success') }}</p>
+        <label>&nbsp;</label>
+        <button class="search-bar__button" id="searchBtn">
+          <i class="fas fa-search"></i> Rechercher
+        </button>
       </div>
     </div>
-    {{session(['success' => null])}}
-    @endif --}}
 
     <!-- Tabs -->
     <div class="tabs">
@@ -564,12 +666,14 @@
       <button data-tab="laboratoire"><i class="fas fa-hospital"></i> laboratories
         ({{ $counts['clinique'] ?? 0 }})</button>
     </div>
+
     <!-- Doctor List -->
     <div class="doctor-list">
       @isset($doctors)
       @forelse($doctors as $doctor)
       <div class="doctor-item" data-specialty="{{ strtolower($doctor->specialty) }}" data-type="{{ $doctor->type }}"
-      data-location="{{ strtolower($doctor->location) }}">
+      data-location="{{ strtolower($doctor->location) }}" data-home-visit="{{ $doctor->home_visit ? '1' : '0' }}"
+      data-name="{{ strtolower($doctor->user->name) }}">
       <img src="{{ asset('storage/' . ($doctor->pic ?? 'image.png')) }}" class="doctor-item__avatar"
       alt="Dr. {{ $doctor->user->name }}">
 
@@ -580,12 +684,15 @@
         <i class="fas fa-phone"></i>
       </a>
       </div>
-
       <div class="doctor-item__specialty">{{ $doctor->specialty }}</div>
 
       @if($doctor->location)
       <div class="doctor-item__location">
-      <i class="fas fa-map-marker-alt"></i> {{ $doctor->location }}
+      <i class="fas fa-map-marker-alt"></i> <a
+      href="https://www.google.com/maps/search/?api=1&query={{ urlencode($doctor->location) }}" target="_blank"
+      rel="noopener noreferrer">
+      {{ $doctor->location }}
+      </a>
       </div>
       @endif
 
@@ -595,6 +702,7 @@
       </div>
       @if($doctor->price)
       <div class="price">{{ $doctor->price }} DA</div>
+
       @endif
       </div>
 
@@ -1021,7 +1129,124 @@
     </script>
 
 
-  </body>
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+      // Geolocation and Filtering Code
+      let lastGeolocationRequest = 0;
+      const GEOLOCATION_COOLDOWN = 1000;
+
+      async function handleGeolocation() {
+        const now = Date.now();
+        if (now - lastGeolocationRequest < GEOLOCATION_COOLDOWN) {
+          alert("Veuillez patienter entre les requêtes");
+          return;
+        }
+        lastGeolocationRequest = now;
+
+        const btn = document.getElementById('getLocationBtn');
+        const icon = btn.querySelector('i');
+        const locationInput = document.getElementById('locationInput');
+
+        try {
+          btn.disabled = true;
+          icon.classList.replace('fa-location-arrow', 'fa-spinner');
+
+          const position = await new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject, {
+              enableHighAccuracy: true,
+              timeout: 10000,
+              maximumAge: 0
+            });
+          });
+
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position.coords.latitude}&lon=${position.coords.longitude}&addressdetails=1`,
+            {
+              headers: {
+                'Accept-Language': 'fr',
+                'User-Agent': 'HeyDocApp/1.0 (Contact: contact@heydoc.dz)'
+              }
+            }
+          );
+
+          if (!response.ok) throw new Error('Erreur API');
+
+          const data = await response.json();
+          const address = data.address || {};
+
+          const locationName = [
+            address.city,
+            address.town,
+            address.village,
+            address.municipality,
+            address.county,
+            address.state,
+            address.region
+          ].find(name => name && name.length > 1);
+
+          locationInput.value = locationName ||
+            `${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)}`;
+
+        } catch (error) {
+          console.error('Erreur:', error);
+          alert(`Erreur: ${error.message || 'Impossible de déterminer votre position'}`);
+        } finally {
+          btn.disabled = false;
+          icon.classList.replace('fa-spinner', 'fa-location-arrow');
+        }
+      }
+
+      // Filter Function
+      function filterDoctors() {
+        const specialty = document.getElementById('specialtySelect').value.toLowerCase();
+        const location = document.getElementById('locationInput').value.toLowerCase();
+        const nameQuery = document.getElementById('nameInput').value.trim().toLowerCase();
+        const homeOnly = document.getElementById('availabilityToggle').checked;
+        const type = document.querySelector('.tabs button.active').dataset.tab;
+
+        document.querySelectorAll('.doctor-item').forEach(item => {
+          const ds = item.dataset;
+          const matches = [
+            !specialty || ds.specialty.includes(specialty),
+            !location || ds.location.includes(location),
+            nameQuery.length < 3 || ds.name.includes(nameQuery),
+            type === 'all' || ds.type === type,
+            homeOnly ? ds.homeVisit === '1' : true
+          ].every(Boolean);
+
+          item.style.display = matches ? 'flex' : 'none';
+        });
+      }
+
+      // Event Listeners
+      document.addEventListener('DOMContentLoaded', () => {
+        filterDoctors();
+        document.getElementById('getLocationBtn').addEventListener('click', handleGeolocation);
+        document.getElementById('specialtySelect').addEventListener('change', filterDoctors);
+        document.getElementById('searchBtn').addEventListener('click', filterDoctors);
+        document.getElementById('availabilityToggle').addEventListener('change', filterDoctors);
+        document.getElementById('nameInput').addEventListener('input', filterDoctors);
+
+        document.querySelectorAll('.tabs button').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelector('.tabs button.active')?.classList.remove('active');
+            btn.classList.add('active');
+            filterDoctors();
+          });
+        });
+      });
+
+
+    </script>
+
+
+
+
+
+
+  </body>
 
 </html>
