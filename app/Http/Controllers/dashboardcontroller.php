@@ -192,21 +192,21 @@ class DashboardController extends Controller
 
 
 
-            $taken = Rendezvous::where('status', 'Confirmé')
-                ->get()
-                ->groupBy('doctor_id')
-                ->map(function ($group) {
-                    return $group->pluck('rendezvous')
-                        ->map(fn($dt) => $dt->format('Y-m-d H:i:00'))
-                        ->all();
-                });
+        $taken = Rendezvous::where('status', 'Confirmé')
+            ->get()
+            ->groupBy('doctor_id')
+            ->map(function ($group) {
+                return $group->pluck('rendezvous')
+                    ->map(fn($dt) => $dt->format('Y-m-d H:i:00'))
+                    ->all();
+            });
 
         // 6) Render view with both lists
         return view('confirmérendesvous', [
             'appointments' => $appointments,
             'search' => $patientSearch,
             'laboratoires' => $laboratoires,
-            'labo_search'  => $laboSearch,
+            'labo_search' => $laboSearch,
             'takenSlots' => $taken,
 
         ]);
@@ -312,6 +312,7 @@ class DashboardController extends Controller
             'pid' => 'nullable|string',
             'tel' => 'nullable|string'
         ]);
+        return $request->pid;
 
         $datetimeString = $data['scheduled_at']; // e.g., "2025-05-10 14:00:00,2025-05-10 15:30:00"
 

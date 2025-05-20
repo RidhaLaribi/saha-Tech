@@ -130,9 +130,6 @@ Route::post("addNote", [doctorController::class, 'addNote'])->name("addnote");
 
 
 
-Route::middleware('auth')
-    ->get('rend/{patient}', [PatientController::class, 'show'])
-    ->name('doctor.patient.show');
 
 
 Route::post('/doctorDashBoard', [dashboardcontroller::class, 'uploadPic'])->name('uploadpic');
