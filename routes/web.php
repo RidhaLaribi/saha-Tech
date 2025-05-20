@@ -13,7 +13,6 @@ use App\Http\Controllers\doctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\UserManagementController;
-
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 
@@ -103,11 +102,6 @@ Route::middleware(['auth'])
     ])->name('rend');
 
 
-Route::middleware(['auth'])
-    ->get('/rendconfirme', [
-        dashboardcontroller::class,
-        'indexconfirme'
-    ])->name('rendconfirme');
 
 Route::middleware(['auth'])
     ->patch(
@@ -117,7 +111,6 @@ Route::middleware(['auth'])
     ->name('doctor.appointments.update');
 
 
-Route::get('/rendconfirme/search', [dashboardController::class, 'search'])->name('laboratoires.search');
 
 
 
@@ -238,3 +231,24 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/search-doctors', [DoctorController::class, 'search'])->name('doctors.search');
+
+
+
+Route::middleware(['auth'])->get('/rendconfirme', [
+    dashboardController::class,
+    'indexconfirme'
+])->name('rendconfirme');
+
+Route::middleware(['auth'])->get('/rendconfirme/search-form', [
+    dashboardController::class,
+    'showSearch'
+])->name('rendconfirme.searchform');
+
+
+
+Route::get('/rendconfirme/search', [dashboardController::class, 'search'])->name('laboratoires.search');
+
+Route::post('/labo', [dashboardController::class, 'book'])->name('appointments.storelab');
+
+
+

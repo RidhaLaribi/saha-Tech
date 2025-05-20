@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News Dashboard</title>
+    <title>Doctor Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/stylesNews.css">
     <script src="News.js" defer></script>
@@ -24,19 +24,19 @@
 
 <body>
 
-  
+
     <x-admin-sidebar/>
 
-    
+
     <div class="main-content">
         <div class="admin-header d-flex justify-content-between align-items-center p-3">
             <!-- Logo and University Name Section -->
             <div class="brand d-flex align-items-center">
-                
-                   
+
+
                 <div class="university-name">
                     <h4 class="mb-0 fw-bold">Doctor dashboard</h4>
-                    
+
                 </div>
             </div>
             <div class="actions d-flex align-items-center gap-4">
@@ -52,7 +52,7 @@
                 style="width:60px; height:60px; object-fit: cover; cursor: pointer;border: 2px solid black;"
                 onclick="document.getElementById('accountSidebar').classList.toggle('active')"
               />
-        
+
 
       {{-- <div>
       <a href="{{ route('notifications.test') }}" class="btn btn-sm btn-outline-primary">
@@ -65,7 +65,7 @@
         <x-account-sidebar :user="Auth::user()"/>
 
 
-        
+
         <div class="container-fluid py-4">
             <!-- News Management Header -->
             <div class="news-management-header d-flex justify-content-between align-items-center">

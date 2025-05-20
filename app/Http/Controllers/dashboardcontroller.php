@@ -177,12 +177,26 @@ class DashboardController extends Controller
             )
             ->get();
 
+
+
+
+            $taken = Rendezvous::where('status', 'Confirmé')
+                ->get()
+                ->groupBy('doctor_id')
+                ->map(function ($group) {
+                    return $group->pluck('rendezvous')
+                        ->map(fn($dt) => $dt->format('Y-m-d H:i:00'))
+                        ->all();
+                });
+
         // 6) Render view with both lists
         return view('confirmérendesvous', [
             'appointments' => $appointments,
             'search'       => $patientSearch,
             'laboratoires' => $laboratoires,
             'labo_search'  => $laboSearch,
+            'takenSlots' => $taken,
+
         ]);
     }
 
@@ -249,6 +263,44 @@ class DashboardController extends Controller
 
         return back()->with('success', 'Profile picture updated!');
     }
+
+
+
+
+    public function book(Request $request)
+    {
+        $data = $request->validate([
+            'doctor_id' => 'required|exists:doctors,id',
+            'scheduled_at' => 'required',
+            'type' => 'required|string',
+            'pid' => 'nullable|string',
+            'tel' => 'nullable|string'
+        ]);
+
+        $datetimeString = $data['scheduled_at']; // e.g., "2025-05-10 14:00:00,2025-05-10 15:30:00"
+
+        $datetimeArray = array_filter(array_map('trim', explode(',', $datetimeString)));
+
+
+        // Optional: loop and save each appointment
+        if ($request->pid) {
+            foreach ($datetimeArray as $datetime) {
+
+                Rendezvous::create([
+                    'patient_id' => $data['pid'],
+                    'doctor_id' => $data['doctor_id'],
+                    'rendezvous' => $datetime,
+                    'type' => $data['type'],
+                ]);
+            }
+
+        }
+
+        return redirect()->back()
+            ->with('success', 'Ton rendez-vous a bien été enregistré !');
+    }
+
+
 
 
 

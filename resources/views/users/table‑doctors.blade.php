@@ -6,9 +6,10 @@
         <th>#</th>
         <th>Avatar &amp; Nom</th>
         <th>Email</th>
-        <th>Téléphone</th>
-        <th>Spécialité</th>
-       
+        <th>number</th>
+        <th>speciality</th>
+        <th>type</th>
+
         <th>Actions</th>
       </tr>
     </thead>
@@ -32,6 +33,7 @@
 
           {{-- Specialty --}}
           <td>{{ $doctor?->doctor?->specialty }}</td>
+          <td>{{ $doctor?->doctor?->type }}</td>
 
           <td>
             <button class="btn btn-sm btn-outline-primary me-1"

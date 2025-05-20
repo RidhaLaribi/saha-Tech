@@ -31,7 +31,7 @@
 
 
         <!-- Profile Circle -->
-        <img src="{{ asset('storage/' . (Auth::user()->doctor->pic ?? 'defaults/avatar.png')) }}" alt="Profile"
+        <img src="{{ asset('storage/' . (Auth::user()->doctor->pic ?? 'image.png')) }}" alt="Profile"
           class="profile-circle rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
           style="width:60px; height:60px; object-fit: cover; cursor: pointer;border: 2px solid black;"
           onclick="document.getElementById('accountSidebar').classList.toggle('active')" />

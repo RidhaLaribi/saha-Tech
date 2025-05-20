@@ -185,9 +185,7 @@ public function destroydoc(Doctor $doctor): RedirectResponse
 {
     // 1) Grab the related user
     $user = $doctor->user;
-    if (! $user) {
-        abort(404, 'Utilisateur lié introuvable.');
-    }
+    
 
     // 2) Delete the doctor row
     $doctor->delete();

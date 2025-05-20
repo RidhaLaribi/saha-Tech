@@ -60,9 +60,9 @@
             <select name="type" class="form-select">
               <option value="" {{ empty($type) ? 'selected' : '' }}>All Roles</option>
               <option value="admin" {{ ($type ?? '') == 'admin' ? 'selected' : '' }}>Admin</option>
-              <option value="doctor" {{ ($type ?? '') == 'doctor' ? 'selected' : '' }}>Doctor</option>
+              <option value="doctor"{{ ($type ?? '') == 'doctor'? 'selected' : '' }}>praticien</option>
               <option value="patient" {{ ($type ?? '') == 'patient' ? 'selected' : '' }}>Patient</option>
-              <option value="lab" {{ ($type ?? '') == 'lab' ? 'selected' : '' }}>Lab</option>
+
             </select>
           </div>
 
@@ -321,7 +321,7 @@
     @endunless
 
         @unless($doctors->isEmpty())
-      <h4 class="mt-4">Doctors</h4>
+      <h4 class="mt-4">praticien</h4>
       @include('users.table‑doctors', ['doctors' => $doctors])
     @endunless
 

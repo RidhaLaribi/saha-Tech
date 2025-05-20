@@ -16,7 +16,7 @@
       <div class="actions d-flex align-items-center gap-3">
         <x-notifications-dropdown/>
         <img
-          src="{{ asset('storage/' . (Auth::user()->doctor->pic ?? 'defaults/avatar.png')) }}"
+          src="{{ asset('storage/' . (Auth::user()->doctor->pic ?? 'image.png')) }}"
           alt="Profile"
           class="rounded-circle"
           style="width:50px; height:50px; object-fit:cover; cursor:pointer;"
@@ -102,15 +102,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
- 
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const months        = @json($months);
       const apptTotals    = @json($apptTotals);
       const patientTotals = @json($patientTotals);
       const doctorTotals  = @json($doctorTotals);
-    
-      // — Line chart: Appointments, New Patients, New Doctors — 
+
+      // — Line chart: Appointments, New Patients, New Doctors —
       new Chart(
         document.getElementById('rendezvousChart').getContext('2d'),
         {
@@ -161,8 +161,8 @@
           },
         }
       );
-    
-      // — Pie chart: Appointment statuses — 
+
+      // — Pie chart: Appointment statuses —
       new Chart(
         document.getElementById('rendezvousPieChart').getContext('2d'),
         {
@@ -183,6 +183,6 @@
       );
     });
     </script>
-    
+
 </body>
 </html>
