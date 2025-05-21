@@ -574,7 +574,7 @@
     <div class="navbar__brand">
       <a href="{{ route("home") }}">
 
-        <i class="fas fa-hospital"></i> HeyDoc
+        <i class="bi-back"></i> HeyDoc
     </div>
     </a>
     <div class="navbar__actions">
@@ -630,7 +630,7 @@
       </div>
 
       <div class="search-bar__group">
-        <label for="locationInput">Localisation</label>
+        <label for="locationInput">Location</label>
         <div class="location-wrapper">
           <input type="text" id="locationInput" placeholder="Ville ou wilaya" />
           <button id="getLocationBtn" title="Obtenir ma position"><i class="fas fa-location-arrow"></i></button>
@@ -639,11 +639,11 @@
 
       <div class="search-bar__group" style="flex-direction: row; align-items: flex-end; gap: 0.5rem; min-width: unset;">
         <div style="display: flex; flex-direction: column;">
-          <label for="nameInput">Nom du médecin</label>
+          <label for="nameInput">Doctor's name</label>
           <input type="text" id="nameInput" placeholder="3 lettres minimum" minlength="3" />
         </div>
         <div style="display: flex; flex-direction: column;">
-          <label for="availabilityToggle">Mobile</label>
+          <label for="availabilityToggle">at Home</label>
           <label class="toggle-switch">
             <input type="checkbox" id="availabilityToggle">
             <span class="slider"></span>
@@ -654,7 +654,7 @@
       <div class="search-bar__group">
         <label>&nbsp;</label>
         <button class="search-bar__button" id="searchBtn">
-          <i class="fas fa-search"></i> Rechercher
+          <i class="fas fa-search"></i> Search
         </button>
       </div>
     </div>
@@ -710,12 +710,12 @@
       data-doctor-name="{{ $doctor->user->name }}" data-doctor-specialty="{{ $doctor->specialty }}"
       data-doctor-price="{{ $doctor->price }}"
       data-doctor-image="{{ asset('storage/' . ($doctor->pic ?? 'image.png')) }}">
-      <i class="fas fa-calendar-plus"></i> Prendre Rendez-vous
+      <i class="fas fa-calendar-plus"></i> Book
       </button>
       </div>
       </div>
     @empty
-      <div class="no-results">Aucun médecin disponible actuellement</div>
+      <div class="no-results">No doctors available at the moment</div>
     @endforelse
     @else
       <div class="no-results">Erreur de chargement des données</div>
@@ -738,8 +738,8 @@
           <div class="popup-info">
             <img id="modalDoctorImage" class="avatar" src="" alt="Photo du médecin">
             <div class="info-text">
-              <h3 id="modalDoctorName">Dr. Nom Prénom</h3>
-              <p><i class="fas fa-stethoscope"></i> <span id="modalDoctorSpecialty">Spécialité</span></p>
+              <h3 id="modalDoctorName">Dr. Full name</h3>
+              <p><i class="fas fa-stethoscope"></i> <span id="modalDoctorSpecialty">Speciality</span></p>
               <p><i class="fas fa-map-marker-alt"></i> {{ $doctor->location ?? 'Lieu' }}</p>
               <p><strong><span id="modalDoctorPrice">0</span> DA</strong></p>
             </div>
@@ -854,7 +854,7 @@
         </select>
         </div>
       @endif
-          <button type="submit" class="appointment-btn"><i class="fas fa-calendar-check"></i>Confirmer </button>
+          <button type="submit" class="appointment-btn"><i class="fas fa-calendar-check"></i>Confirm </button>
         </div>
       </form>
     </div>

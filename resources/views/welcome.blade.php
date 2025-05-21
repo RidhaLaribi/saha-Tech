@@ -139,9 +139,7 @@
                             <a class="nav-link click-scroll" href="#section_3">How it works</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_4">FAQs</a>
-                        </li>
+
 
 
                     </ul>
@@ -151,14 +149,14 @@
                         <!-- Fixed: ID syntax and class attribute -->
                         <a href="{{ url('/loginp') }}" id="smoothLoginButton" class="praticien-link"
                             style="
-                                                                                                                                                                                                                                                                                                                                                                                    margin-right: 20px;
-                                                                                                                                                                                                                                                                                                                                                                                    color: white;
-                                                                                                                                                                                                                                                                                                                                                                                    font-family: 'Montserrat', sans-serif;
-                                                                                                                                                                                                                                                                                                                                                                                    font-size: 14px;
-                                                                                                                                                                                                                                                                                                                                                                                    font-weight: 600;
-                                                                                                                                                                                                                                                                                                                                                                                    text-decoration: none;
-                                                                                                                                                                                                                                                                                                                                                                                    transition: color 0.3s ease;
-                                                                                                                                                                                                                                                                                                                                                                                    "
+                                                                                                                                                                                                                                                                                                                                                                                                                margin-right: 20px;
+                                                                                                                                                                                                                                                                                                                                                                                                                color: white;
+                                                                                                                                                                                                                                                                                                                                                                                                                font-family: 'Montserrat', sans-serif;
+                                                                                                                                                                                                                                                                                                                                                                                                                font-size: 14px;
+                                                                                                                                                                                                                                                                                                                                                                                                                font-weight: 600;
+                                                                                                                                                                                                                                                                                                                                                                                                                text-decoration: none;
+                                                                                                                                                                                                                                                                                                                                                                                                                transition: color 0.3s ease;
+                                                                                                                                                                                                                                                                                                                                                                                                                "
                             onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#002b3a';">
                             You are a practitioner!
                         </a>
@@ -410,7 +408,7 @@
                             {{-- Doctor Name --}}
                             <div class="tm-search-group me-3 mb-3 flex-grow-1">
                                 <input type="text" name="name" class="form-control tm-form-control"
-                                    placeholder="Nom du médecin…" autocomplete="off" value="{{ request('name') }}">
+                                    placeholder="doctor name…" autocomplete="off" value="{{ request('name') }}">
                             </div>
 
 
@@ -419,7 +417,7 @@
                                 <select id="specialite" name="specialty" placeholder="Spécialité médicale"
                                     class="form-control @error('specialite') is-invalid @enderror">
                                     <!-- Toutes les options, marquées par data-type -->
-                                    <option value="" disabled {{ old('specialty') ? '' : 'selected' }}>select your
+                                    <option value="" disabled {{ old('specialty') ? '' : 'selected' }}>
                                         speciality</option>
                                     <option value="generali" data-type="doctor" {{ old('specialite') == 'generaliste' ? 'selected' : '' }}>
                                         Médecin généraliste 🩺</option>
@@ -464,7 +462,7 @@
                             {{-- Location --}}
                             <div class="tm-search-group me-3 mb-3 flex-grow-1">
                                 <input type="text" name="location" class="form-control tm-form-control"
-                                    placeholder="Localisation…" value="{{ request('location') }}">
+                                    placeholder="Location..." value="{{ request('location') }}">
                             </div>
 
 
@@ -727,7 +725,7 @@
 
                 <div class="col-lg-3 col-12 mb-4 pb-2">
                     <a class="navbar-brand mb-2" href="index.html">
-                        <i class="bi-back"></i>
+                        <i class="fas fa-hospital"></i>
                         <span>HeyDoc</span>
                     </a>
                 </div>
