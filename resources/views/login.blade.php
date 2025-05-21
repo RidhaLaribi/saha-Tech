@@ -14,7 +14,7 @@
     <!-- Left hero section -->
     <div class="hero-section">
       <i class="fas fa-heartbeat"></i>
-      <h1>Patient Portal</h1>
+      <h1>User Portal</h1>
       <p>Log in and access your care</p>
     </div>
 
@@ -47,7 +47,7 @@
         <button type="submit">connect</button>
         <div class="switch-form">
           youu got no account?
-          <a id="showSignUp">Create accompte</a>
+          <a id="showSignUp">Create patient account</a>
         </div>
         @if ($errors->any())
         <div class="alert alert-danger">
@@ -74,7 +74,7 @@
         <div class="form-grid">
           <!-- Full name -->
           <div class="input-group">
-            <input type="text" name="name" placeholder="full name" required />
+            <input type="text" name="name" placeholder="full name" autocomplete="none" required />
           </div>
 
           <!-- Age -->

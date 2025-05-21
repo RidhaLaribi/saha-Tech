@@ -748,7 +748,7 @@ $alreadyRated = \App\Models\AvisMedecin::where('avis', $appt->id)->exists();
                                                     <div>
                                                         <h5 class="mb-2">Medical Appointments</h5>
 
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                        <p class="mb-0">click to see your appointment list</p>
                                                     </div>
 
                                                 </div>
@@ -863,7 +863,7 @@ $alreadyRated = \App\Models\AvisMedecin::where('avis', $appt->id)->exists();
                                                     <div>
                                                         <h5 class="mb-2">Files</h5>
 
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur</p>
+                                                        <p class="mb-0">click to upload your files</p>
                                                     </div>
 
 
@@ -988,7 +988,7 @@ $alreadyRated = \App\Models\AvisMedecin::where('avis', $appt->id)->exists();
                                                     <div>
                                                         <h5 class="mb-2">Notes</h5>
 
-                                                        <p class="mb-0">Lorem Ipsum dolor sit amet consectetur
+                                                        <p class="mb-0">comment lists
                                                         </p>
                                                     </div>
 

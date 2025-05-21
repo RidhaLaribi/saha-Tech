@@ -376,7 +376,7 @@
       <div class="form-grid">
         <div class="input-group">
         <input type="text" class="form-control @error('enum') is-invalid @enderror" name="enum"
-          placeholder="doctor_ref" required>
+          placeholder="doctor_code" required>
         @error('enum')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
 

@@ -71,7 +71,8 @@ class resController extends Controller
         } else
             session(['modifying' => true]); // store in session
 
-        return redirect()->back(); // go back to the same page
+        return redirect()->back()->with('success', 'you are in modification mode !');
+        ; // go back to the same page
     }
 
     public function upload(Request $request)
