@@ -5,6 +5,9 @@ use App\Models\Patient;
 use App\Models\Rendezvous;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\SomeNotification;
+use App\Models\Doctor;
+
 
 class PatientController extends Controller
 {
@@ -19,46 +22,51 @@ class PatientController extends Controller
     }
 
 
+
+
+
     public function book(Request $request)
     {
+        // 1) Validate incoming data
         $data = $request->validate([
-            'doctor_id' => 'required|exists:doctors,id',
-            'scheduled_at' => 'required',
-            'type' => 'required|string',
-            'pid' => 'nullable|string',
-            'tel' => 'nullable|string'
+            'doctor_id'    => 'required|exists:doctors,id',
+            'scheduled_at' => 'required|string',
+            'type'         => 'required|string',
+            'pid'          => 'nullable|integer',
+            'tel'          => 'nullable|string',
         ]);
 
-        $datetimeString = $data['scheduled_at']; // e.g., "2025-05-10 14:00:00,2025-05-10 15:30:00"
+        // 2) Build an array of datetimes
+        $datetimeArray = array_filter(
+            array_map('trim', explode(',', $data['scheduled_at']))
+        );
 
-        $datetimeArray = array_filter(array_map('trim', explode(',', $datetimeString)));
+        // 3) Determine patient identifier
+        $patientValue = $data['pid'] ?? $data['tel'];
 
-
-        // Optional: loop and save each appointment
-        if ($request->pid) {
-            foreach ($datetimeArray as $datetime) {
-
-                Rendezvous::create([
-                    'patient_id' => $data['pid'],
-                    'doctor_id' => $data['doctor_id'],
-                    'rendezvous' => $datetime,
-                    'type' => $data['type'],
-                ]);
-            }
-        } else {
-            foreach ($datetimeArray as $datetime) {
-
-                Rendezvous::create([
-                    'patient_id' => $data['tel'],
-                    'doctor_id' => $data['doctor_id'],
-                    'rendezvous' => $datetime,
-                    'type' => $data['type'],
-                ]);
-            }
+        // 4) Create all rendez-vous records
+        $createdAppointments = [];
+        foreach ($datetimeArray as $datetime) {
+            $createdAppointments[] = Rendezvous::create([
+                'patient_id' => $patientValue,
+                'doctor_id'  => $data['doctor_id'],
+                'rendezvous' => $datetime,
+                'type'       => $data['type'],
+            ]);
         }
 
-        return redirect()->back()
-            ->with('success', 'Ton rendez-vous a bien été enregistré !');
+        // 5) Load the doctor’s user and send the notification
+        $doctor = Doctor::findOrFail($data['doctor_id']);
+        $user   = $doctor->user; // assumes Doctor model has a `user()` relation
+
+        $user->notify(new SomeNotification([
+            'message' => 'You have new appointment request(s).',
+            'url'     => route('rend'),
+        ]));
+
+        // 6) Redirect back with success
+        return back()->with('success', 'Ton rendez-vous a bien été enregistré !');
     }
+
 
 }

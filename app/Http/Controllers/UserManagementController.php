@@ -158,15 +158,15 @@ class UserManagementController extends Controller
             });
         }
 
-        // 5) eager‑load relationships needed for each role
-        $admins = (clone $users)->where('role', 'admin')->get();
-        $patients = (clone $users)->where('role', 'patient')->with('patient')->get();
-        $doctors = (clone $users)->where('role', 'doctor')->with('doctor')->get();
-        $labs = (clone $users)->where('role', 'lab')->with('lab')->get();
+    // 5) eager‑load relationships needed for each role
+    $admins   = (clone $users)->where('role','admin')->get();
+    $patients = (clone $users)->where('role','patient')->with('patient')->get();
+    $doctors  = (clone $users)->where('role','doctor')->with('doctor')->get();
 
-        // 6) return view with filtered collections
-        return view('adminusers', compact('admins', 'patients', 'doctors', 'labs', 'type', 'query'));
-    }
+
+    // 6) return view with filtered collections
+    return view('adminusers', compact('admins','patients','doctors','type','query'));
+}
 
     public function destroy(Patient $patient): RedirectResponse
     {
@@ -185,6 +185,7 @@ class UserManagementController extends Controller
                 'Le patient et son compte utilisateur ont été supprimés.'
             );
     }
+
 
     public function destroydoc(Doctor $doctor): RedirectResponse
     {
