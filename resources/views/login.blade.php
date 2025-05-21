@@ -74,12 +74,12 @@
         <div class="form-grid">
           <!-- Full name -->
           <div class="input-group">
-            <input type="text" name="name" placeholder="Nom complet" required />
+            <input type="text" name="name" placeholder="full name" required />
           </div>
 
           <!-- Age -->
           <div class="input-group">
-            <input type="number" name="age" placeholder="Âge" min="0" required />
+            <input type="number" name="age" placeholder="age" min="0" required />
           </div>
 
           <!-- Sexe -->
@@ -93,7 +93,7 @@
 
           <!-- Telephone -->
           <div class="input-group">
-            <input type="tel" name="telephone" placeholder="Téléphone (10 chiffres)" pattern="[0-9]{10}" required />
+            <input type="tel" name="telephone" placeholder="phone-number (10 chiffres)" pattern="[0-9]{10}" required />
           </div>
 
           <!-- Email -->
@@ -103,7 +103,7 @@
 
           <!-- Password -->
           <div class="input-group" style="grid-column: span 2;">
-            <input type="password" name="password" placeholder="Mot de passe" required />
+            <input type="password" name="password" placeholder="Password" required />
             <i class="fas fa-eye toggle-password"></i>
           </div>
         </div>
