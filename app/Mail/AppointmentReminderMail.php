@@ -30,7 +30,7 @@ class AppointmentReminderMail extends Mailable
 
         foreach ($this->notifications as $appt) {
             $date = Carbon::parse($appt->rendezvous)->format('d M Y, H:i');
-            $doctor = $appt->doctor->name ?? 'your doctor';
+            $doctor = $appt->doctor->user->name;
             $body .= "<li>{$date} — Dr. {$doctor}</li>";
         }
 

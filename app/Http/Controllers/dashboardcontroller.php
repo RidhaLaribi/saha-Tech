@@ -312,7 +312,6 @@ class DashboardController extends Controller
             'pid' => 'nullable|string',
             'tel' => 'nullable|string'
         ]);
-        return $request->pid;
 
         $datetimeString = $data['scheduled_at']; // e.g., "2025-05-10 14:00:00,2025-05-10 15:30:00"
 

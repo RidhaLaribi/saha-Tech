@@ -4,6 +4,7 @@ use App\Http\Controllers\authController;
 use App\Http\Controllers\resController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\docController;
+use App\Models\doctor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MyController;
@@ -20,7 +21,8 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 
 Route::get('/', function () {
     // return Auth::user();
-    return view('welcome')->with("id", Auth::user());
+    $doctors = doctor::where('rating', '>', 4)->get();
+    return view('welcome')->with("id", Auth::user())->with('doctors', $doctors);
 })->name('home');
 
 Route::get('/login', function () {
