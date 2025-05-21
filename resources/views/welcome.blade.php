@@ -151,14 +151,14 @@
                         <!-- Fixed: ID syntax and class attribute -->
                         <a href="{{ url('/loginp') }}" id="smoothLoginButton" class="praticien-link"
                             style="
-                                                                                                                                                                                                                                                                                    margin-right: 20px;
-                                                                                                                                                                                                                                                                                    color: white;
-                                                                                                                                                                                                                                                                                    font-family: 'Montserrat', sans-serif;
-                                                                                                                                                                                                                                                                                    font-size: 14px;
-                                                                                                                                                                                                                                                                                    font-weight: 600;
-                                                                                                                                                                                                                                                                                    text-decoration: none;
-                                                                                                                                                                                                                                                                                    transition: color 0.3s ease;
-                                                                                                                                                                                                                                                                                    "
+                                                                                                                                                                                                                                                                                                                                                            margin-right: 20px;
+                                                                                                                                                                                                                                                                                                                                                            color: white;
+                                                                                                                                                                                                                                                                                                                                                            font-family: 'Montserrat', sans-serif;
+                                                                                                                                                                                                                                                                                                                                                            font-size: 14px;
+                                                                                                                                                                                                                                                                                                                                                            font-weight: 600;
+                                                                                                                                                                                                                                                                                                                                                            text-decoration: none;
+                                                                                                                                                                                                                                                                                                                                                            transition: color 0.3s ease;
+                                                                                                                                                                                                                                                                                                                                                            "
                             onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#002b3a';">
                             Vous êtes praticien !
                         </a>
@@ -562,173 +562,83 @@
 
 
                         </div>
+                        {{-- <div class="owl-carousel-info-wrap item">
+                            <img src="images/profile/young-doctor-getting-ready-work.jpg"
+                                class="owl-carousel-image img-fluid" alt="">
 
-                        <div class="owl-carousel owl-theme">
-                            <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/young-doctor-getting-ready-work.jpg"
-                                    class="owl-carousel-image img-fluid" alt="">
+                            <div class="owl-carousel-info">
+                                <h4 class="mb-2">
+                                    Candice
 
-                                <div class="owl-carousel-info">
-                                    <h4 class="mb-2">
-                                        Candice
+                                </h4>
 
-                                    </h4>
+                                <span class="badge">Storytelling</span>
 
-                                    <span class="badge">Storytelling</span>
-
-                                    <span class="badge">Business</span>
-                                </div>
-
-                                <div class="social-share">
-                                    <ul class="social-icon">
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-twitter"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-facebook"></a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <span class="badge">Business</span>
                             </div>
 
-                            <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/beautiful-young-female-doctor-looking-camera-office.jpg"
-                                    class="owl-carousel-image img-fluid" alt="">
+                            <div class="social-share">
+                                <ul class="social-icon">
+                                    <li class="social-icon-item">
+                                        <a href="#" class="social-icon-link bi-twitter"></a>
+                                    </li>
 
-                                <div class="owl-carousel-info">
-                                    <h4 class="mb-2">
-                                        William
-
-                                    </h4>
-
-                                    <span class="badge">Creative</span>
-
-                                    <span class="badge">Design</span>
-                                </div>
-
-                                <div class="social-share">
-                                    <ul class="social-icon">
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-twitter"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-facebook"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-pinterest"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/close-up-health-worker.jpg"
-                                    class="owl-carousel-image img-fluid" alt="">
-
-                                <div class="owl-carousel-info">
-                                    <h4 class="mb-2">Taylor</h4>
-
-                                    <span class="badge">Modeling</span>
-
-                                    <span class="badge">Fashion</span>
-                                </div>
-
-                                <div class="social-share">
-                                    <ul class="social-icon">
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-twitter"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-facebook"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-pinterest"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/doctor-preparing-consult.jpg"
-                                    class="owl-carousel-image img-fluid" alt="">
-
-                                <div class="owl-carousel-info">
-                                    <h4 class="mb-2">Nick</h4>
-
-                                    <span class="badge">Acting</span>
-                                </div>
-
-                                <div class="social-share">
-                                    <ul class="social-icon">
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-instagram"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-youtube"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/doctor-presenting-something-isolated-white-background.jpg"
-                                    class="owl-carousel-image img-fluid" alt="">
-
-                                <div class="owl-carousel-info">
-                                    <h4 class="mb-2">
-                                        Elsa
-
-                                    </h4>
-
-                                    <span class="badge">Influencer</span>
-                                </div>
-
-                                <div class="social-share">
-                                    <ul class="social-icon">
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-instagram"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-youtube"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="owl-carousel-info-wrap item">
-                                <img src="images/profile/portrait-hansome-young-male-doctor-man.jpg"
-                                    class="owl-carousel-image img-fluid" alt="">
-
-                                <div class="owl-carousel-info">
-                                    <h4 class="mb-2">Chan</h4>
-
-                                    <span class="badge">Education</span>
-                                </div>
-
-                                <div class="social-share">
-                                    <ul class="social-icon">
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-linkedin"></a>
-                                        </li>
-
-                                        <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-whatsapp"></a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                    <li class="social-icon-item">
+                                        <a href="#" class="social-icon-link bi-facebook"></a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                    </div>
 
+                        <div class="owl-carousel-info-wrap item">
+                            <img src="images/profile/beautiful-young-female-doctor-looking-camera-office.jpg"
+                                class="owl-carousel-image img-fluid" alt="">
+                            --}}
+                            <div class="owl-carousel owl-theme">
+
+                                @foreach ($doctors as $i => $d)
+                                    <div class="owl-carousel-info-wrap item">
+
+                                        @if ($i == 1)
+
+                                            <img src="images/profile/young-doctor-getting-ready-work.jpg"
+                                                class="owl-carousel-image img-fluid" alt="">
+                                        @else
+                                            <img src="storage/image.png" class="owl-carousel-image img-fluid" alt="">
+
+                                        @endif
+                                        <div class="owl-carousel-info">
+                                            <h4 class="mb-2">{{ $d?->user?->name }}</h4>
+
+                                            <span class="badge">{{ $d->type }}</span>
+
+                                            <span class="badge">{{$d->specialty}}</span>
+                                        </div>
+
+                                        {{-- <div class="social-share">
+                                            <ul class="social-icon">
+                                                <li class="social-icon-item">
+                                                    <a href="#" class="social-icon-link bi-twitter"></a>
+                                                </li>
+
+                                                <li class="social-icon-item">
+                                                    <a href="#" class="social-icon-link bi-facebook"></a>
+                                                </li>
+
+                                                <li class="social-icon-item">
+                                                    <a href="#" class="social-icon-link bi-pinterest"></a>
+                                                </li>
+                                            </ul>
+                                        </div> --}}
+                                    </div>
+                                @endforeach
+
+
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
         </section>
 
 
@@ -895,7 +805,7 @@
                 items: 3.75,        // Number of items visible at once
                 loop: true,      // Infinite loop
                 margin: 20,      // Space between items
-                nav: true,       // Show nav arrows
+                nav: false,       // Show nav arrows
                 dots: true,      // Show dot indicators
                 autoplay: true,
                 autoplayTimeout: 3000, // Or true if you want autoplay

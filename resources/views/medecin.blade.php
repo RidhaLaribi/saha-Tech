@@ -589,7 +589,7 @@
         <select id="specialtySelect">
           <option value="" disabled selected>Choisissez une spécialité</option>
           <option value="">all</option>
-          <option value="generali" data-type="doctor" {{ old('specialite') == 'generaliste' ? 'selected' : '' }}>
+          <option value="génér" data-type="doctor" {{ old('specialite') == 'generaliste' ? 'selected' : '' }}>
             Médecin généraliste 🩺</option>
           <option value="car" data-type="doctor">
             Cardiologue ❤️</option>

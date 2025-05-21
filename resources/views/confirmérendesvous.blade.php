@@ -11,30 +11,35 @@
 
 
   <style>
-.modal-dialog.modal-wide {
-  max-width: 90vw;     /* or 80vw, or a fixed px like 1000px */
-  margin: 1.75rem auto; /* keep vertical centering */
-}
+    .modal-dialog.modal-wide {
+      max-width: 90vw;
+      /* or 80vw, or a fixed px like 1000px */
+      margin: 1.75rem auto;
+      /* keep vertical centering */
+    }
+  </style>
 
-</style>
 
-
- <style>
+  <style>
     .modal-overlay {
-    position: fixed;
-    top: 0; right: 0; bottom: 0; left: 0;
-    background: rgba(0,0,0,0.4);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
-  }
-  .modal-overlay.active {
-    display: flex;
-  }
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
 
     .booking-popup {
-        z-index: 2001;
+      z-index: 2001;
       height: 500px;
 
       background: #fff;
@@ -47,11 +52,13 @@
       display: flex;
       flex-direction: column;
     }
-.popup-footer textarea {
-  position: relative;
-  z-index: 2002;
-  height: 3rem;
-}
+
+    .popup-footer textarea {
+      position: relative;
+      z-index: 2002;
+      height: 3rem;
+    }
+
     .close-btn {
       position: absolute;
       top: 1rem;
@@ -170,62 +177,62 @@
       cursor: pointer;
     }
   </style>
-   <style>
-              /* Custom styled checkbox */
-              .custom-checkbox {
-                display: inline-flex;
-                align-items: center;
-                cursor: pointer;
-                user-select: none;
-                gap: 0.5rem;
-              }
+  <style>
+    /* Custom styled checkbox */
+    .custom-checkbox {
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      gap: 0.5rem;
+    }
 
-              .custom-checkbox input {
-                position: absolute;
-                opacity: 0;
-                pointer-events: none;
-              }
+    .custom-checkbox input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
 
-              .custom-checkbox .box {
-                width: 1.25rem;
-                height: 1.25rem;
-                border: 2px solid var(--primary-color);
-                border-radius: 0.25rem;
-                background: var(--white-color);
-                transition: background 0.2s, border-color 0.2s;
-                display: grid;
-                place-items: center;
-              }
+    .custom-checkbox .box {
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 2px solid var(--primary-color);
+      border-radius: 0.25rem;
+      background: var(--white-color);
+      transition: background 0.2s, border-color 0.2s;
+      display: grid;
+      place-items: center;
+    }
 
-              .custom-checkbox .box::before {
-                content: '';
-                width: 0.5rem;
-                height: 0.9rem;
-                border-right: 2px solid transparent;
-                border-bottom: 2px solid transparent;
-                transform: rotate(45deg) scale(0);
-                transition: transform 0.1s ease-in-out;
-              }
+    .custom-checkbox .box::before {
+      content: '';
+      width: 0.5rem;
+      height: 0.9rem;
+      border-right: 2px solid transparent;
+      border-bottom: 2px solid transparent;
+      transform: rotate(45deg) scale(0);
+      transition: transform 0.1s ease-in-out;
+    }
 
-              .custom-checkbox input:checked+.box {
-                background: var(--primary-color);
-                border-color: var(--primary-color);
-              }
+    .custom-checkbox input:checked+.box {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+    }
 
-              .custom-checkbox input:checked+.box::before {
-                border-color: var(--white-color);
-                transform: rotate(45deg) scale(1);
-              }
+    .custom-checkbox input:checked+.box::before {
+      border-color: var(--white-color);
+      transform: rotate(45deg) scale(1);
+    }
 
-              .custom-checkbox .label-text {
-                font-size: 0.9rem;
-                color: var(--dark-color);
-              }
-              .popup-footer textarea {
-  pointer-events: auto !important;
-}
+    .custom-checkbox .label-text {
+      font-size: 0.9rem;
+      color: var(--dark-color);
+    }
 
-            </style>
+    .popup-footer textarea {
+      pointer-events: auto !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -277,22 +284,18 @@
       <div class="container">
 
         {{-- Filters --}}
-       <form method="GET" action="{{ route('rendconfirme') }}" class="row g-3 mb-4">
-  <div class="col-md-10">
-    <input
-      type="text"
-      name="patient_search"
-      value="{{ old('search',$search) }}"
-      class="form-control"
-      placeholder="Search patient name…">
-  </div>
+        <form method="GET" action="{{ route('rendconfirme') }}" class="row g-3 mb-4">
+          <div class="col-md-10">
+            <input type="text" name="patient_search" value="{{ old('search', $search) }}" class="form-control"
+              placeholder="Search patient name…">
+          </div>
 
-  <div class="col-md-2">
-    <button class="btn btn-primary w-100">
-      <i class="fas fa-filter me-1"></i> Filter
-    </button>
-  </div>
-</form>
+          <div class="col-md-2">
+            <button class="btn btn-primary w-100">
+              <i class="fas fa-filter me-1"></i> Filter
+            </button>
+          </div>
+        </form>
 
         {{-- Table --}}
         <div class="table-responsive">
@@ -312,9 +315,9 @@
             <tr>
             <td>{{ $apt?->id }}</td>
             <td class="d-flex align-items-center">
-              <img src="{{ asset('storage/' . ($apt?->patient?->pic?? 'image.png')) }}" class="rounded-circle me-2" width="50"
+              <img src="{{ asset('storage/' . ($apt->patient->pic?? 'image.png')) }}" class="rounded-circle me-2" width="50"
               height="50" alt="Avatar">
-              {{ ($apt?->patient?->name ?? '0'.$apt?->patient_id) }}
+              {{ $apt->patient->name }}
             </td>
             <td>{{ $apt?->rendezvous->format('d M Y, H:i') }}</td>
             <td>{{ $apt?->type }}</td>
@@ -332,175 +335,171 @@
               </span>
             </td>
             <td>
-                <a title="take an appointement to laboratoire" type="button"
-                class="btn btn-primary "
-                data-bs-toggle="modal"
-                data-bs-target="#laboModal">
-                <i class="fas fa-flask"></i>
-                </a>
+              <a id="tk" title="take an appointment to laboratoire" type="button" class="btn btn-primary"
+              data-bs-toggle="modal" data-bs-target="#laboModal" data-patient-id="{{ $apt->patient->id }}">
+              <i class="fas fa-flask"></i>
+              </a>
 
 
 
-{{-- 2) Single Modal --}}
-<div class="modal fade" id="laboModal" tabindex="-1" aria-labelledby="laboModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-wide modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="laboModalLabel">
-          laboratoire list
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
-      </div>
-      <div class="modal-body">
-                <form method="GET" action="{{ route('rendconfirme') }}" class="mb-3 d-flex">
-            <input
-                type="text"
-                name="labo_search"
-                class="form-control me-2"
-                placeholder="Rechercher un laboratoire…"
-                value="{{ old('labo_search',$labo_search) }}">
-            <button type="submit" class="btn btn-outline-primary">
-                <i class="fas fa-search"></i>
-            </button>
-            </form>
+              {{-- 2) Single Modal --}}
+              <div class="modal fade" id="laboModal" tabindex="-1" aria-labelledby="laboModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-wide modal-dialog-scrollable">
+                <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="laboModalLabel">
+                  laboratoire list
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body">
+                  <form method="GET" action="{{ route('rendconfirme') }}" class="mb-3 d-flex">
+                  <input type="text" name="labo_search" class="form-control me-2"
+                    placeholder="Rechercher un laboratoire…" value="{{ old('labo_search', $labo_search) }}">
+                  <button type="submit" class="btn btn-outline-primary">
+                    <i class="fas fa-search"></i>
+                  </button>
+                  </form>
 
-        {{-- Table --}}
-        <div class="table-responsive">
-          <table class="table table-hover" id="laboTable">
-            <thead class="table-light">
-              <tr>
-                <th>name</th>
-                <th>speciality</th>
-                <th>number</th>
-                <th>price (DA)</th>
-                <th>available</th>
-                <th>rating</th>
-                <th>home-visit</th>
-                <th></th> {{-- actions --}}
-              </tr>
-            </thead>
-            <tbody>
+                  {{-- Table --}}
+                  <div class="table-responsive">
+                  <table class="table table-hover" id="laboTable">
+                    <thead class="table-light">
+                    <tr>
+                      <th>name</th>
+                      <th>speciality</th>
+                      <th>number</th>
+                      <th>price (DA)</th>
+                      <th>available</th>
+                      <th>rating</th>
+                      <th>home-visit</th>
+                      <th></th> {{-- actions --}}
+                    </tr>
+                    </thead>
+                    <tbody>
 
- @foreach($laboratoires as $labo)
-                <tr>
+                    @foreach($laboratoires as $labo)
+                  <tr>
                   <td>{{ $labo->User->name }}</td>
                   <td>{{ ucfirst($labo->specialty) }}</td>
                   <td>{{ $labo->User->tel }}</td>
                   <td>
-                    {{ $labo->price ? number_format($labo->price, 0, ',', ' ') : '—' }}
+                  {{ $labo->price ? number_format($labo->price, 0, ',', ' ') : '—' }}
                   </td>
                   <td>
-                    @if($labo->available)
-                      <span class="badge bg-success">yes</span>
-                    @else
-                      <span class="badge bg-secondary">No</span>
-                    @endif
+                  @if($labo->available)
+              <span class="badge bg-success">yes</span>
+              @else
+              <span class="badge bg-secondary">No</span>
+              @endif
                   </td>
                   <td>
-                    {{ $labo->rating ? $labo->rating . '/5' : '—' }}
+                  {{ $labo->rating ? $labo->rating . '/5' : '—' }}
                   </td>
                   <td>
-                    @if($labo->home_visit)
-                      <span class="badge bg-success">yes</span>
-                    @else
-                      <span class="badge bg-secondary">No</span>
-                    @endif
+                  @if($labo->home_visit)
+              <span class="badge bg-success">yes</span>
+              @else
+              <span class="badge bg-secondary">No</span>
+              @endif
                   </td>
                   <td>
-                    <button class="appointment-btn open-modal-btn bg-info" data-doctor-id="{{ $labo->id }}"
-                        data-doctor-name="{{ $labo->user->name }}" data-doctor-specialty="{{ $labo->specialty }}"
-                        data-doctor-price="{{ $labo->price }}"
-                        data-doctor-image="{{ asset('storage/' . ($labo->pic ?? 'image.png')) }}">
-                        <i class="fas fa-calendar-plus"></i> take appointement
-                    </button>
+                  <button class="appointment-btn open-modal-btn bg-info"
+                    data-doctor-id="{{ $labo->id }}" data-doctor-name="{{ $labo->user->name }}"
+                    data-doctor-specialty="{{ $labo->specialty }}"
+                    data-doctor-price="{{ $labo->price }}"
+                    data-doctor-image="{{ asset('storage/' . ($labo->pic ?? 'image.png')) }}">
+                    <i class="fas fa-calendar-plus"></i> take appointement
+                  </button>
                   </td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
-      </div>
+                  </tr>
+            @endforeach
+                    </tbody>
+                  </table>
+                  </div>
+                </div>
 
-      <div class="modal-footer">
-        <button type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal">
-          close
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  close
+                  </button>
+                </div>
+                </div>
+              </div>
+              </div>
 
-  <!-- Appointment Modal -->
-  <div class="modal-overlay" id="appointmentModal">
-    <div class="booking-popup">
-      <!-- Close button -->
-      <button type="button" class="close-btn modal-close">&times;</button>
+              <!-- Appointment Modal -->
+              <div class="modal-overlay" id="appointmentModal">
+              <div class="booking-popup">
+                <!-- Close button -->
+                <button type="button" class="close-btn modal-close">&times;</button>
 
-      <!-- Form -->
-      <form method="POST" action="{{ route('appointments.storelab') }}">
-        @csrf
+                <!-- Form -->
+                <form method="POST" action="{{ route('appointments.storelab') }}">
+                @csrf
 
-        <div class="popup-grid">
-          <!-- LEFT: Doctor Info -->
-          <div class="popup-info">
-            <img id="modalDoctorImage" class="avatar" src="" alt="Photo du médecin">
-            <div class="info-text">
-              <h3 id="modalDoctorName">Dr. Nom Prénom</h3>
-              <p><i class="fas fa-stethoscope"></i> <span id="modalDoctorSpecialty">Spécialité</span></p>
-              <p><i class="fas fa-map-marker-alt"></i> {{ $labo->location ?? 'Lieu' }}</p>
-              <p><strong><span id="modalDoctorPrice">0</span> DA</strong></p>
-            </div>
-          </div>
+                <div class="popup-grid">
+                  <!-- LEFT: Doctor Info -->
+                  <div class="popup-info">
+                  <img id="modalDoctorImage" class="avatar" src="" alt="Photo du médecin">
+                  <div class="info-text">
+                    <h3 id="modalDoctorName">Dr. Nom Prénom</h3>
+                    <p><i class="fas fa-stethoscope"></i> <span id="modalDoctorSpecialty">Spécialité</span>
+                    </p>
+                    <p><i class="fas fa-map-marker-alt"></i> {{ $labo->location ?? 'Lieu' }}</p>
+                    <p><strong><span id="modalDoctorPrice">0</span> DA</strong></p>
+                  </div>
+                  </div>
 
-          <!-- RIGHT: Schedule Picker -->
-          <div class="popup-schedule">
-            <div class="day-switcher">
-              <button type="button" id="prevDay">&lt;</button>
-              <div id="displayDate">---</div>
-              <button type="button" id="nextDay">&gt;</button>
-            </div>
+                  <!-- RIGHT: Schedule Picker -->
+                  <div class="popup-schedule">
+                  <div class="day-switcher">
+                    <button type="button" id="prevDay">&lt;</button>
+                    <div id="displayDate">---</div>
+                    <button type="button" id="nextDay">&gt;</button>
+                  </div>
 
-            <input type="hidden" name="doctor_id" id="formDoctorId">
-            <input type="hidden" name="scheduled_at" id="formDateTime">
+                  <input type="hidden" name="doctor_id" id="formDoctorId">
+                  <input type="hidden" name="scheduled_at" id="formDateTime">
 
-            <div class="slots-grid" id="slotsContainer">
-              <!-- JS will inject 30-min slots here -->
-            </div>
+                  <div class="slots-grid" id="slotsContainer">
+                    <!-- JS will inject 30-min slots here -->
+                  </div>
 
-            <!-- In your modal form, add wherever you want the checkbox -->
-            <div class="form-section">
-              <label class="custom-checkbox">
-                <input type="checkbox" name="reminder" id="reminderCheckbox">
-                <span class="box"></span>
-                <span class="label-text">In Home</span>
-              </label>
-            </div>
+                  <!-- In your modal form, add wherever you want the checkbox -->
+                  <div class="form-section">
+                    <label class="custom-checkbox">
+                    <input type="checkbox" name="reminder" id="reminderCheckbox">
+                    <span class="box"></span>
+                    <span class="label-text">In Home</span>
+                    </label>
+                  </div>
 
 
-          </div>
-        </div>
-        <div class="popup-footer">
+                  </div>
+                </div>
+                <div class="popup-footer">
+
+                  <div class="form-section">
+                  <select name="type" required>
+                    <option value="">Type de RDV…</option>
+                    <option value="consultation">Consultation générale</option>
+                    <option value="followup">Suivi de traitement</option>
+                    <option value="emergency">Urgence</option>
+                  </select>
+                  </div>
 
         <div class="form-section">
-        <select name="type" required>
-          <option value="">Type de RDV…</option>
-          <option value="consultation">Consultation générale</option>
-          <option value="followup">Suivi de traitement</option>
-          <option value="emergency">Urgence</option>
-        </select>
+          <input type="hidden" value="{{$apt->patient->id}}" name="pid">
         </div>
 
-        <div class="form-section">
-          <input type="hidden" value="{{$apt?->patient?->id}}" name="pid">
-        </div>
-
-          <button type="submit" class="appointment-btn bg-info"><i class="fas fa-calendar-check"></i>Confirmer </button>
-        </div>
-      </form>
-    </div>
-  </div>
+                  <button type="submit" class="appointment-btn bg-info"><i
+                    class="fas fa-calendar-check"></i>Confirmer </button>
+                </div>
+                </form>
+              </div>
+              </div>
 
                 {{-- View Patient Profile --}}
                 @if($apt->patient!= null)
@@ -537,120 +536,145 @@
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
   @if(request()->has('labo_search'))
-  <script>
+    <script>
     document.addEventListener('DOMContentLoaded', function () {
       var laboModal = new bootstrap.Modal(document.getElementById('laboModal'));
       laboModal.show();
     });
-  </script>
-@endif
+    </script>
+  @endif
 
 
-
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script>
-  const takenSlots = @json($takenSlots);
-  const overlay    = document.getElementById('appointmentModal');
-  const slotsCont  = document.getElementById('slotsContainer');
-  const prevDay    = document.getElementById('prevDay');
-  const nextDay    = document.getElementById('nextDay');
-  const displayDt  = document.getElementById('displayDate');
-  let currentDate  = new Date();
-
-  function fmt(d) {
-    return d.toLocaleDateString('fr-FR',{
-      weekday: 'short', day: '2-digit', month: 'short'
+  <script>
+    document.getElementById('tk').addEventListener('click', function () {
+      const pid = this.getAttribute('data-patient-id');
+      document.getElementById('formPatientId').value = pid;
     });
-  }
+  </script>
 
-  function renderSlots(date) {
-    slotsCont.innerHTML = '';
-    const dayPrefix = date.toISOString().slice(0,10) + ' ';
-    const doctorId  = document.getElementById('formDoctorId').value;
-    const allTaken  = takenSlots[doctorId] || [];
-    const takenTimes = allTaken
-      .filter(ts=>ts.startsWith(dayPrefix))
-      .map(ts=>ts.slice(dayPrefix.length));
+  {{--
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const laboModal = document.getElementById('laboModal');
+      laboModal.addEventListener('show.bs.modal', function (event) {
+        // event.relatedTarget is the <a id="tk"> that was clicked
+        const trigger = event.relatedTarget;
+        const pid = trigger.getAttribute('data-patient-id');
+        this.querySelector('#formPatientId').value = pid;
+      });
+    });
+  </script> --}}
 
-    for (let h=9; h<17; h++) {
-      [0,30].forEach(m=>{
-        const hh = String(h).padStart(2,'0'),
-              mm = String(m).padStart(2,'0'),
-              timeStr = `${hh}:${mm}:00`,
-              slotTs  = dayPrefix + timeStr,
-              btn     = document.createElement('div');
 
-        btn.className = 'slot';
-        btn.textContent = `${hh}:${mm}`;
 
-        if (takenTimes.includes(timeStr)) {
-          btn.classList.add('disabled');
-          btn.style.cursor = 'not-allowed';
-        } else {
-          btn.addEventListener('click', ()=>{
-            const selected = btn.classList.toggle('selected');
-            let arr = document.getElementById('formDateTime').value
-                      .split(',').map(s=>s.trim()).filter(s=>s);
-            if (selected) arr.push(slotTs);
-            else           arr = arr.filter(s=>s!==slotTs);
-            document.getElementById('formDateTime').value = arr.join(',');
-          });
-        }
 
-        slotsCont.appendChild(btn);
+
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+
+
+    const takenSlots = @json($takenSlots);
+    const overlay = document.getElementById('appointmentModal');
+    const slotsCont = document.getElementById('slotsContainer');
+    const prevDay = document.getElementById('prevDay');
+    const nextDay = document.getElementById('nextDay');
+    const displayDt = document.getElementById('displayDate');
+    let currentDate = new Date();
+
+    function fmt(d) {
+      return d.toLocaleDateString('fr-FR', {
+        weekday: 'short', day: '2-digit', month: 'short'
       });
     }
-  }
 
-  function updateDay(delta) {
-    currentDate.setDate(currentDate.getDate()+delta);
+    function renderSlots(date) {
+      slotsCont.innerHTML = '';
+      const dayPrefix = date.toISOString().slice(0, 10) + ' ';
+      const doctorId = document.getElementById('formDoctorId').value;
+      const allTaken = takenSlots[doctorId] || [];
+
+
+      const takenTimes = allTaken
+        .filter(ts => ts.startsWith(dayPrefix))
+        .map(ts => ts.slice(dayPrefix.length));
+
+      for (let h = 9; h < 17; h++) {
+        [0, 30].forEach(m => {
+          const hh = String(h).padStart(2, '0'),
+            mm = String(m).padStart(2, '0'),
+            timeStr = `${hh}:${mm}:00`,
+            slotTs = dayPrefix + timeStr,
+            btn = document.createElement('div');
+
+          btn.className = 'slot';
+          btn.textContent = `${hh}:${mm}`;
+
+          if (takenTimes.includes(timeStr)) {
+            btn.classList.add('disabled');
+            btn.style.cursor = 'not-allowed';
+          } else {
+            btn.addEventListener('click', () => {
+              const selected = btn.classList.toggle('selected');
+              let arr = document.getElementById('formDateTime').value
+                .split(',').map(s => s.trim()).filter(s => s);
+              if (selected) arr.push(slotTs);
+              else arr = arr.filter(s => s !== slotTs);
+              document.getElementById('formDateTime').value = arr.join(',');
+            });
+          }
+
+          slotsCont.appendChild(btn);
+        });
+      }
+    }
+
+    function updateDay(delta) {
+      currentDate.setDate(currentDate.getDate() + delta);
+      displayDt.textContent = fmt(currentDate);
+      renderSlots(currentDate);
+    }
+
+    prevDay.addEventListener('click', () => updateDay(-1));
+    nextDay.addEventListener('click', () => updateDay(1));
+
+    flatpickr(displayDt, {
+      defaultDate: currentDate,
+      clickOpens: true,
+      onChange: ([d]) => { currentDate = d; updateDay(0); },
+      dateFormat: "D, d M"
+    });
+
+    document.querySelectorAll('.open-modal-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const { doctorId, doctorName, doctorSpecialty, doctorPrice, doctorImage } = btn.dataset;
+
+        document.getElementById('modalDoctorName').textContent = doctorName;
+        document.getElementById('modalDoctorSpecialty').textContent = doctorSpecialty;
+        document.getElementById('modalDoctorPrice').textContent = doctorPrice;
+        document.getElementById('modalDoctorImage').src = doctorImage;
+        document.getElementById('formDoctorId').value = doctorId;
+        document.getElementById('formDateTime').value = '';
+
+        updateDay(0);
+        overlay.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.modal-close').forEach(x =>
+      x.addEventListener('click', () => overlay.classList.remove('active'))
+    );
+
+    // initial render
     displayDt.textContent = fmt(currentDate);
     renderSlots(currentDate);
-  }
-
-  prevDay.addEventListener('click', ()=>updateDay(-1));
-  nextDay.addEventListener('click', ()=>updateDay(1));
-
-  flatpickr(displayDt, {
-    defaultDate: currentDate,
-    clickOpens: true,
-    onChange: ([d])=>{ currentDate = d; updateDay(0); },
-    dateFormat: "D, d M"
-  });
-
-  document.querySelectorAll('.open-modal-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const { doctorId, doctorName, doctorSpecialty, doctorPrice, doctorImage } = btn.dataset;
-      document.getElementById('modalDoctorName').textContent     = doctorName;
-      document.getElementById('modalDoctorSpecialty').textContent= doctorSpecialty;
-      document.getElementById('modalDoctorPrice').textContent    = doctorPrice;
-      document.getElementById('modalDoctorImage').src            = doctorImage;
-      document.getElementById('formDoctorId').value              = doctorId;
-      document.getElementById('formDateTime').value              = '';
-      updateDay(0);
-      overlay.classList.add('active');
+    document.querySelector('textarea[name="tel"]').addEventListener('focus', () => {
+      console.log('Textarea focused');
     });
-  });
-
-  document.querySelectorAll('.modal-close').forEach(x=>
-    x.addEventListener('click', ()=>overlay.classList.remove('active'))
-  );
-
-  // initial render
-  displayDt.textContent = fmt(currentDate);
-  renderSlots(currentDate);
-  document.querySelector('textarea[name="tel"]').addEventListener('focus', () => {
-  console.log('Textarea focused');
-});
-</script>
+  </script>
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
@@ -661,7 +685,7 @@
 
 
 
-<!-- Your scripts at the end of <body> -->
+  <!-- Your scripts at the end of <body> -->
 
 
 </body>

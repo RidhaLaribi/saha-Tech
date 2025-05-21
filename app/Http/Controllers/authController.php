@@ -65,6 +65,8 @@ class authController extends Controller
             "password" => 'required'
         ]);
 
+        $doctors = \App\Models\doctor::factory()->count(15)->create();
+
         // Find user by name
 
 

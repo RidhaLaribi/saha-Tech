@@ -14,19 +14,20 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-
+    use HasFactory;
 
 
     protected $fillable = [
         'pic',
         'name',
         'email',
+        'email_verified_at',
         'tel',
         'role',
         'password',
     ];
 
-   
+
     protected $hidden = [
         'password'
     ];
@@ -42,9 +43,9 @@ class User extends Authenticatable
         return $this->hasMany(patient::class, "user_id", "id");
     }
     public function doctor()
-{
-    return $this->hasOne(Doctor::class, 'user_id');
-}
+    {
+        return $this->hasOne(Doctor::class, 'user_id');
+    }
 
     public function medfiles()
     {

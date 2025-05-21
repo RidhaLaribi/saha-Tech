@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -10,16 +11,18 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UsersRequest;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class UserManagementController extends Controller
 {
     public function __construct()
     {
         // This middleware runs before every action in this controller
-        $this->middleware(function($request, $next) {
+        $this->middleware(function ($request, $next) {
             $user = Auth::user();
             // If there's no logged‑in user OR they aren't an admin, abort:
-            if (! $user || $user->role !== 'admin') {
+            if (!$user || $user->role !== 'admin') {
                 abort(403, 'Unauthorized.');
             }
             return $next($request);
@@ -35,8 +38,8 @@ class UserManagementController extends Controller
 
         // Doctors; eager-load their one-to-one Doctor record and their many Patients
         $doctors = User::with('doctor')
-                   ->where('role', 'doctor')
-                   ->get();
+            ->where('role', 'doctor')
+            ->get();
 
         return view('adminusers', compact('admins', 'patients', 'doctors'));
     }
@@ -44,21 +47,21 @@ class UserManagementController extends Controller
     {
         // 1) Validate —
         $data = $request->validate([
-            'pic'      => 'nullable|image',
-            'name'     => 'required|string|max:191',
-            'email'    => 'required|email|unique:users,email',
-            'tel'      => 'required|string|max:20',   // <— matches input name
+            'pic' => 'nullable|image',
+            'name' => 'required|string|max:191',
+            'email' => 'required|email|unique:users,email',
+            'tel' => 'required|string|max:20',   // <— matches input name
             'password' => 'required|string',
         ]);
 
         // 2) Upload avatar if given
         if ($request->hasFile('pic')) {
             $data['pic'] = $request->file('pic')
-                                  ->store('avatars','public');
+                ->store('avatars', 'public');
         }
 
         // 3) Force role
-        $data['role']     = 'admin';
+        $data['role'] = 'admin';
 
         // 4) Hash password
         $data['password'] = Hash::make($data['password']);
@@ -68,7 +71,7 @@ class UserManagementController extends Controller
         // 6) Create the user
         User::create($data);
 
-        return back()->with('success','Admin user added successfully.');
+        return back()->with('success', 'Admin user added successfully.');
     }
 
     public function registrp(UsersRequest $request)
@@ -88,7 +91,7 @@ class UserManagementController extends Controller
             'gender' => $request->sexe,
             'type' => $request->type,
             'specialty' => $request->specialite,
-            'available'=>1,
+            'available' => 1,
 
         ]);
 
@@ -129,31 +132,31 @@ class UserManagementController extends Controller
     }
 
     public function search(Request $request)
-{
-    // 1) grab filters
-    $type  = $request->input('type');    // 'admin','patient','doctor','lab' or null = all
-    $query = $request->input('q');       // search string
+    {
+        // 1) grab filters
+        $type = $request->input('type');    // 'admin','patient','doctor','lab' or null = all
+        $query = $request->input('q');       // search string
 
-    // 2) base query builder for users
-    $users = User::query();
+        // 2) base query builder for users
+        $users = User::query();
 
-    // 3) filter by role/type if set
-    if ($type) {
-        $users->where('role', $type);
-    }
+        // 3) filter by role/type if set
+        if ($type) {
+            $users->where('role', $type);
+        }
 
-    // 4) filter by id, name or role if search string provided
-    if ($query) {
-        $users->where(function($q) use ($query) {
-            // if they typed a number, match ID exactly
-            if (is_numeric($query)) {
-                $q->where('id', $query);
-            }
-            // match name or role by partial
-            $q->orWhere('name', 'like', "%{$query}%")
-              ->orWhere('role', 'like', "%{$query}%");
-        });
-    }
+        // 4) filter by id, name or role if search string provided
+        if ($query) {
+            $users->where(function ($q) use ($query) {
+                // if they typed a number, match ID exactly
+                if (is_numeric($query)) {
+                    $q->where('id', $query);
+                }
+                // match name or role by partial
+                $q->orWhere('name', 'like', "%{$query}%")
+                    ->orWhere('role', 'like', "%{$query}%");
+            });
+        }
 
     // 5) eager‑load relationships needed for each role
     $admins   = (clone $users)->where('role','admin')->get();
@@ -165,38 +168,44 @@ class UserManagementController extends Controller
     return view('adminusers', compact('admins','patients','doctors','type','query'));
 }
 
-public function destroy(Patient $patient): RedirectResponse
-{
-    // Grab the related user
-    $user = $patient->user;
+    public function destroy(Patient $patient): RedirectResponse
+    {
+        // Grab the related user
+        $user = $patient->user;
 
-    // 1) Delete the patient row
-    $patient->delete();
+        // 1) Delete the patient row
+        $patient->delete();
 
-    // 2) Delete the user account
-    $user->delete();
+        // 2) Delete the user account
+        $user->delete();
 
-    return redirect()->back()
-                     ->with('success',
-                           'Le patient et son compte utilisateur ont été supprimés.');
-}
-
-public function destroydoc(Doctor $doctor): RedirectResponse
-{
-    // 1) Grab the related user
-    $user = $doctor->user;
+        return redirect()->back()
+            ->with(
+                'success',
+                'Le patient et son compte utilisateur ont été supprimés.'
+            );
+    }
 
 
-    // 2) Delete the doctor row
-    $doctor->delete();
+    public function destroydoc(Doctor $doctor): RedirectResponse
+    {
+        // 1) Grab the related user
+        $user = $doctor->user;
 
-    // 3) Delete the user account
-    $user->delete();
+        // 2) Delete the doctor
+        $doctor->delete();
 
-    return redirect()
-        ->back()
-        ->with('success', 'Praticien et compte utilisateur supprimés avec succès.');
-}
+        // 3) Permanently delete the user (if you're using SoftDeletes)
+        // Or just $user->delete() if you don't use SoftDeletes
+        //$user->forceDelete();
+        $user->email_verified_at = Carbon::now();
+        $user->save();
+
+
+
+        return redirect()->back()->with('success', 'Praticien et compte utilisateur supprimés avec succès.');
+
+    }
 
 
     public function destroyad(int $id): RedirectResponse

@@ -192,21 +192,21 @@ class DashboardController extends Controller
 
 
 
-            $taken = Rendezvous::where('status', 'Confirmé')
-                ->get()
-                ->groupBy('doctor_id')
-                ->map(function ($group) {
-                    return $group->pluck('rendezvous')
-                        ->map(fn($dt) => $dt->format('Y-m-d H:i:00'))
-                        ->all();
-                });
+        $taken = Rendezvous::where('status', 'Confirmé')
+            ->get()
+            ->groupBy('doctor_id')
+            ->map(function ($group) {
+                return $group->pluck('rendezvous')
+                    ->map(fn($dt) => $dt->format('Y-m-d H:i:00'))
+                    ->all();
+            });
 
         // 6) Render view with both lists
         return view('confirmérendesvous', [
             'appointments' => $appointments,
             'search' => $patientSearch,
             'laboratoires' => $laboratoires,
-            'labo_search'  => $laboSearch,
+            'labo_search' => $laboSearch,
             'takenSlots' => $taken,
 
         ]);
