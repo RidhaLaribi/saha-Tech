@@ -497,7 +497,7 @@
         </div>
 
                   <button type="submit" class="appointment-btn bg-info"><i
-                    class="fas fa-calendar-check"></i>Confirmer </button>
+                    class="fas fa-calendar-check"></i>Confirm </button>
                 </div>
                 </form>
               </div>
