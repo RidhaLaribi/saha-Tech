@@ -310,17 +310,17 @@
             <tbody>
               @forelse($appointments as $apt)
             <tr>
-            <td>{{ $apt->id }}</td>
+            <td>{{ $apt?->id }}</td>
             <td class="d-flex align-items-center">
-              <img src="{{ asset('storage/' . ($apt->patient->pic?? 'image.png')) }}" class="rounded-circle me-2" width="50"
+              <img src="{{ asset('storage/' . ($apt?->patient?->pic?? 'image.png')) }}" class="rounded-circle me-2" width="50"
               height="50" alt="Avatar">
-              {{ $apt->patient->name }}
+              {{ ($apt?->patient?->name ?? '0'.$apt?->patient_id) }}
             </td>
-            <td>{{ $apt->rendezvous->format('d M Y, H:i') }}</td>
-            <td>{{ $apt->type }}</td>
+            <td>{{ $apt?->rendezvous->format('d M Y, H:i') }}</td>
+            <td>{{ $apt?->type }}</td>
             <td>
               @php
-            $badge = match ($apt->status) {
+            $badge = match ($apt?->status) {
             'Confirmé' => 'success',
             'En Attente' => 'warning',
             'Annulé' => 'danger',
@@ -328,7 +328,7 @@
             };
             @endphp
               <span class="badge bg-{{ $badge }}">
-              {{ $apt->status }}
+              {{ $apt?->status }}
               </span>
             </td>
             <td>
@@ -493,7 +493,7 @@
         </div>
 
         <div class="form-section">
-          <input type="hidden" value="{{$apt->patient->id}}" name="pid">
+          <input type="hidden" value="{{$apt?->patient?->id}}" name="pid">
         </div>
 
           <button type="submit" class="appointment-btn bg-info"><i class="fas fa-calendar-check"></i>Confirmer </button>
@@ -503,10 +503,12 @@
   </div>
 
                 {{-- View Patient Profile --}}
+                @if($apt->patient!= null)
                 <a href="{{ route('doctor.patient.show', $apt->patient->id) }}"
                 class="btn btn-sm btn-outline-primary me-1" title="enter profil">
                 <i class="fas fa-user"></i>
                 </a>
+                @endif
             </td>
             </tr>
 
@@ -552,6 +554,7 @@
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
   const takenSlots = @json($takenSlots);

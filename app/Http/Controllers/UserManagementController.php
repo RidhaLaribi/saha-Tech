@@ -159,10 +159,10 @@ class UserManagementController extends Controller
     $admins   = (clone $users)->where('role','admin')->get();
     $patients = (clone $users)->where('role','patient')->with('patient')->get();
     $doctors  = (clone $users)->where('role','doctor')->with('doctor')->get();
-    $labs      = (clone $users)->where('role','lab')->with('lab')->get();
+
 
     // 6) return view with filtered collections
-    return view('adminusers', compact('admins','patients','doctors','labs','type','query'));
+    return view('adminusers', compact('admins','patients','doctors','type','query'));
 }
 
 public function destroy(Patient $patient): RedirectResponse
@@ -185,7 +185,7 @@ public function destroydoc(Doctor $doctor): RedirectResponse
 {
     // 1) Grab the related user
     $user = $doctor->user;
-    
+
 
     // 2) Delete the doctor row
     $doctor->delete();

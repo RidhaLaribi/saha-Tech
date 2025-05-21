@@ -42,7 +42,7 @@
               <i class="fas fa-user"></i>
             </button>
 
-            <form action="{{ route('doctors.destroy', $doctor && $doctor->doctor && $doctor?->doctor?->id) }}"
+            <form action="{{ route('doctors.destroy', $doctor->id) }}"
                   method="POST" class="d-inline"
                   onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce praticien ?');">
               @csrf

@@ -11,6 +11,8 @@ use App\Models\patient;
 use App\Models\doctor;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UsersRequest;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\SomeNotification;
 
 class authController extends Controller
 {
@@ -115,7 +117,18 @@ class authController extends Controller
                 $user->delete();
             }
         }
-        ;
+         $admins = User::where('role','admin')->get();
+
+            Notification::send(
+                $admins,
+                new SomeNotification([
+                    'message' => 'Nouvelle demande d\'inscription de '
+                               . $user->name
+                               . ' en tant que '
+                               . $request->type . '.',
+                    'url'     => route('rendadmin') // point to your admin page
+                ])
+            );
 
         return redirect()->route('loginp')
             ->with('success', "Nous examinerons votre demande sous 48 heures ⏰.
