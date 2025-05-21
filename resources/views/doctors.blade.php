@@ -8,7 +8,7 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/stylesDashboard.css">
-    
+
 
 </head>
 {{--
@@ -24,20 +24,20 @@
 <link href="css/bootstrap-icons.css" rel="stylesheet"> --}}
 
 <body>
-  
-    
+
+
   <x-admin-sidebar/>
 
-    
+
     <div class="main-content">
         <div class="admin-header d-flex justify-content-between align-items-center p-3">
             <!-- Logo and University Name Section -->
             <div class="brand d-flex align-items-center">
-                
-                   
+
+
                 <div class="university-name">
                     <h4 class="mb-0 fw-bold">Doctor dashboard</h4>
-                    
+
                 </div>
             </div>
             <div class="actions d-flex align-items-center gap-4">
@@ -53,12 +53,12 @@
                 style="width:60px; height:60px; object-fit: cover; cursor: pointer;border: 2px solid black;"
                 onclick="document.getElementById('accountSidebar').classList.toggle('active')"
               />
-        
+
 
       <div>
-      <a href="{{ route('notifications.test') }}" class="btn btn-sm btn-outline-primary">
+      {{-- <a href="{{ route('notifications.test') }}" class="btn btn-sm btn-outline-primary">
           Send me a test notification
-        </a>
+        </a> --}}
   </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
         <x-account-sidebar :user="Auth::user()"/>
 
 
-        
+
 
 
         <div class="welcome-section">
@@ -197,11 +197,11 @@
 });
 </script>
 
-      
+
 
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/sidebar.js') }}"></script>
-   
+
 
 
 </body>

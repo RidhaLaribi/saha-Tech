@@ -53,7 +53,7 @@ calendar links-->
             <div class="container">
                 <a class="navbar-brand" href="{{route("home")}}">
                     <i class="bi-back"></i>
-                    <span>SehaTech</span>
+                    <span>HeyDoc</span>
                 </a>
 
 
@@ -148,7 +148,7 @@ $alreadyRated = \App\Models\AvisMedecin::where('avis', $appt->id)->exists();
                                                         {{ \Carbon\Carbon::parse($appt->rendezvous)->format('Y-m-d H:i') }}
                                                         &mdash; Dr. {{ $appt->doctor->user->name }}
                                                     </div>
-    
+
 <form action="{{ route('doctors.rate.submit', $appt->doctor) }}"
     method="POST"
     class="p-3 mb-3 border rounded bg-light rating-form"
@@ -159,7 +159,7 @@ $alreadyRated = \App\Models\AvisMedecin::where('avis', $appt->id)->exists();
     <div class="small mb-1">
         Rate Dr. {{ $appt->doctor->user->name ?? $appt->doctor->doctor_ref }}:
     </div>
-    
+
     <div class="d-flex gap-1 mb-2 star-group" data-rating-group="rating-{{ $appt->id }}">
         @for ($i = 1; $i <= 5; $i++)
         <label style="cursor: pointer;">
@@ -183,11 +183,11 @@ $alreadyRated = \App\Models\AvisMedecin::where('avis', $appt->id)->exists();
             </label>
         @endfor
     </div>
-    
+
     @error('rating')
     <div class="text-danger small mb-2">{{ $message }}</div>
     @enderror
-    
+
     <button type="submit" class="btn btn-sm btn-primary">
         Submit Rating
     </button>
@@ -709,7 +709,7 @@ $alreadyRated = \App\Models\AvisMedecin::where('avis', $appt->id)->exists();
                                                      start: '2025-12-07',
                                                      end: '2025-12-10',
                                                      url: 'http://google.com/',
- 
+
                                                  },*/
 
                                                 @foreach ($r as $re)
@@ -720,8 +720,8 @@ $alreadyRated = \App\Models\AvisMedecin::where('avis', $appt->id)->exists();
                                                     },
                                                 @endforeach
 
-                                               
-                                               
+
+
                                             ]
                                         });
 
@@ -1332,9 +1332,6 @@ $alreadyRated = \App\Models\AvisMedecin::where('avis', $appt->id)->exists();
 
                     </div>
 
-                    <p class="copyright-text mt-lg-5 mt-4">Copyright © 2048 Topic Listing Center. All rights reserved.
-                        <br><br>Design: <a rel="nofollow" href="https://templatemo.com" target="_blank">TemplateMo</a>
-                    </p>
 
                 </div>
 

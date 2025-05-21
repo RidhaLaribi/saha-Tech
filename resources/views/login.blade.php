@@ -27,16 +27,16 @@
           Connexion
         </h2>
         <div class="input-group">
-          <input type="email" name="iden" placeholder="email" {{-- pattern="[0-9]{10}" --}} required />
+          <input type="email" name="iden" placeholder="gmail" {{-- pattern="[0-9]{10}" --}} required />
         </div>
         <div class="input-group">
-          <input type="password" name="password" placeholder="Mot de passe" required />
+          <input type="password" name="password" placeholder="password" required />
           <i class="fas fa-eye toggle-password"></i>
         </div>
         <div class="options">
           <label>
             <input type="checkbox" />
-            <span>Se souvenir de moi</span>
+            <span>remember me</span>
           </label>
           <a href="{{ route('password.request') }}">
             Forgot your password?
@@ -44,10 +44,10 @@
 
 
         </div>
-        <button type="submit">Se Connecter</button>
+        <button type="submit">connect</button>
         <div class="switch-form">
-          Vous n'avez pas de compte ?
-          <a id="showSignUp">Créer un compte</a>
+          youu got no account?
+          <a id="showSignUp">Create accompte</a>
         </div>
         @if ($errors->any())
         <div class="alert alert-danger">
@@ -67,19 +67,19 @@
       <form id="signUpForm" action="{{ route('auth.sign') }}" method="POST">
         @csrf
         <h2 style="text-align: center; margin-bottom: 0.5rem; color: #00796b;">
-          Création de Compte
+          creation accompte
         </h2>
 
         <!-- 2-COLUMN GRID LAYOUT -->
         <div class="form-grid">
           <!-- Full name -->
           <div class="input-group">
-            <input type="text" name="name" placeholder="Nom complet" required />
+            <input type="text" name="name" placeholder="full name" required />
           </div>
 
           <!-- Age -->
           <div class="input-group">
-            <input type="number" name="age" placeholder="Âge" min="0" required />
+            <input type="number" name="age" placeholder="age" min="0" required />
           </div>
 
           <!-- Sexe -->
@@ -93,7 +93,7 @@
 
           <!-- Telephone -->
           <div class="input-group">
-            <input type="tel" name="telephone" placeholder="Téléphone (10 chiffres)" pattern="[0-9]{10}" required />
+            <input type="tel" name="telephone" placeholder="phone-number (10 chiffres)" pattern="[0-9]{10}" required />
           </div>
 
           <!-- Email -->
@@ -103,20 +103,20 @@
 
           <!-- Password -->
           <div class="input-group" style="grid-column: span 2;">
-            <input type="password" name="password" placeholder="Mot de passe" required />
+            <input type="password" name="password" placeholder="Password" required />
             <i class="fas fa-eye toggle-password"></i>
           </div>
         </div>
 
         <!-- Submit button -->
         <button type="submit">
-          S'inscrire
+          sign in
           <i class="fas fa-check-circle"></i>
         </button>
 
         <div class="switch-form">
-          Vous avez déjà un compte ?
-          <a id="showSignIn">Se Connecter</a>
+          you already got an accompte
+          <a id="showSignIn">connect</a>
         </div>
       </form>
     </div>
