@@ -132,7 +132,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ route('medecin') }}">medecins</a>
+                            <a class="nav-link click-scroll" href="{{ route('medecin') }}">Doctors</a>
                         </li>
 
                         <li class="nav-item">
@@ -151,16 +151,16 @@
                         <!-- Fixed: ID syntax and class attribute -->
                         <a href="{{ url('/loginp') }}" id="smoothLoginButton" class="praticien-link"
                             style="
-                                                                                                                                                                                                                                                                                                                                                            margin-right: 20px;
-                                                                                                                                                                                                                                                                                                                                                            color: white;
-                                                                                                                                                                                                                                                                                                                                                            font-family: 'Montserrat', sans-serif;
-                                                                                                                                                                                                                                                                                                                                                            font-size: 14px;
-                                                                                                                                                                                                                                                                                                                                                            font-weight: 600;
-                                                                                                                                                                                                                                                                                                                                                            text-decoration: none;
-                                                                                                                                                                                                                                                                                                                                                            transition: color 0.3s ease;
-                                                                                                                                                                                                                                                                                                                                                            "
+                                                                                                                                                                                                                                                                                                                                                                                    margin-right: 20px;
+                                                                                                                                                                                                                                                                                                                                                                                    color: white;
+                                                                                                                                                                                                                                                                                                                                                                                    font-family: 'Montserrat', sans-serif;
+                                                                                                                                                                                                                                                                                                                                                                                    font-size: 14px;
+                                                                                                                                                                                                                                                                                                                                                                                    font-weight: 600;
+                                                                                                                                                                                                                                                                                                                                                                                    text-decoration: none;
+                                                                                                                                                                                                                                                                                                                                                                                    transition: color 0.3s ease;
+                                                                                                                                                                                                                                                                                                                                                                                    "
                             onmouseover="this.style.color='#ffffff';" onmouseout="this.style.color='#002b3a';">
-                            Vous êtes praticien !
+                            You are a practitioner!
                         </a>
 
                         <script>
@@ -237,7 +237,7 @@
                         </style>
 
                         <a href="{{ url('/login') }}" id="smoothLoginButton" class="auth-button">
-                            S'inscrire
+                            Login
                         </a>
 
                         <script>
@@ -410,7 +410,7 @@
                             {{-- Doctor Name --}}
                             <div class="tm-search-group me-3 mb-3 flex-grow-1">
                                 <input type="text" name="name" class="form-control tm-form-control"
-                                    placeholder="Nom du médecin…" value="{{ request('name') }}">
+                                    placeholder="Nom du médecin…" autocomplete="off" value="{{ request('name') }}">
                             </div>
 
 
@@ -504,7 +504,7 @@
                                             <p id="responsechat" class="response-box text-white text-center mb-3"></p>
 
                                             <input type="text" id="prompt" name="prompt" class="form-control"
-                                                placeholder="Ask a medical question..." required>
+                                                placeholder="Ask a medical question..." autocomplete="off" required>
 
                                             <button type="submit" class="btn-submit">Ask</button>
                                         </div>
@@ -558,7 +558,7 @@
 
                     <div class="col-lg-12 col-12">
                         <div class="text-center mb-5 pb-2">
-                            <h1 class="text-white">our best doctors</h1>
+                            <h1 class="text-white">Our best doctors</h1>
 
 
                         </div>
