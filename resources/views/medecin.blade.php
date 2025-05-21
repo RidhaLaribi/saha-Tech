@@ -574,7 +574,7 @@
     <div class="navbar__brand">
       <a href="{{ route("home") }}">
 
-        <i class="fas fa-hospital"></i> Hey-Doc
+        <i class="fas fa-hospital"></i> HeyDoc
     </div>
     </a>
     <div class="navbar__actions">
