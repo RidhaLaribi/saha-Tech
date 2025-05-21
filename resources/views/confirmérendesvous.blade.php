@@ -9,7 +9,9 @@
   <link rel="stylesheet" href="css/stylesRequests.css">
   <script src="Requests.js" defer></script>
 
-
+<!-- Flatpickr CSS & Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css" />
   <style>
     .modal-dialog.modal-wide {
       max-width: 90vw;

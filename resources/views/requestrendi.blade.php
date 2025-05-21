@@ -10,6 +10,7 @@
   <script src="Requests.js" defer></script>
   <style>/* force any modal-dialog with .modal-fullscreen to span full width & height */
 /* custom wide modal (not fullscreen) */
+
 .modal-dialog.modal-wide {
   max-width: 90vw;     /* or 80vw, or a fixed px like 1000px */
   margin: 1.75rem auto; /* keep vertical centering */
@@ -230,8 +231,9 @@
 
   {{-- Pagination --}}
   <div class="mt-3">
-    {{ $appointments->links() }}
-  </div>
+  {{ $appointments->links('pagination::bootstrap-5') }}
+</div>
+
 </div>
 
 
